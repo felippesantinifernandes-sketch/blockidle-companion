@@ -1,0 +1,1 @@
+import{create}from'zustand';export const useNavigation=create<{page:string;craftId?:string;go:(page:string)=>void;openCraft:(id:string)=>void}>(set=>({page:'Visão Geral',go:page=>set({page}),openCraft:craftId=>set({page:'Crafts',craftId})}));

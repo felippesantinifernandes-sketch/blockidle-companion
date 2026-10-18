@@ -1,0 +1,1550 @@
+[
+  {
+    "id": "absolute_ender_pearl",
+    "name": "Pérola do Ender Absoluta",
+    "output": 1,
+    "ingredients": {
+      "ench_ender_pearl": 80
+    },
+    "source": "https://blockidle.io/wiki/item_absolute_ender_pearl",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "amber_fine",
+    "name": "Âmbar Fino",
+    "output": 1,
+    "ingredients": {
+      "amber_flawed": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "amber_flawed",
+    "name": "Âmbar Lapidado",
+    "output": 1,
+    "ingredients": {
+      "amber_rough": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "amber_flawless",
+    "name": "Âmbar Impecável",
+    "output": 1,
+    "ingredients": {
+      "amber_fine": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "amethyst_fine",
+    "name": "Ametista Fina",
+    "output": 1,
+    "ingredients": {
+      "amethyst_flawed": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "amethyst_flawed",
+    "name": "Ametista Lapidada",
+    "output": 1,
+    "ingredients": {
+      "amethyst_rough": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "amethyst_flawless",
+    "name": "Ametista Impecável",
+    "output": 1,
+    "ingredients": {
+      "amethyst_fine": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_acacia_log",
+    "name": "Acácia Encantada",
+    "output": 1,
+    "ingredients": {
+      "acacia_log": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_acacia_log",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_baked_potato",
+    "name": "Batata Assada Encantada",
+    "output": 1,
+    "ingredients": {
+      "ench_potato": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_baked_potato",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_birch_log",
+    "name": "Bétula Encantada",
+    "output": 1,
+    "ingredients": {
+      "birch_log": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_birch_log",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_block_coal",
+    "name": "Bloco de Carvão Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_coal": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_block_coal",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_block_diamond",
+    "name": "Bloco de Diamante Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_diamond": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_block_diamond",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_block_emerald",
+    "name": "Bloco de Esmeralda Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_emerald": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_block_emerald",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_block_gold_ingot",
+    "name": "Bloco de Ouro Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_gold_ingot": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_block_gold_ingot",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_block_iron_ingot",
+    "name": "Bloco de Ferro Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_iron_ingot": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_block_iron_ingot",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_block_lapis_lazuli",
+    "name": "Bloco de Lápis Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_lapis_lazuli": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_block_lapis_lazuli",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_block_melon_slice",
+    "name": "Bloco de Melão Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_melon_slice": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_block_melon_slice",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_block_redstone",
+    "name": "Bloco de Redstone Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_redstone": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_block_redstone",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_bone",
+    "name": "Osso Encantado",
+    "output": 1,
+    "ingredients": {
+      "bone": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_bone",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_bone_block",
+    "name": "Bloco de Osso Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_bone": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_bone_block",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_brown_mushroom",
+    "name": "Cogumelo Marrom Encantado",
+    "output": 1,
+    "ingredients": {
+      "brown_mushroom": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_brown_mushroom",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_brown_mushroom_block",
+    "name": "Bloco de Cogumelo Marrom Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_brown_mushroom": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_brown_mushroom_block",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_cactus",
+    "name": "Verde de Cacto Encantado",
+    "output": 1,
+    "ingredients": {
+      "cactus": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_cactus",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_cactus_2",
+    "name": "Cacto Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_cactus": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_cactus_2",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_cane",
+    "name": "Cana-de-açúcar Encantada",
+    "output": 1,
+    "ingredients": {
+      "ench_sugar_cane": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_cane",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_carrot",
+    "name": "Cenoura Encantada",
+    "output": 1,
+    "ingredients": {
+      "carrot": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_carrot",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_chicken",
+    "name": "Frango Cru Encantado",
+    "output": 1,
+    "ingredients": {
+      "chicken": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_chicken",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_coal",
+    "name": "Carvão Encantado",
+    "output": 1,
+    "ingredients": {
+      "coal": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_coal",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_cobblestone",
+    "name": "Pedregulho Encantado",
+    "output": 1,
+    "ingredients": {
+      "cobblestone": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_cobblestone",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_cocoa_beans",
+    "name": "Cacau Encantado",
+    "output": 1,
+    "ingredients": {
+      "cocoa_beans": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_cocoa_beans",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_cod",
+    "name": "Bacalhau Encantado",
+    "output": 1,
+    "ingredients": {
+      "cod": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_cod",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_cooked_fish",
+    "name": "Peixe Cozido Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_cod": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_cooked_fish",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_cooked_mutton",
+    "name": "Carne de Carneiro Assada Encantada",
+    "output": 1,
+    "ingredients": {
+      "ench_mutton": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_cooked_mutton",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_cooked_salmon",
+    "name": "Salmão Cozido Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_salmon": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_cooked_salmon",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_cookie",
+    "name": "Biscoito Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_cocoa_beans": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_cookie",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_dark_oak_log",
+    "name": "Carvalho Escuro Encantada",
+    "output": 1,
+    "ingredients": {
+      "dark_oak_log": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_dark_oak_log",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_diamond",
+    "name": "Diamante Encantado",
+    "output": 1,
+    "ingredients": {
+      "diamond": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_diamond",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_egg",
+    "name": "Ovo Encantado",
+    "output": 1,
+    "ingredients": {
+      "egg": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_egg",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_emerald",
+    "name": "Esmeralda Encantada",
+    "output": 1,
+    "ingredients": {
+      "emerald": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_emerald",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_ender_pearl",
+    "name": "Pérola do Ender Encantada",
+    "output": 1,
+    "ingredients": {
+      "ender_pearl": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_ender_pearl",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_feather",
+    "name": "Pena Encantada",
+    "output": 1,
+    "ingredients": {
+      "feather": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_feather",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_flint",
+    "name": "Pederneira Encantada",
+    "output": 1,
+    "ingredients": {
+      "flint": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_flint",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_gold_ingot",
+    "name": "Ouro Encantado",
+    "output": 1,
+    "ingredients": {
+      "gold_ingot": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_gold_ingot",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_golden_carrot",
+    "name": "Cenoura Dourada Encantada",
+    "output": 1,
+    "ingredients": {
+      "ench_carrot": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_golden_carrot",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_grilled_pork",
+    "name": "Costeleta Assada Encantada",
+    "output": 1,
+    "ingredients": {
+      "ench_porkchop": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_grilled_pork",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_gunpowder",
+    "name": "Pólvora Encantada",
+    "output": 1,
+    "ingredients": {
+      "gunpowder": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_gunpowder",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_hard_stone",
+    "name": "Pedra Dura Encantada",
+    "output": 1,
+    "ingredients": {
+      "hard_stone": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_hard_stone",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_hay_bale",
+    "name": "Fardo de Feno Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_wheat": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_hay_bale",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_ink_sac",
+    "name": "Bolsa de Tinta Encantada",
+    "output": 1,
+    "ingredients": {
+      "ink_sac": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_ink_sac",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_iron_ingot",
+    "name": "Ferro Encantado",
+    "output": 1,
+    "ingredients": {
+      "iron_ingot": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_iron_ingot",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_jungle_log",
+    "name": "Selva Encantada",
+    "output": 1,
+    "ingredients": {
+      "jungle_log": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_jungle_log",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_lapis_lazuli",
+    "name": "Lápis Encantado",
+    "output": 1,
+    "ingredients": {
+      "lapis_lazuli": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_lapis_lazuli",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_leather",
+    "name": "Couro Encantado",
+    "output": 1,
+    "ingredients": {
+      "leather": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_leather",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_lily_pad",
+    "name": "Vitória-Régia Encantada",
+    "output": 1,
+    "ingredients": {
+      "lily_pad": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_lily_pad",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_melon_slice",
+    "name": "Melão Encantado",
+    "output": 1,
+    "ingredients": {
+      "melon_slice": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_melon_slice",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_mithril",
+    "name": "Mithril Encantado",
+    "output": 1,
+    "ingredients": {
+      "mithril": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_mithril",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_mutton",
+    "name": "Carne de Carneiro Encantada",
+    "output": 1,
+    "ingredients": {
+      "mutton": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_mutton",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_nether_wart",
+    "name": "Fungo do Nether Encantado",
+    "output": 1,
+    "ingredients": {
+      "nether_wart": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_nether_wart",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_netherrack",
+    "name": "Netherrack Encantado",
+    "output": 1,
+    "ingredients": {
+      "netherrack": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_netherrack",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_oak_log",
+    "name": "Carvalho Encantado",
+    "output": 1,
+    "ingredients": {
+      "oak_log": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_oak_log",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_obsidian",
+    "name": "Obsidiana Encantada",
+    "output": 1,
+    "ingredients": {
+      "obsidian": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_obsidian",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_porkchop",
+    "name": "Costeleta Encantada",
+    "output": 1,
+    "ingredients": {
+      "porkchop": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_porkchop",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_potato",
+    "name": "Batata Encantada",
+    "output": 1,
+    "ingredients": {
+      "potato": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_potato",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_prismarine_crystals",
+    "name": "Cristais de Prismarinho Encantados",
+    "output": 1,
+    "ingredients": {
+      "prismarine_crystals": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_prismarine_crystals",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_prismarine_shard",
+    "name": "Fragmento de Prismarinho Encantado",
+    "output": 1,
+    "ingredients": {
+      "prismarine_shard": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_prismarine_shard",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_pufferfish",
+    "name": "Baiacu Encantado",
+    "output": 1,
+    "ingredients": {
+      "pufferfish": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_pufferfish",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_pumpkin",
+    "name": "Abóbora Encantada",
+    "output": 1,
+    "ingredients": {
+      "pumpkin": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_pumpkin",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_quartz",
+    "name": "Quartzo Encantado",
+    "output": 1,
+    "ingredients": {
+      "quartz": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_quartz",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_quartz_block",
+    "name": "Bloco de Quartzo Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_quartz": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_quartz_block",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_rabbit",
+    "name": "Coelho Cru Encantado",
+    "output": 1,
+    "ingredients": {
+      "rabbit": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_rabbit",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_rabbit_foot",
+    "name": "Pé de Coelho Encantado",
+    "output": 1,
+    "ingredients": {
+      "rabbit_foot": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_rabbit_foot",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_rabbit_hide",
+    "name": "Pele de Coelho Encantada",
+    "output": 1,
+    "ingredients": {
+      "rabbit_hide": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_rabbit_hide",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_red_mushroom",
+    "name": "Cogumelo Vermelho Encantado",
+    "output": 1,
+    "ingredients": {
+      "red_mushroom": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_red_mushroom",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_red_mushroom_block",
+    "name": "Bloco de Cogumelo Vermelho Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_red_mushroom": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_red_mushroom_block",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_redstone",
+    "name": "Redstone Encantada",
+    "output": 1,
+    "ingredients": {
+      "redstone": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_redstone",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_rotten_flesh",
+    "name": "Carne Podre Encantada",
+    "output": 1,
+    "ingredients": {
+      "rotten_flesh": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_rotten_flesh",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_salmon",
+    "name": "Salmão Encantado",
+    "output": 1,
+    "ingredients": {
+      "salmon": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_salmon",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_spider_eye",
+    "name": "Olho de Aranha Encantado",
+    "output": 1,
+    "ingredients": {
+      "spider_eye": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_spider_eye",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_sponge",
+    "name": "Esponja Encantada",
+    "output": 1,
+    "ingredients": {
+      "sponge": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_sponge",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_spruce_log",
+    "name": "Abeto Encantada",
+    "output": 1,
+    "ingredients": {
+      "spruce_log": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_spruce_log",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_string",
+    "name": "Linha Encantada",
+    "output": 1,
+    "ingredients": {
+      "string": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_string",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_sugar_cane",
+    "name": "Açúcar Encantado",
+    "output": 1,
+    "ingredients": {
+      "sugar_cane": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_sugar_cane",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_titanium",
+    "name": "Titânio Encantado",
+    "output": 1,
+    "ingredients": {
+      "titanium": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_titanium",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_tropical_fish",
+    "name": "Peixe Tropical Encantado",
+    "output": 1,
+    "ingredients": {
+      "tropical_fish": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_tropical_fish",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_wet_sponge",
+    "name": "Esponja Molhada Encantada",
+    "output": 1,
+    "ingredients": {
+      "ench_sponge": 40
+    },
+    "source": "https://blockidle.io/wiki/item_ench_wet_sponge",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_wheat",
+    "name": "Trigo Encantado",
+    "output": 1,
+    "ingredients": {
+      "wheat": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_wheat",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ench_white_wool",
+    "name": "Lã Encantada",
+    "output": 1,
+    "ingredients": {
+      "white_wool": 160
+    },
+    "source": "https://blockidle.io/wiki/item_ench_white_wool",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "jade_fine",
+    "name": "Jade Fino",
+    "output": 1,
+    "ingredients": {
+      "jade_flawed": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "jade_flawed",
+    "name": "Jade Lapidado",
+    "output": 1,
+    "ingredients": {
+      "jade_rough": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "jade_flawless",
+    "name": "Jade Impecável",
+    "output": 1,
+    "ingredients": {
+      "jade_fine": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "mutant_nether_wart",
+    "name": "Fungo do Nether Mutante",
+    "output": 1,
+    "ingredients": {
+      "ench_nether_wart": 160
+    },
+    "source": "https://blockidle.io/wiki/item_mutant_nether_wart",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "polished_pumpkin",
+    "name": "Abóbora Polida",
+    "output": 1,
+    "ingredients": {
+      "ench_pumpkin": 160
+    },
+    "source": "https://blockidle.io/wiki/item_polished_pumpkin",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ruby_fine",
+    "name": "Rubi Fino",
+    "output": 1,
+    "ingredients": {
+      "ruby_flawed": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ruby_flawed",
+    "name": "Rubi Lapidado",
+    "output": 1,
+    "ingredients": {
+      "ruby_rough": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "ruby_flawless",
+    "name": "Rubi Impecável",
+    "output": 1,
+    "ingredients": {
+      "ruby_fine": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "sapphire_fine",
+    "name": "Safira Fina",
+    "output": 1,
+    "ingredients": {
+      "sapphire_flawed": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "sapphire_flawed",
+    "name": "Safira Lapidada",
+    "output": 1,
+    "ingredients": {
+      "sapphire_rough": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "sapphire_flawless",
+    "name": "Safira Impecável",
+    "output": 1,
+    "ingredients": {
+      "sapphire_fine": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "super_ench_egg",
+    "name": "Super Ovo Encantado",
+    "output": 1,
+    "ingredients": {
+      "ench_egg": 144
+    },
+    "source": "https://blockidle.io/wiki/item_super_ench_egg",
+    "compactable": true,
+    "kind": "compact",
+    "eligibleStorages": [
+      "inventory"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "topaz_fine",
+    "name": "Topázio Fino",
+    "output": 1,
+    "ingredients": {
+      "topaz_flawed": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "topaz_flawed",
+    "name": "Topázio Lapidado",
+    "output": 1,
+    "ingredients": {
+      "topaz_rough": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  },
+  {
+    "id": "topaz_flawless",
+    "name": "Topázio Impecável",
+    "output": 1,
+    "ingredients": {
+      "topaz_fine": 80
+    },
+    "source": "https://blockidle.io/wiki/gemas",
+    "compactable": false,
+    "kind": "lapidary",
+    "eligibleStorages": [
+      "inventory",
+      "sack"
+    ],
+    "sourceDate": "2026-10-08"
+  }
+]

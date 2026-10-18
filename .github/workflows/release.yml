@@ -1,0 +1,31 @@
+name: Validar e publicar versão
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - run: Copy-Item RESULTADO-DOS-TESTES.md dist/RESULTADO-DOS-TESTES.md
+      - run: node scripts/package.mjs
+      - run: node scripts/make-release.mjs
+      - name: Publicar arquivos verificados
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          if ($env:GITHUB_REF_NAME -ne "v$version") { throw 'Tag e package.json divergem.' }
+          gh release create "v$version" "../blockidle-companion-$version.zip" "../blockidle-companion-codigo-fonte-$version.zip" "../CHECKSUMS-$version.txt" ../update.json --title "Blockidle Companion $version" --notes-file RELEASE-NOTES.md --verify-tag

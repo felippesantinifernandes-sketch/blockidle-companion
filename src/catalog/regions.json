@@ -1,0 +1,3307 @@
+[
+  {
+    "id": "mina:mina",
+    "name": "Mina",
+    "area": "mina",
+    "layer": "mina",
+    "source": "https://blockidle.io/wiki/mina",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "coal",
+        "condition": "Minérios da Mina da ilha · Minério de Carvão",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/mina"
+      },
+      {
+        "itemId": "cobblestone",
+        "condition": "Minérios da Mina da ilha · Pedra",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/mina"
+      },
+      {
+        "itemId": "diamond",
+        "condition": "Minérios da Mina da ilha · Minério de Diamante",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/mina"
+      },
+      {
+        "itemId": "emerald",
+        "condition": "Minérios da Mina da ilha · Minério de Esmeralda",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/mina"
+      },
+      {
+        "itemId": "flint",
+        "condition": "Minérios da Mina da ilha · Cascalho",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/mina"
+      },
+      {
+        "itemId": "lapis_lazuli",
+        "condition": "Minérios da Mina da ilha · Minério de Lápis",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/mina"
+      },
+      {
+        "itemId": "obsidian",
+        "condition": "Minérios da Mina da ilha · Obsidiana",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/mina"
+      },
+      {
+        "itemId": "raw_copper",
+        "condition": "Minérios da Mina da ilha · Minério de Cobre",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/mina"
+      },
+      {
+        "itemId": "raw_gold",
+        "condition": "Minérios da Mina da ilha · Minério de Ouro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/mina"
+      },
+      {
+        "itemId": "raw_iron",
+        "condition": "Minérios da Mina da ilha · Minério de Ferro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/mina"
+      },
+      {
+        "itemId": "redstone",
+        "condition": "Minérios da Mina da ilha · Minério de Redstone",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/mina"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_coal",
+      "ench_cobblestone",
+      "ench_diamond",
+      "ench_emerald",
+      "ench_flint",
+      "ench_lapis_lazuli",
+      "ench_obsidian",
+      "ench_redstone"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:polvora",
+    "name": "Minas de Pólvora",
+    "area": "mina",
+    "layer": "polvora",
+    "source": "https://blockidle.io/wiki/camada_polvora",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "coal",
+        "condition": "Blocos · Minério de Carvão",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_polvora"
+      },
+      {
+        "itemId": "cobblestone",
+        "condition": "Blocos · Pedra",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_polvora"
+      },
+      {
+        "itemId": "raw_gold",
+        "condition": "Blocos · Minério de Ouro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_polvora"
+      },
+      {
+        "itemId": "raw_iron",
+        "condition": "Blocos · Minério de Ferro",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_polvora"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_coal",
+      "ench_cobblestone"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:lapis",
+    "name": "Pedreira de Lápis",
+    "area": "mina",
+    "layer": "lapis",
+    "source": "https://blockidle.io/wiki/camada_lapis",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "cobblestone",
+        "condition": "Blocos · Pedra",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_lapis"
+      },
+      {
+        "itemId": "lapis_lazuli",
+        "condition": "Blocos · Minério de Lápis",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_lapis"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_cobblestone",
+      "ench_lapis_lazuli"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:redstone",
+    "name": "Covil dos Porcos",
+    "area": "mina",
+    "layer": "redstone",
+    "source": "https://blockidle.io/wiki/camada_redstone",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "cobblestone",
+        "condition": "Blocos · Pedra",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_redstone"
+      },
+      {
+        "itemId": "redstone",
+        "condition": "Blocos · Minério de Redstone",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_redstone"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_cobblestone",
+      "ench_redstone"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:esmeralda",
+    "name": "Colina do Slime",
+    "area": "mina",
+    "layer": "esmeralda",
+    "source": "https://blockidle.io/wiki/camada_esmeralda",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "cobblestone",
+        "condition": "Blocos · Pedra",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_esmeralda"
+      },
+      {
+        "itemId": "emerald",
+        "condition": "Blocos · Minério de Esmeralda",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_esmeralda"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_cobblestone",
+      "ench_emerald"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:diamante",
+    "name": "Reserva de Diamante",
+    "area": "mina",
+    "layer": "diamante",
+    "source": "https://blockidle.io/wiki/camada_diamante",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "cobblestone",
+        "condition": "Blocos · Pedra",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_diamante"
+      },
+      {
+        "itemId": "diamond",
+        "condition": "Blocos · Minério de Diamante",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_diamante"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_cobblestone",
+      "ench_diamond"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:obsidiana",
+    "name": "Santuário de Obsidiana",
+    "area": "mina",
+    "layer": "obsidiana",
+    "source": "https://blockidle.io/wiki/camada_obsidiana",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "cobblestone",
+        "condition": "Blocos · Pedra",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_obsidiana"
+      },
+      {
+        "itemId": "diamond",
+        "condition": "Blocos · Minério de Diamante",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_obsidiana"
+      },
+      {
+        "itemId": "obsidian",
+        "condition": "Blocos · Obsidiana",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_obsidiana"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_cobblestone",
+      "ench_diamond",
+      "ench_obsidian"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:anas",
+    "name": "Minas Anãs",
+    "area": "mina",
+    "layer": "anas",
+    "source": "https://blockidle.io/wiki/camada_anas",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Azul",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_anas"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Cinzento",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_anas"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Escuro",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_anas"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_mithril"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:anas_reais",
+    "name": "Depósito de Ouro",
+    "area": "mina",
+    "layer": "anas_reais",
+    "source": "https://blockidle.io/wiki/camada_anas_reais",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "gold_ingot",
+        "condition": "Blocos · Ouro Puro",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_anas_reais"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Cinzento",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_anas_reais"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Escuro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_anas_reais"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_gold_ingot",
+      "ench_mithril"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:anas_diamante",
+    "name": "Depósito de Diamante",
+    "area": "mina",
+    "layer": "anas_diamante",
+    "source": "https://blockidle.io/wiki/camada_anas_diamante",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "diamond",
+        "condition": "Blocos · Diamante Puro",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_anas_diamante"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Cinzento",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_anas_diamante"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Escuro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_anas_diamante"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_diamond",
+      "ench_mithril"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:anas_redstone",
+    "name": "Depósito de Redstone",
+    "area": "mina",
+    "layer": "anas_redstone",
+    "source": "https://blockidle.io/wiki/camada_anas_redstone",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Cinzento",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_anas_redstone"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Escuro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_anas_redstone"
+      },
+      {
+        "itemId": "redstone",
+        "condition": "Blocos · Redstone Pura",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_anas_redstone"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_mithril",
+      "ench_redstone"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:anas_ferro",
+    "name": "Depósito de Ferro",
+    "area": "mina",
+    "layer": "anas_ferro",
+    "source": "https://blockidle.io/wiki/camada_anas_ferro",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "iron_ingot",
+        "condition": "Blocos · Ferro Puro",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_anas_ferro"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Cinzento",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_anas_ferro"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Escuro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_anas_ferro"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_iron_ingot",
+      "ench_mithril"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:anas_carvao",
+    "name": "Depósito de Carvão",
+    "area": "mina",
+    "layer": "anas_carvao",
+    "source": "https://blockidle.io/wiki/camada_anas_carvao",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "coal",
+        "condition": "Blocos · Carvão Puro",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_anas_carvao"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Cinzento",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/camada_anas_carvao"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Escuro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_anas_carvao"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_coal",
+      "ench_mithril"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:anas_cobre",
+    "name": "Depósito de Cobre",
+    "area": "mina",
+    "layer": "anas_cobre",
+    "source": "https://blockidle.io/js/catalogo.js",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "copper_ingot",
+        "condition": "Mineração de Cobre Puro",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/js/catalogo.js"
+      }
+    ],
+    "coverage": "client-only",
+    "defaultCompactorIds": [],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "mina:cristais_selva",
+    "name": "Selva",
+    "area": "mina",
+    "layer": "cristais_selva",
+    "source": "https://blockidle.io/wiki/camada_cristais_selva",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "amethyst_crystal",
+        "condition": "Drop adicional",
+        "frequency": "raríssimo",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      },
+      {
+        "itemId": "amethyst_rough",
+        "condition": "Blocos · Ametista Bruta",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      },
+      {
+        "itemId": "coal",
+        "condition": "Blocos · Minério de Carvão",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      },
+      {
+        "itemId": "diamond",
+        "condition": "Blocos · Minério de Diamante",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      },
+      {
+        "itemId": "emerald",
+        "condition": "Blocos · Minério de Esmeralda",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      },
+      {
+        "itemId": "hard_stone",
+        "condition": "Blocos · Pedra Dura",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      },
+      {
+        "itemId": "lapis_lazuli",
+        "condition": "Blocos · Minério de Lápis",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      },
+      {
+        "itemId": "raw_gold",
+        "condition": "Blocos · Minério de Ouro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      },
+      {
+        "itemId": "redstone",
+        "condition": "Blocos · Minério de Redstone",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      },
+      {
+        "itemId": "ruby_rough",
+        "condition": "Blocos · Rubi Bruto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      },
+      {
+        "itemId": "sludge_juice",
+        "condition": "Drop adicional",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_selva"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "amethyst_flawed",
+      "ench_coal",
+      "ench_diamond",
+      "ench_emerald",
+      "ench_hard_stone",
+      "ench_lapis_lazuli",
+      "ench_redstone",
+      "ruby_flawed"
+    ],
+    "defaultLapidaryIds": [
+      "amethyst_flawed",
+      "ruby_flawed"
+    ]
+  },
+  {
+    "id": "mina:cristais_mithril",
+    "name": "Depósitos de Mithril",
+    "area": "mina",
+    "layer": "cristais_mithril",
+    "source": "https://blockidle.io/wiki/camada_cristais_mithril",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "coal",
+        "condition": "Blocos · Minério de Carvão",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "diamond",
+        "condition": "Blocos · Minério de Diamante",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "emerald",
+        "condition": "Blocos · Minério de Esmeralda",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "hard_stone",
+        "condition": "Blocos · Pedra Dura",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "jade_crystal",
+        "condition": "Drop adicional",
+        "frequency": "raríssimo",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "jade_rough",
+        "condition": "Blocos · Jade Bruto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "lapis_lazuli",
+        "condition": "Blocos · Minério de Lápis",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Azul",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Cinzento",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "mithril",
+        "condition": "Blocos · Mithril Escuro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "raw_gold",
+        "condition": "Blocos · Minério de Ouro",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "redstone",
+        "condition": "Blocos · Minério de Redstone",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "ruby_rough",
+        "condition": "Blocos · Rubi Bruto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      },
+      {
+        "itemId": "treasurite",
+        "condition": "Drop adicional",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_mithril"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_coal",
+      "ench_diamond",
+      "ench_emerald",
+      "ench_hard_stone",
+      "jade_flawed",
+      "ench_lapis_lazuli",
+      "ench_mithril",
+      "ench_redstone",
+      "ruby_flawed"
+    ],
+    "defaultLapidaryIds": [
+      "jade_flawed",
+      "ruby_flawed"
+    ]
+  },
+  {
+    "id": "mina:cristais_goblin",
+    "name": "Reduto dos Goblins",
+    "area": "mina",
+    "layer": "cristais_goblin",
+    "source": "https://blockidle.io/wiki/camada_cristais_goblin",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "amber_rough",
+        "condition": "Blocos · Âmbar Bruto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_goblin"
+      },
+      {
+        "itemId": "coal",
+        "condition": "Blocos · Minério de Carvão",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_goblin"
+      },
+      {
+        "itemId": "diamond",
+        "condition": "Blocos · Minério de Diamante",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_goblin"
+      },
+      {
+        "itemId": "emerald",
+        "condition": "Blocos · Minério de Esmeralda",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_goblin"
+      },
+      {
+        "itemId": "hard_stone",
+        "condition": "Blocos · Pedra Dura",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_cristais_goblin"
+      },
+      {
+        "itemId": "lapis_lazuli",
+        "condition": "Blocos · Minério de Lápis",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_goblin"
+      },
+      {
+        "itemId": "raw_gold",
+        "condition": "Blocos · Minério de Ouro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_goblin"
+      },
+      {
+        "itemId": "redstone",
+        "condition": "Blocos · Minério de Redstone",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_goblin"
+      },
+      {
+        "itemId": "ruby_rough",
+        "condition": "Blocos · Rubi Bruto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_goblin"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "amber_flawed",
+      "ench_coal",
+      "ench_diamond",
+      "ench_emerald",
+      "ench_hard_stone",
+      "ench_lapis_lazuli",
+      "ench_redstone",
+      "ruby_flawed"
+    ],
+    "defaultLapidaryIds": [
+      "amber_flawed",
+      "ruby_flawed"
+    ]
+  },
+  {
+    "id": "mina:cristais_precursor",
+    "name": "Ruínas Precursoras",
+    "area": "mina",
+    "layer": "cristais_precursor",
+    "source": "https://blockidle.io/wiki/camada_cristais_precursor",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "coal",
+        "condition": "Blocos · Minério de Carvão",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_precursor"
+      },
+      {
+        "itemId": "diamond",
+        "condition": "Blocos · Minério de Diamante",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_precursor"
+      },
+      {
+        "itemId": "emerald",
+        "condition": "Blocos · Minério de Esmeralda",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_precursor"
+      },
+      {
+        "itemId": "hard_stone",
+        "condition": "Blocos · Pedra Dura",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_cristais_precursor"
+      },
+      {
+        "itemId": "lapis_lazuli",
+        "condition": "Blocos · Minério de Lápis",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_precursor"
+      },
+      {
+        "itemId": "raw_gold",
+        "condition": "Blocos · Minério de Ouro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_precursor"
+      },
+      {
+        "itemId": "redstone",
+        "condition": "Blocos · Minério de Redstone",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_precursor"
+      },
+      {
+        "itemId": "ruby_rough",
+        "condition": "Blocos · Rubi Bruto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_precursor"
+      },
+      {
+        "itemId": "sapphire_rough",
+        "condition": "Blocos · Safira Bruta",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_precursor"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_coal",
+      "ench_diamond",
+      "ench_emerald",
+      "ench_hard_stone",
+      "ench_lapis_lazuli",
+      "ench_redstone",
+      "ruby_flawed",
+      "sapphire_flawed"
+    ],
+    "defaultLapidaryIds": [
+      "ruby_flawed",
+      "sapphire_flawed"
+    ]
+  },
+  {
+    "id": "mina:cristais_magma",
+    "name": "Campos de Magma",
+    "area": "mina",
+    "layer": "cristais_magma",
+    "source": "https://blockidle.io/wiki/camada_cristais_magma",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "coal",
+        "condition": "Blocos · Minério de Carvão",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_magma"
+      },
+      {
+        "itemId": "diamond",
+        "condition": "Blocos · Minério de Diamante",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_magma"
+      },
+      {
+        "itemId": "emerald",
+        "condition": "Blocos · Minério de Esmeralda",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_magma"
+      },
+      {
+        "itemId": "hard_stone",
+        "condition": "Blocos · Pedra Dura",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/camada_cristais_magma"
+      },
+      {
+        "itemId": "lapis_lazuli",
+        "condition": "Blocos · Minério de Lápis",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_magma"
+      },
+      {
+        "itemId": "raw_gold",
+        "condition": "Blocos · Minério de Ouro",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_magma"
+      },
+      {
+        "itemId": "redstone",
+        "condition": "Blocos · Minério de Redstone",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/camada_cristais_magma"
+      },
+      {
+        "itemId": "ruby_rough",
+        "condition": "Blocos · Rubi Bruto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_magma"
+      },
+      {
+        "itemId": "topaz_rough",
+        "condition": "Blocos · Topázio Bruto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/camada_cristais_magma"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_coal",
+      "ench_diamond",
+      "ench_emerald",
+      "ench_hard_stone",
+      "ench_lapis_lazuli",
+      "ench_redstone",
+      "ruby_flawed",
+      "topaz_flawed"
+    ],
+    "defaultLapidaryIds": [
+      "ruby_flawed",
+      "topaz_flawed"
+    ]
+  },
+  {
+    "id": "floresta:oak",
+    "name": "Bosque de Carvalho",
+    "area": "floresta",
+    "source": "https://blockidle.io/wiki/floresta",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "apple",
+        "condition": "Folhas",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "dandelion",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "oak_log",
+        "condition": "Corte da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "oak_sapling",
+        "condition": "Mudas da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "poppy",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      }
+    ],
+    "coverage": "published",
+    "forest": "oak",
+    "defaultCompactorIds": [
+      "ench_oak_log"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "floresta:birch",
+    "name": "Parque das Bétulas",
+    "area": "floresta",
+    "source": "https://blockidle.io/wiki/floresta",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "apple",
+        "condition": "Folhas",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "birch_log",
+        "condition": "Corte da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "birch_sapling",
+        "condition": "Mudas da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "dandelion",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "poppy",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      }
+    ],
+    "coverage": "published",
+    "forest": "birch",
+    "defaultCompactorIds": [
+      "ench_birch_log"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "floresta:spruce",
+    "name": "Bosque dos Abetos",
+    "area": "floresta",
+    "source": "https://blockidle.io/wiki/floresta",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "apple",
+        "condition": "Folhas",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "dandelion",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "poppy",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "spruce_log",
+        "condition": "Corte da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "spruce_sapling",
+        "condition": "Mudas da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      }
+    ],
+    "coverage": "published",
+    "forest": "spruce",
+    "defaultCompactorIds": [
+      "ench_spruce_log"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "floresta:dark_oak",
+    "name": "Mata Escura",
+    "area": "floresta",
+    "source": "https://blockidle.io/wiki/floresta",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "apple",
+        "condition": "Folhas",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "dandelion",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "dark_oak_log",
+        "condition": "Corte da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "dark_oak_sapling",
+        "condition": "Mudas da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "poppy",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      }
+    ],
+    "coverage": "published",
+    "forest": "dark_oak",
+    "defaultCompactorIds": [
+      "ench_dark_oak_log"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "floresta:acacia",
+    "name": "Savana",
+    "area": "floresta",
+    "source": "https://blockidle.io/wiki/floresta",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "acacia_log",
+        "condition": "Corte da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "acacia_sapling",
+        "condition": "Mudas da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "apple",
+        "condition": "Folhas",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "dandelion",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "poppy",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      }
+    ],
+    "coverage": "published",
+    "forest": "acacia",
+    "defaultCompactorIds": [
+      "ench_acacia_log"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "floresta:jungle",
+    "name": "Ilha da Selva",
+    "area": "floresta",
+    "source": "https://blockidle.io/wiki/floresta",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "apple",
+        "condition": "Folhas",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "dandelion",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "jungle_log",
+        "condition": "Corte da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "jungle_sapling",
+        "condition": "Mudas da árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      },
+      {
+        "itemId": "poppy",
+        "condition": "Flor ao derrubar árvore",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/floresta"
+      }
+    ],
+    "coverage": "published",
+    "forest": "jungle",
+    "defaultCompactorIds": [
+      "ench_jungle_log"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "fazenda",
+    "name": "Garden",
+    "area": "fazenda",
+    "source": "https://blockidle.io/wiki/fazenda",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "beef",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "brown_mushroom",
+        "condition": "Culturas · Cogumelo",
+        "frequency": "0 a 1",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "cactus",
+        "condition": "Culturas · Cacto",
+        "frequency": "2",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "carrot",
+        "condition": "Culturas · Cenoura",
+        "frequency": "1 a 4",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "chicken",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "cocoa_beans",
+        "condition": "Culturas · Cacau",
+        "frequency": "2 a 3",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "egg",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "feather",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "leather",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "melon_seeds",
+        "condition": "Culturas · Melão",
+        "frequency": "0 a 1",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "melon_slice",
+        "condition": "Culturas · Melão",
+        "frequency": "3 a 7",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "mutton",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "nether_wart",
+        "condition": "Culturas · Fungo do Nether",
+        "frequency": "2 a 4",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "porkchop",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "potato",
+        "condition": "Culturas · Batata",
+        "frequency": "1 a 4",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "pumpkin",
+        "condition": "Culturas · Abóbora",
+        "frequency": "1",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "pumpkin_seeds",
+        "condition": "Culturas · Abóbora",
+        "frequency": "0 a 1",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "rabbit",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "rabbit_foot",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "rabbit_hide",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "red_mushroom",
+        "condition": "Culturas · Cogumelo",
+        "frequency": "0 a 1",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "sugar_cane",
+        "condition": "Culturas · Cana",
+        "frequency": "2",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "wheat",
+        "condition": "Culturas · Trigo",
+        "frequency": "1",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "wheat_seeds",
+        "condition": "Culturas · Trigo",
+        "frequency": "0 a 3",
+        "source": "https://blockidle.io/wiki/fazenda"
+      },
+      {
+        "itemId": "white_wool",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_brown_mushroom",
+      "ench_cactus",
+      "ench_carrot",
+      "ench_chicken",
+      "ench_cocoa_beans",
+      "ench_egg",
+      "ench_feather",
+      "ench_leather",
+      "ench_melon_slice",
+      "ench_mutton",
+      "ench_nether_wart",
+      "ench_porkchop",
+      "ench_potato",
+      "ench_pumpkin",
+      "ench_rabbit",
+      "ench_rabbit_foot",
+      "ench_rabbit_hide",
+      "ench_red_mushroom",
+      "ench_sugar_cane",
+      "ench_wheat",
+      "ench_white_wool"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "celeiro",
+    "name": "Celeiro",
+    "area": "celeiro",
+    "source": "https://blockidle.io/wiki/celeiro",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "beef",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "beef",
+        "condition": "Os bichos · Carne Crua",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "chicken",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "egg",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "egg",
+        "condition": "Os bichos · Ovo",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "feather",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "leather",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "leather",
+        "condition": "Os bichos · Carne Crua",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "mutton",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "porkchop",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "porkchop",
+        "condition": "Os bichos · Costeleta Crua",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "rabbit",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "rabbit",
+        "condition": "Os bichos · Coelho Cru",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "rabbit_foot",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "rabbit_foot",
+        "condition": "Os bichos · Coelho Cru",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "rabbit_hide",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "rabbit_hide",
+        "condition": "Os bichos · Coelho Cru",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "white_wool",
+        "condition": "Criação, tosquia ou abate com a melhoria correspondente",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      },
+      {
+        "itemId": "white_wool",
+        "condition": "Os bichos · Lã",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/celeiro"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_chicken",
+      "ench_egg",
+      "ench_feather",
+      "ench_leather",
+      "ench_mutton",
+      "ench_porkchop",
+      "ench_rabbit",
+      "ench_rabbit_foot",
+      "ench_rabbit_hide",
+      "ench_white_wool"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "lago",
+    "name": "Lago e pesca",
+    "area": "lago",
+    "source": "https://blockidle.io/wiki/lago",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "blue_shark_tooth",
+        "condition": "Criaturas do mar · Tubarão-azul",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "bone",
+        "condition": "Criaturas do mar · Arqueiro do Mar",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "bone",
+        "condition": "O que vem na linha · Lixo (incomum)",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "bowl",
+        "condition": "O que vem na linha · Lixo (incomum)",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "cod",
+        "condition": "Criaturas do mar · Andarilho do Mar",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "cod",
+        "condition": "Criaturas do mar · Bagre",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "cod",
+        "condition": "O que vem na linha · Peixe (quase sempre)",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ench_bone",
+        "condition": "Criaturas do mar · Arqueiro do Mar",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ench_ink_sac",
+        "condition": "Criaturas do mar · Hidra da Água",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ench_ink_sac",
+        "condition": "Criaturas do mar · Sanguessuga do Mar",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ench_iron_ingot",
+        "condition": "Criaturas do mar · Protetor das Profundezas",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ench_prismarine_crystals",
+        "condition": "Criaturas do mar · Imperador do Mar",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ench_prismarine_shard",
+        "condition": "Criaturas do mar · Guardião Defensor",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ench_rotten_flesh",
+        "condition": "Criaturas do mar · Cavaleiro das Profundezas",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ench_sponge",
+        "condition": "Criaturas do mar · Imperador do Mar",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "great_white_shark_tooth",
+        "condition": "Criaturas do mar · Tubarão-branco",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ink_sac",
+        "condition": "Criaturas do mar · Lula",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ink_sac",
+        "condition": "Criaturas do mar · Lula Noturna",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "ink_sac",
+        "condition": "O que vem na linha · Lixo (incomum)",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "leather",
+        "condition": "O que vem na linha · Lixo (incomum)",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "lily_pad",
+        "condition": "Criaturas do mar · Lula",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "lily_pad",
+        "condition": "Criaturas do mar · Lula Noturna",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "lily_pad",
+        "condition": "O que vem na linha · Lixo (incomum)",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "livro_angler_6",
+        "condition": "Criaturas do mar · Protetor das Profundezas",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "livro_frail_6",
+        "condition": "Criaturas do mar · Bagre",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "livro_lure_6",
+        "condition": "Criaturas do mar · Guardião Defensor",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "livro_magnet_6",
+        "condition": "Criaturas do mar · Cavaleiro das Profundezas",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "livro_spiked_hook_6",
+        "condition": "Criaturas do mar · Sanguessuga do Mar",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "name_tag",
+        "condition": "O que vem na linha · Tesouro (incomum)",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "nautilus_shell",
+        "condition": "Criaturas do mar · Hidra da Água",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "nautilus_shell",
+        "condition": "Criaturas do mar · Imperador do Mar",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "nautilus_shell",
+        "condition": "O que vem na linha · Tesouro (incomum)",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "nurse_shark_tooth",
+        "condition": "Criaturas do mar · Tubarão-lixa",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "prismarine_crystals",
+        "condition": "Com Chumbada de Prismarinho equipada",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "prismarine_crystals",
+        "condition": "Criaturas do mar · Guardião Defensor",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "prismarine_crystals",
+        "condition": "Criaturas do mar · Guardião do Mar",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "prismarine_shard",
+        "condition": "Com Chumbada de Prismarinho equipada",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "prismarine_shard",
+        "condition": "Criaturas do mar · Guardião Defensor",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "prismarine_shard",
+        "condition": "Criaturas do mar · Guardião do Mar",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "pufferfish",
+        "condition": "Criaturas do mar · Bagre",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "pufferfish",
+        "condition": "O que vem na linha · Peixe (quase sempre)",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "rotten_flesh",
+        "condition": "Criaturas do mar · Andarilho do Mar",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "rotten_flesh",
+        "condition": "O que vem na linha · Lixo (incomum)",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "rusty_coin",
+        "condition": "O que vem na linha · Lixo (incomum)",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "saddle",
+        "condition": "O que vem na linha · Tesouro (incomum)",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "salmon",
+        "condition": "Criaturas do mar · Bagre",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "salmon",
+        "condition": "Criaturas do mar · Bruxa do Mar",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "salmon",
+        "condition": "O que vem na linha · Peixe (quase sempre)",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "shark_fin",
+        "condition": "Criaturas do mar · Tubarão-azul",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "shark_fin",
+        "condition": "Criaturas do mar · Tubarão-branco",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "shark_fin",
+        "condition": "Criaturas do mar · Tubarão-lixa",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "shark_fin",
+        "condition": "Criaturas do mar · Tubarão-tigre",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "sponge",
+        "condition": "Com Chumbada de Esponja equipada",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "sponge",
+        "condition": "Criaturas do mar · Bagre",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "sponge",
+        "condition": "Criaturas do mar · Cavaleiro das Profundezas",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "sponge",
+        "condition": "Criaturas do mar · Hidra da Água",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "sponge",
+        "condition": "Criaturas do mar · Protetor das Profundezas",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "sponge",
+        "condition": "Criaturas do mar · Sanguessuga do Mar",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "stick",
+        "condition": "O que vem na linha · Lixo (incomum)",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "string",
+        "condition": "O que vem na linha · Lixo (incomum)",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "tiger_shark_tooth",
+        "condition": "Criaturas do mar · Tubarão-tigre",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "tropical_fish",
+        "condition": "Criaturas do mar · Bruxa do Mar",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/lago"
+      },
+      {
+        "itemId": "tropical_fish",
+        "condition": "O que vem na linha · Peixe (quase sempre)",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/lago"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_bone",
+      "ench_cod",
+      "ench_bone_block",
+      "ench_block_iron_ingot",
+      "ench_wet_sponge",
+      "ench_ink_sac",
+      "ench_leather",
+      "ench_lily_pad",
+      "ench_prismarine_crystals",
+      "ench_prismarine_shard",
+      "ench_pufferfish",
+      "ench_rotten_flesh",
+      "ench_salmon",
+      "ench_sponge",
+      "ench_string",
+      "ench_tropical_fish"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "masmorra",
+    "name": "Masmorra",
+    "area": "masmorra",
+    "source": "https://blockidle.io/wiki/masmorra",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "arrow",
+        "condition": "Monstros · Esqueleto",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "bone",
+        "condition": "Monstros · Esqueleto",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "carrot",
+        "condition": "Monstros · Zumbi",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "iron_ingot",
+        "condition": "Monstros · Zumbi",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "potato",
+        "condition": "Monstros · Zumbi",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "rotten_flesh",
+        "condition": "Monstros · Zumbi",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "sb_zombie_boots",
+        "condition": "Monstros · Zumbi · peça do conjunto",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "sb_zombie_chestplate",
+        "condition": "Monstros · Zumbi · peça do conjunto",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "sb_zombie_hat",
+        "condition": "Monstros · Zumbi · peça do conjunto",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "sb_zombie_leggings",
+        "condition": "Monstros · Zumbi · peça do conjunto",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "spider_eye",
+        "condition": "Monstros · Aranha",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/masmorra"
+      },
+      {
+        "itemId": "string",
+        "condition": "Monstros · Aranha",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/masmorra"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_bone",
+      "ench_carrot",
+      "ench_iron_ingot",
+      "ench_potato",
+      "ench_rotten_flesh",
+      "ench_spider_eye",
+      "ench_string"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "nether",
+    "name": "Nether",
+    "area": "nether",
+    "source": "https://blockidle.io/wiki/nether",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "ancient_debris",
+        "condition": "Exploração de fortaleza",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "ancient_debris",
+        "condition": "O que tem no paredão · Detrito Ancestral",
+        "frequency": "raríssimo",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "ember_rod",
+        "condition": "Exploração de fortaleza",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "ghast_tear",
+        "condition": "Exploração de fortaleza",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "gold_nugget",
+        "condition": "Exploração de fortaleza",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "gold_nugget",
+        "condition": "O que tem no paredão · Minério de Ouro do Nether",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "iron_ingot",
+        "condition": "Exploração de fortaleza",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "netherite_upgrade_smithing_template",
+        "condition": "Exploração de fortaleza",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "netherrack",
+        "condition": "O que tem no paredão · Netherrack",
+        "frequency": "a rocha toda",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "obsidian",
+        "condition": "Exploração de fortaleza",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "quartz",
+        "condition": "Exploração de fortaleza",
+        "frequency": "quase sempre",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "quartz",
+        "condition": "O que tem no paredão · Minério de Quartzo",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "sb_ember_boots",
+        "condition": "Exploração de fortaleza · peça do conjunto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "sb_ember_chestplate",
+        "condition": "Exploração de fortaleza · peça do conjunto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "sb_ember_helmet",
+        "condition": "Exploração de fortaleza · peça do conjunto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/nether"
+      },
+      {
+        "itemId": "sb_ember_leggings",
+        "condition": "Exploração de fortaleza · peça do conjunto",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/nether"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "ench_iron_ingot",
+      "ench_netherrack",
+      "ench_obsidian",
+      "ench_quartz"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "end",
+    "name": "The End e o Dragão",
+    "area": "end",
+    "source": "https://blockidle.io/wiki/end",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "ench_ender_pearl",
+        "condition": "Monstros · Enderman",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "ench_ender_pearl",
+        "condition": "Monstros · Zealot",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "ender_pearl",
+        "condition": "Monstros · Enderman",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "ender_pearl",
+        "condition": "Monstros · Endermite",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "ender_pearl",
+        "condition": "Monstros · Zealot",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "old_dragon_fragment",
+        "condition": "Prêmio do Dragão old",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "protector_dragon_fragment",
+        "condition": "Prêmio do Dragão protector",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_boots",
+        "condition": "Monstros · Enderman · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_boots",
+        "condition": "Monstros · Zealot · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_chestplate",
+        "condition": "Monstros · Enderman · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_chestplate",
+        "condition": "Monstros · Zealot · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_helmet",
+        "condition": "Monstros · Enderman · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_helmet",
+        "condition": "Monstros · Zealot · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_leggings",
+        "condition": "Monstros · Enderman · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_leggings",
+        "condition": "Monstros · Zealot · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_old_dragon_boots",
+        "condition": "Peça do Dragão old",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_old_dragon_chestplate",
+        "condition": "Peça do Dragão old",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_old_dragon_helmet",
+        "condition": "Peça do Dragão old",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_old_dragon_leggings",
+        "condition": "Peça do Dragão old",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_protector_dragon_boots",
+        "condition": "Peça do Dragão protector",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_protector_dragon_chestplate",
+        "condition": "Peça do Dragão protector",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_protector_dragon_helmet",
+        "condition": "Peça do Dragão protector",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_protector_dragon_leggings",
+        "condition": "Peça do Dragão protector",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_strong_dragon_boots",
+        "condition": "Peça do Dragão strong",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_strong_dragon_chestplate",
+        "condition": "Peça do Dragão strong",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_strong_dragon_helmet",
+        "condition": "Peça do Dragão strong",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_strong_dragon_leggings",
+        "condition": "Peça do Dragão strong",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_superior_dragon_boots",
+        "condition": "Peça do Dragão superior",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_superior_dragon_chestplate",
+        "condition": "Peça do Dragão superior",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_superior_dragon_helmet",
+        "condition": "Peça do Dragão superior",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_superior_dragon_leggings",
+        "condition": "Peça do Dragão superior",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_unstable_dragon_boots",
+        "condition": "Peça do Dragão unstable",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_unstable_dragon_chestplate",
+        "condition": "Peça do Dragão unstable",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_unstable_dragon_helmet",
+        "condition": "Peça do Dragão unstable",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_unstable_dragon_leggings",
+        "condition": "Peça do Dragão unstable",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_wise_dragon_boots",
+        "condition": "Peça do Dragão wise",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_wise_dragon_chestplate",
+        "condition": "Peça do Dragão wise",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_wise_dragon_helmet",
+        "condition": "Peça do Dragão wise",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_wise_dragon_leggings",
+        "condition": "Peça do Dragão wise",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_young_dragon_boots",
+        "condition": "Peça do Dragão young",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_young_dragon_chestplate",
+        "condition": "Peça do Dragão young",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_young_dragon_helmet",
+        "condition": "Peça do Dragão young",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_young_dragon_leggings",
+        "condition": "Peça do Dragão young",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "strong_dragon_fragment",
+        "condition": "Prêmio do Dragão strong",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "summoning_eye",
+        "condition": "Monstros · Zealot",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "superior_dragon_fragment",
+        "condition": "Prêmio do Dragão superior",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "unstable_dragon_fragment",
+        "condition": "Prêmio do Dragão unstable",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "wise_dragon_fragment",
+        "condition": "Prêmio do Dragão wise",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "young_dragon_fragment",
+        "condition": "Prêmio do Dragão young",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "absolute_ender_pearl",
+      "ench_ender_pearl"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "catacumbas:1",
+    "name": "Andar I · Catacumbas",
+    "area": "catacumbas",
+    "source": "https://blockidle.io/wiki/catacumbas",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "bonzo_fragment",
+        "condition": "Recompensa do baú",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      },
+      {
+        "itemId": "bonzo_staff",
+        "condition": "Recompensa do baú",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      },
+      {
+        "itemId": "chave_catacumbas",
+        "condition": "Chave devolvida conforme nota",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      },
+      {
+        "itemId": "essence_undead",
+        "condition": "Recompensa do baú",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      }
+    ],
+    "coverage": "published",
+    "floor": 1,
+    "defaultCompactorIds": [],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "catacumbas:2",
+    "name": "Andar II · Catacumbas",
+    "area": "catacumbas",
+    "source": "https://blockidle.io/wiki/catacumbas",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "chave_catacumbas",
+        "condition": "Chave devolvida conforme nota",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      },
+      {
+        "itemId": "essence_undead",
+        "condition": "Recompensa do baú",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      },
+      {
+        "itemId": "scarf_fragment",
+        "condition": "Recompensa do baú",
+        "frequency": "incomum",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      },
+      {
+        "itemId": "scarf_studies",
+        "condition": "Recompensa do baú",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      }
+    ],
+    "coverage": "published",
+    "floor": 2,
+    "defaultCompactorIds": [],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "catacumbas:3",
+    "name": "Andar III · Catacumbas",
+    "area": "catacumbas",
+    "source": "https://blockidle.io/wiki/catacumbas",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "adaptive_blade",
+        "condition": "Recompensa do baú",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      },
+      {
+        "itemId": "chave_catacumbas",
+        "condition": "Chave devolvida conforme nota",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      },
+      {
+        "itemId": "essence_undead",
+        "condition": "Recompensa do baú",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      },
+      {
+        "itemId": "scarf_fragment",
+        "condition": "Recompensa do baú",
+        "frequency": "comum",
+        "source": "https://blockidle.io/wiki/catacumbas"
+      }
+    ],
+    "coverage": "published",
+    "floor": 3,
+    "defaultCompactorIds": [],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "slayer:zumbi",
+    "name": "Revenant Horror · Slayer",
+    "area": "masmorra",
+    "source": "https://blockidle.io/wiki/slayer",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "foul_flesh",
+        "condition": "Raro · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "foul_flesh",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "foul_flesh",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "livro_smite_6",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "livro_smite_6",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "livro_smite_6",
+        "condition": "Raro · Tier V",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "revenant_catalyst",
+        "condition": "Raro · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "revenant_catalyst",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "revenant_flesh",
+        "condition": "Chefe · Tier I",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "revenant_flesh",
+        "condition": "Chefe · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "revenant_flesh",
+        "condition": "Chefe · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "revenant_flesh",
+        "condition": "Chefe · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "revenant_flesh",
+        "condition": "Chefe · Tier V",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "revenant_viscera",
+        "condition": "Raro · Tier V",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "undead_catalyst",
+        "condition": "Raro · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "undead_catalyst",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "undead_catalyst",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "undead_catalyst",
+        "condition": "Raro · Tier V",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      }
+    ],
+    "coverage": "published",
+    "activity": "zumbi",
+    "defaultCompactorIds": [],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "slayer:aranha",
+    "name": "Tarantula Broodfather · Slayer",
+    "area": "masmorra",
+    "source": "https://blockidle.io/wiki/slayer",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "livro_bane_of_arthropods_6",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "livro_bane_of_arthropods_6",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "livro_bane_of_arthropods_6",
+        "condition": "Raro · Tier V",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "spider_catalyst",
+        "condition": "Raro · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "spider_catalyst",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "spider_catalyst",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "spider_catalyst",
+        "condition": "Raro · Tier V",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "tarantula_catalyst",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "tarantula_catalyst",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "tarantula_silk",
+        "condition": "Raro · Tier V",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "tarantula_web",
+        "condition": "Chefe · Tier I",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "tarantula_web",
+        "condition": "Chefe · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "tarantula_web",
+        "condition": "Chefe · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "tarantula_web",
+        "condition": "Chefe · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "tarantula_web",
+        "condition": "Chefe · Tier V",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "toxic_arrow_poison",
+        "condition": "Raro · Tier I",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "toxic_arrow_poison",
+        "condition": "Raro · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      }
+    ],
+    "coverage": "published",
+    "activity": "aranha",
+    "defaultCompactorIds": [],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "slayer:enderman",
+    "name": "Voidgloom Seraph · Slayer",
+    "area": "end",
+    "source": "https://blockidle.io/wiki/slayer",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "judgement_core",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_atom",
+        "condition": "Raro · Tier I",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_atom",
+        "condition": "Raro · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_atom",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_atom",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_sphere",
+        "condition": "Chefe · Tier I",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_sphere",
+        "condition": "Chefe · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_sphere",
+        "condition": "Chefe · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_sphere",
+        "condition": "Chefe · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "summoning_eye",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "summoning_eye",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "transmission_tuner",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "transmission_tuner",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "twilight_arrow_poison",
+        "condition": "Raro · Tier I",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "twilight_arrow_poison",
+        "condition": "Raro · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      }
+    ],
+    "coverage": "published",
+    "activity": "enderman",
+    "defaultCompactorIds": [],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "ninho",
+    "name": "Ninho do Dragão",
+    "area": "ninho",
+    "source": "https://blockidle.io/wiki/end",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "ench_ender_pearl",
+        "condition": "Monstros · Zealot",
+        "frequency": "raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "ender_pearl",
+        "condition": "Monstros · Zealot",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "old_dragon_fragment",
+        "condition": "Prêmio do Dragão old",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "protector_dragon_fragment",
+        "condition": "Prêmio do Dragão protector",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_boots",
+        "condition": "Monstros · Zealot · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_chestplate",
+        "condition": "Monstros · Zealot · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_helmet",
+        "condition": "Monstros · Zealot · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_end_leggings",
+        "condition": "Monstros · Zealot · peça do conjunto",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_old_dragon_boots",
+        "condition": "Peça do Dragão old",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_old_dragon_chestplate",
+        "condition": "Peça do Dragão old",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_old_dragon_helmet",
+        "condition": "Peça do Dragão old",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_old_dragon_leggings",
+        "condition": "Peça do Dragão old",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_protector_dragon_boots",
+        "condition": "Peça do Dragão protector",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_protector_dragon_chestplate",
+        "condition": "Peça do Dragão protector",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_protector_dragon_helmet",
+        "condition": "Peça do Dragão protector",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_protector_dragon_leggings",
+        "condition": "Peça do Dragão protector",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_strong_dragon_boots",
+        "condition": "Peça do Dragão strong",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_strong_dragon_chestplate",
+        "condition": "Peça do Dragão strong",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_strong_dragon_helmet",
+        "condition": "Peça do Dragão strong",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_strong_dragon_leggings",
+        "condition": "Peça do Dragão strong",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_superior_dragon_boots",
+        "condition": "Peça do Dragão superior",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_superior_dragon_chestplate",
+        "condition": "Peça do Dragão superior",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_superior_dragon_helmet",
+        "condition": "Peça do Dragão superior",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_superior_dragon_leggings",
+        "condition": "Peça do Dragão superior",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_unstable_dragon_boots",
+        "condition": "Peça do Dragão unstable",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_unstable_dragon_chestplate",
+        "condition": "Peça do Dragão unstable",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_unstable_dragon_helmet",
+        "condition": "Peça do Dragão unstable",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_unstable_dragon_leggings",
+        "condition": "Peça do Dragão unstable",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_wise_dragon_boots",
+        "condition": "Peça do Dragão wise",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_wise_dragon_chestplate",
+        "condition": "Peça do Dragão wise",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_wise_dragon_helmet",
+        "condition": "Peça do Dragão wise",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_wise_dragon_leggings",
+        "condition": "Peça do Dragão wise",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_young_dragon_boots",
+        "condition": "Peça do Dragão young",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_young_dragon_chestplate",
+        "condition": "Peça do Dragão young",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_young_dragon_helmet",
+        "condition": "Peça do Dragão young",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "sb_young_dragon_leggings",
+        "condition": "Peça do Dragão young",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "strong_dragon_fragment",
+        "condition": "Prêmio do Dragão strong",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "summoning_eye",
+        "condition": "Monstros · Zealot",
+        "frequency": "muito raro",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "superior_dragon_fragment",
+        "condition": "Prêmio do Dragão superior",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "unstable_dragon_fragment",
+        "condition": "Prêmio do Dragão unstable",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "wise_dragon_fragment",
+        "condition": "Prêmio do Dragão wise",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      },
+      {
+        "itemId": "young_dragon_fragment",
+        "condition": "Prêmio do Dragão young",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/end"
+      }
+    ],
+    "coverage": "published",
+    "defaultCompactorIds": [
+      "absolute_ender_pearl",
+      "ench_ender_pearl"
+    ],
+    "defaultLapidaryIds": []
+  },
+  {
+    "id": "vazio",
+    "name": "Vazio · recompensas publicadas do Slayer",
+    "area": "vazio",
+    "source": "https://blockidle.io/wiki/slayer",
+    "sourceDate": "2026-10-08",
+    "collectedAt": "2026-10-18",
+    "drops": [
+      {
+        "itemId": "judgement_core",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_atom",
+        "condition": "Raro · Tier I",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_atom",
+        "condition": "Raro · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_atom",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_atom",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_sphere",
+        "condition": "Chefe · Tier I",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_sphere",
+        "condition": "Chefe · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_sphere",
+        "condition": "Chefe · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "null_sphere",
+        "condition": "Chefe · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "summoning_eye",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "summoning_eye",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "transmission_tuner",
+        "condition": "Raro · Tier III",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "transmission_tuner",
+        "condition": "Raro · Tier IV",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "twilight_arrow_poison",
+        "condition": "Raro · Tier I",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      },
+      {
+        "itemId": "twilight_arrow_poison",
+        "condition": "Raro · Tier II",
+        "frequency": "Não publicada",
+        "source": "https://blockidle.io/wiki/slayer"
+      }
+    ],
+    "coverage": "partial",
+    "defaultCompactorIds": [],
+    "defaultLapidaryIds": []
+  }
+]

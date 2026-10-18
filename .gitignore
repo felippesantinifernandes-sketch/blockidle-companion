@@ -1,0 +1,10 @@
+node_modules/
+dist/
+test-results/
+*.log
+
+.env*
+*.har
+*diagnostico*.json
+*.zip
+work/

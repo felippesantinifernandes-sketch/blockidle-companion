@@ -1,0 +1,65 @@
+{
+  "manifest_version": 3,
+  "name": "Blockidle Companion",
+  "description": "Terminal, bancada de crafts, coleções, forja e acessórios com atualização pelo GitHub.",
+  "version": "0.3.0",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "storage",
+    "sidePanel",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://blockidle.io/*",
+    "https://api.github.com/*",
+    "https://github.com/*",
+    "https://objects.githubusercontent.com/*",
+    "https://release-assets.githubusercontent.com/*"
+  ],
+  "action": {
+    "default_title": "Abrir Blockidle Companion",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png",
+      "128": "icons/128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "128": "icons/128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://blockidle.io/*"
+      ],
+      "js": [
+        "gameAdapter.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://blockidle.io/*"
+      ],
+      "js": [
+        "contentBridge.js"
+      ],
+      "run_at": "document_start",
+      "world": "ISOLATED"
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'self'; connect-src 'self' https://blockidle.io https://api.github.com https://github.com https://objects.githubusercontent.com https://release-assets.githubusercontent.com; img-src 'self' data: https://blockidle.io"
+  }
+}

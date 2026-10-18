@@ -1,0 +1,23 @@
+import { capacity } from '../../core/capacity';
+import { items } from '../../catalog/itemCatalog';
+import { useState } from 'react';
+import { Plus, Trash2, Box } from 'lucide-react';
+import { useStore } from '../store';
+import type { StorageGroup } from '../../core/types';
+import { Card, Empty, number } from '../components/common';
+export function Groups() {
+    const { state, prefs, patch } = useStore();
+    const [name, setName] = useState(''), [editing, setEditing] = useState('');
+    const group = prefs.groups.find(g => g.id === editing);
+    const update = (value: Partial<StorageGroup>) => group && patch({ groups: prefs.groups.map(g => g.id === group.id ? { ...g, ...value } : g) });
+    const create = () => {
+        if (!name.trim())
+            return;
+        const id = crypto.randomUUID();
+        patch({ groups: [...prefs.groups, { id, name: name.trim().slice(0, 60), description: '', storageIds: [], acceptedItemIds: [], acceptedCategories: [], learnFromExistingItems: true, priorityStorageIds: [], protectedItemIds: [], onFull: 'stop' }] });
+        setName('');
+        setEditing(id);
+    };
+    return <><form className="toolbar" onSubmit={e => { e.preventDefault(); create(); }}><input aria-label="Nome do novo grupo" maxLength={60} placeholder="Ex.: MINERAÇÃO" value={name} onChange={e => setName(e.target.value)}/><button className="primary" disabled={!name.trim()}><Plus size={16}/>Criar grupo</button></form><div className="group-grid">{prefs.groups.map(g => <button className={'group-card ' + (editing === g.id ? 'selected' : '')} key={g.id} onClick={() => setEditing(g.id)}><Box size={23}/><strong>{g.name}</strong><small>{g.storageIds.length} armazenamentos · {g.acceptedItemIds.length} itens na lista</small></button>)}</div>{!prefs.groups.length && <Empty title="Um lugar para cada recurso">Crie grupos para pesca, mineração, materiais de craft e o que fizer sentido para sua ilha.</Empty>}
+ {group && <Card title={'Editar · ' + group.name} action={<button aria-label="Excluir grupo" onClick={() => { patch({ groups: prefs.groups.filter(g => g.id !== group.id) }); setEditing(''); }}><Trash2 size={15}/>Excluir grupo local</button>}><div className="form-grid"><label>Nome<input value={group.name} maxLength={60} onChange={e => update({ name: e.target.value })}/></label><label>Descrição<input value={group.description} maxLength={300} onChange={e => update({ description: e.target.value })}/></label><label>IDs aceitos (separados por vírgula)<input key={group.id} defaultValue={group.acceptedItemIds.join(', ')} onBlur={e => update({ acceptedItemIds: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}/></label><label>Categorias aceitas<select value={group.acceptedCategories[0] ?? ''} onChange={e => update({ acceptedCategories: e.target.value ? [e.target.value] : [] })}><option value="">Nenhuma</option>{['Material', 'Encantado', 'Gema', 'Arma', 'Armadura', 'Ferramenta', 'Pesca', 'Pet', 'Acessório'].map(c => <option key={c}>{c}</option>)}</select></label><label className="checkbox-label"><input type="checkbox" checked={group.learnFromExistingItems} onChange={e => update({ learnFromExistingItems: e.target.checked })}/>Aceitar itens já existentes nos destinos</label><label>Quando não houver espaço<select value={group.onFull} onChange={e => update({ onFull: e.target.value as StorageGroup['onFull'] })}><option value="stop">Interromper</option><option value="notify">Avisar</option><option value="ask">Pedir revisão</option></select></label></div><h3>Armazenamentos vinculados</h3><p className="muted">A ordem de seleção define a prioridade manual. Conteúdos existentes têm preferência.</p>{state?.storages.filter(s => s.kind !== 'inventory').map(s => <div className="storage-row" key={s.id}><label className="checkbox-label"><input type="checkbox" checked={group.storageIds.includes(s.id)} onChange={e => update({ storageIds: e.target.checked ? [...group.storageIds, s.id] : group.storageIds.filter(id => id !== s.id), priorityStorageIds: e.target.checked ? [...group.priorityStorageIds, s.id] : group.priorityStorageIds.filter(id => id !== s.id) })}/><span><strong>{s.originalName}</strong><small>{s.id} · {capacity(s, items) ? capacity(s, items)!.usedSlots + '/' + capacity(s, items)!.totalSlots + ' slots' : 'Capacidade desconhecida'} · {number(Object.values(s.items).reduce((a, b) => a + b, 0))} unidades{s.metadata?.gameLabel ? ' · Rótulo: ' + s.metadata.gameLabel : ''}</small></span></label><input aria-label={'Apelido de ' + s.id} placeholder="Apelido local" maxLength={80} value={prefs.aliases[s.id] ?? ''} onChange={e => patch({ aliases: { ...prefs.aliases, [s.id]: e.target.value } })}/></div>)}{!state && <p>Conecte um estado para associar armazenamentos.</p>}</Card>}</>;
+}

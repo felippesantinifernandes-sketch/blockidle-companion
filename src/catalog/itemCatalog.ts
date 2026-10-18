@@ -1,0 +1,11 @@
+import clientItems from './clientItems.json';
+import transformations from './transformations.json';
+import type {Item,Recipe} from '../core/types';
+import {z} from 'zod';
+export const items:Record<string,Item>=clientItems;
+export const recipes:Recipe[]=z.array(z.object({id:z.string(),name:z.string(),output:z.number().int().positive(),ingredients:z.record(z.number().int().positive()),source:z.string().url().startsWith('https://blockidle.io/wiki/'),compactable:z.boolean(),kind:z.enum(['compact','lapidary']),eligibleStorages:z.array(z.enum(['inventory','chest','bag','sack','ender','special'])),sourceDate:z.string().optional()})).parse(transformations);
+export const compactRecipes=recipes.filter(r=>r.compactable);
+export const lapidaryRecipes=recipes.filter(r=>r.kind==='lapidary');
+export const autoRecipes=recipes.filter(r=>r.compactable||r.kind==='lapidary');
+export const catalogMeta={catalogVersion:'0.3.0-wiki',wikiSourceDate:'2026-10-08',wikiCollectedAt:'2026-10-18',autoGemFiltersSource:'https://blockidle.io/js/catalogo.js',validationStatus:'Receitas e drops coletados das páginas oficiais. Cada região e receita mantém sua própria fonte; lacunas publicadas são identificadas.',gameBuildAtCollection:'ef3c8efa9f',compactRecipes:compactRecipes.length,lapidaryRecipes:lapidaryRecipes.length};
+export const itemName=(id:string)=>items[id]?.name??id;
