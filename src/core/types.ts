@@ -59,6 +59,10 @@ export interface DropPolicy {
     enabled: boolean;
 }
 export interface Preferences {
+    objectives: CraftObjective[];
+    preserveGoalMaterials: boolean;
+    forgeNotifications: boolean;
+    updateAlerts: boolean;
     theme: 'dark' | 'light' | 'system';
     navigation: 'sidebar' | 'tabs' | 'compact';
     aliases: Record<string, string>;
@@ -115,7 +119,11 @@ export interface Recipe {
 export interface RegionDrop { itemId: string; condition: string; frequency: string; source: string }
 export interface Region { id: string; name: string; area: string; layer?: string; forest?: string; floor?: number; activity?: string; source: string; sourceDate?: string; collectedAt: string; coverage: string; drops: RegionDrop[]; defaultCompactorIds: string[]; defaultLapidaryIds: string[] }
 export type CraftCommand={kind:'craft';recipeId:string;batches:number;pulls:{storageId:string;itemId:string;quantity:number}[];expectedStock:Record<string,number>};
-export type ManualCommand = CraftCommand| {kind:'compactor';itemId:string;enabled:boolean}|{kind:'profile';itemIds:string[]}|{kind:'move';direction:'deposit'|'withdraw';storageId:string;itemId:string;quantity:number}|{kind:'transform';recipeId:string;expectedBatches:number};
+export interface CraftObjective {id:string;recipeId:string;quantity:number;enabled:boolean;choices:Record<string,string>}
+export type GoalStepCommand={kind:'goalStep';goalId:string;stepId:string;review:string};
+export type ManualCommand = GoalStepCommand|CraftCommand| {kind:'compactor';itemId:string;enabled:boolean}|{kind:'profile';itemIds:string[]}|{kind:'move';direction:'deposit'|'withdraw';storageId:string;itemId:string;quantity:number}|{kind:'transform';recipeId:string;expectedBatches:number};
+export type GoalTransformCommand={kind:'goalTransform';recipeId:string;batches:number;pulls:{storageId:string;itemId:string;quantity:number}[];expectedAvailable:number};
+export type NativeCommand=Exclude<ManualCommand,GoalStepCommand>|GoalTransformCommand;
 export interface CommandResult {ok:boolean;error?:string;uncertain?:boolean;message?:string;state?:GameState;changed?:number;requestId?:string}
 export interface Snapshot {
     id: string;

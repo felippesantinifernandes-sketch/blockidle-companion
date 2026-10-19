@@ -7,5 +7,5 @@ export const recipes:Recipe[]=z.array(z.object({id:z.string(),name:z.string(),ou
 export const compactRecipes=recipes.filter(r=>r.compactable);
 export const lapidaryRecipes=recipes.filter(r=>r.kind==='lapidary');
 export const autoRecipes=recipes.filter(r=>r.compactable||r.kind==='lapidary');
-export const catalogMeta={catalogVersion:'0.3.0-wiki',wikiSourceDate:'2026-10-08',wikiCollectedAt:'2026-10-18',autoGemFiltersSource:'https://blockidle.io/js/catalogo.js',validationStatus:'Receitas e drops coletados das páginas oficiais. Cada região e receita mantém sua própria fonte; lacunas publicadas são identificadas.',gameBuildAtCollection:'ef3c8efa9f',compactRecipes:compactRecipes.length,lapidaryRecipes:lapidaryRecipes.length};
+export const catalogMeta={catalogVersion:'0.4.0-wiki',wikiSourceDate:'2026-10-08',wikiCollectedAt:'2026-10-18',autoGemFiltersSource:'https://blockidle.io/js/catalogo.js',validationStatus:'Receitas e drops coletados das páginas oficiais. Cada região e receita mantém sua própria fonte; lacunas publicadas são identificadas.',gameBuildAtCollection:'ef3c8efa9f',compactRecipes:compactRecipes.length,lapidaryRecipes:lapidaryRecipes.length};
 export const itemName=(id:string)=>items[id]?.name??id;

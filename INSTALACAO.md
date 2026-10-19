@@ -1,4 +1,4 @@
-# Instalar e atualizar — Blockidle Companion 0.3.0
+# Instalar e atualizar — Blockidle Companion 0.4.0
 
 1. Extraia o ZIP da extensão para uma pasta permanente.
 2. Abra chrome://extensions ou edge://extensions → Modo do desenvolvedor → Carregar sem compactação.
@@ -17,3 +17,13 @@
 As ações atualizam o painel e exibem avisos flutuantes. Atualizar aqui evita voltar ao topo. Um resultado desconhecido exige Revisar estado e nunca é repetido automaticamente.
 
 Importação e demonstração são offline. Os testes foram realizados em ambiente controlado, sem transação na conta real. Build desconhecido suspende ações. Vendas, descarte e organização automática em lote permanecem indisponíveis. Backup continua disponível como opção, não como etapa de cada atualização.
+
+## Objetivos e avisos — 0.4.0
+
+Se já usa a 0.3, abra a Central de atualização e use Verificar versões. Aplique a 0.4 mantendo a mesma pasta e instalação.
+
+Em Crafts → Meus objetivos, escolha a quantidade final. A lista divide o estoque por prioridade. Use Revisar etapa e confira materiais/retiradas antes de confirmar. Uma etapa aceita na fila precisa terminar antes da seguinte. Pausar um objetivo libera seus materiais para outros usos no painel.
+
+Em Terminal, abra Drops, modelos e compactador para ver faltantes dos objetivos, sugestões e filtros conflitantes. Nada é alterado apenas ao abrir a seção.
+
+Em Personagem, Próximos acessórios mostra o ganho adicional de MP e permite planejar o acessório. Em Crafts → Forja, ative Avisar quando a forja terminar se desejar e autorize as permissões opcionais. O último prazo salvo é a referência, mesmo com o jogo fechado; o navegador precisa estar em execução para avisar no horário.

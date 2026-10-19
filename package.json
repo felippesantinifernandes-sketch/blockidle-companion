@@ -1,6 +1,6 @@
 {
   "name": "blockidle-companion",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,7 +11,9 @@
     "test:native": "node scripts/test-native.mjs",
     "test:workbench": "node scripts/test-workbench.mjs",
     "test:updater": "node scripts/test-updater.mjs",
-    "release": "node scripts/release.mjs"
+    "release": "node scripts/release.mjs",
+    "test:objectives": "node scripts/test-objectives.mjs",
+    "test:forge-alerts": "node scripts/test-forge-alerts.mjs"
   },
   "dependencies": {
     "fflate": "^0.8.3",

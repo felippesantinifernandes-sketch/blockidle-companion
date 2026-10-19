@@ -1,12 +1,26 @@
-# Blockidle Companion 0.3.0
+# Blockidle Companion 0.4.0
 
 Extensão independente para Chrome/Edge (Manifest V3), com painel em português para terminal, bancada de crafts, coleções, forja, acessórios e compactador. Não é um produto oficial do Blockidle.
+
+## Objetivos e evolução — novidades da 0.4
+
+Em Crafts → Meus objetivos, selecione uma receita e a quantidade final que deseja possuir. A ordem define a prioridade de distribuição do estoque. Há 574 receitas utilizáveis no planejamento: 462 crafts e 102 transformações. O plano expande componentes, considera rendimentos e sobras, evita ciclos, mostra requisitos, localiza faltantes nas regiões publicadas e reconhece produções já na fila. Receitas alternativas de componentes podem ser escolhidas no plano.
+
+Cada etapa exige revisão e confirmação. O worker recalcula o plano e a aba compara novamente estoque e fila com a resposta do servidor. O painel invalida uma revisão quando os dados relevantes mudam. A compactação de um objetivo usa uma quantidade exata; a lapidação nativa processa tudo e fica bloqueada se houver excedente que seria consumido. Não há execução automática de uma cadeia inteira.
+
+Objetivos ativos preservam materiais nas demais ações do painel por padrão. Pause um objetivo ou desative essa preferência para liberar o uso externo. Proteções manuais, favoritos e reservas continuam valendo dentro das etapas. Essa proteção é local: não impede ações feitas no próprio jogo. Na região, há revisão explícita para desativar filtros nativos conflitantes ou aplicar sugestões que não consumam ingredientes necessários diretamente.
+
+Em Personagem, Próximos acessórios ordena possibilidades por ativação de itens já em posse, disponibilidade de materiais e ganho efetivo de Poder Mágico. Desconta o acessório que já vale na família e considera recombobulação. Não presume preços de mercado. O cálculo local é uma estimativa; o Poder Mágico do servidor prevalece.
+
+Avisos da forja são opcionais e pedem permissões de alarmes e notificações ao ativar. Registram o último prazo recebido, sobrevivem ao reinício do navegador e não coletam itens. Uma nova leitura cancela tarefas removidas. O navegador/sistema pode atrasar ou ocultar o aviso; alterações feitas fora da aba só são conhecidas após outra leitura. O painel também informa falta de autorização ou falha de entrega.
+
+Ao abrir a extensão, uma consulta pública de versões, com cache de seis horas, pode mostrar novidades e acesso à central. O aviso pode ser desativado. Downloads e instalação continuam dependendo de revisão e confirmação.
 
 ## Instalação e atualização
 
 Baixe o ZIP da extensão em [Releases](https://github.com/felippesantinifernandes-sketch/blockidle-companion/releases/latest), extraia para uma pasta permanente e carregue a pasta com manifest.json em chrome://extensions ou edge://extensions (Modo do desenvolvedor → Carregar sem compactação). Recarregue o jogo e clique no ícone da extensão → Conectar jogo.
 
-Se já utiliza 0.1/0.2, substitua os arquivos na mesma pasta e recarregue a mesma extensão. **Não remova a extensão para atualizar.** O ID e as preferências ficam preservados. A 0.3 precisa dessa atualização inicial; as versões seguintes podem ser aplicadas em Configurações → Central de atualização, sem exportar/restaurar backup.
+Se já utiliza 0.1/0.2, substitua os arquivos na mesma pasta e recarregue a mesma extensão. **Não remova a extensão para atualizar.** O ID e as preferências ficam preservados. A 0.3 introduziu a central; da 0.3 em diante, as versões podem ser aplicadas em Configurações → Central de atualização, sem exportar/restaurar backup.
 
 Na central, verifique a nova versão, prepare o download e escolha a mesma pasta instalada. O navegador exige autorização de escrita nessa pasta; a escolha fica salva em IndexedDB. Depois de revisar a versão, Aplicar e recarregar substitui os arquivos e reinicia a extensão. Um ZIP já baixado também pode ser utilizado. Se o navegador bloquear seleção de pasta, a alternativa é substituir os arquivos manualmente na mesma instalação.
 
@@ -61,6 +75,8 @@ npm run test:ui
 npm run test:native
 npm run test:workbench
 npm run test:updater
+npm run test:objectives
+npm run test:forge-alerts
 ```
 
 A pasta instalável é dist/. A prévia npm run dev não possui acesso ao jogo. Os testes de navegador usam perfis descartáveis e respostas simuladas; não utilizam a conta pessoal. O teste visual procura Chrome no caminho padrão do Windows; os demais usam Chromium do Playwright. BLOCKIDLE_DIAGNOSTIC é uma variável opcional para verificar localmente um diagnóstico, sem copiá-lo ao projeto.

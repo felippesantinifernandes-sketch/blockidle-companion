@@ -1,3 +1,4 @@
+import {GoalRegion} from './GoalRegion';
 import {useMemo,useState} from 'react';
 import {ExternalLink,MapPin,ShieldCheck} from 'lucide-react';
 import {useStore} from '../store';
@@ -24,7 +25,7 @@ export function RegionControls({onTransform}:{onTransform?:(id:string)=>void}){
  if(!region)return <Card title="Drops e modelo da região"><label>Região{regionSelector}</label><p className="notice">Não foi possível identificar um modelo para {state?.area??'a área atual'}. Escolha a região na lista. Nas Catacumbas, selecione o andar manualmente; o estado disponível não confirma o andar atual.</p></Card>;
  return <Card title="Drops e modelo da região" action={<span className="badge"><MapPin size={12}/>{current?.name??'Seleção manual'}</span>}>
   <div className="region-heading"><label>Região{regionSelector}</label><div><strong>{region.name}</strong><small>{drops.length} drops publicados · {model.compactorIds.length} filtros no modelo · {active?active.length:'?'} / {limit??'?'} ativos no jogo</small><a href={region.source} target="_blank" rel="noreferrer">Fonte da região <ExternalLink size={12}/></a></div></div>
-  <p className="muted">“No modelo” salva sua preferência. “Ativo no jogo” altera o Compactador Pessoal por uma ação manual. A seleção de modelos não liga automações sozinha.</p>
+  <GoalRegion regionId={region.id}/><p className="muted">“No modelo” salva sua preferência. “Ativo no jogo” altera o Compactador Pessoal por uma ação manual. A seleção de modelos não liga automações sozinha.</p>
   {state?.area&&state.area!=='mina'&&state.layer&&<p className="muted">A camada de mina salva foi ignorada porque a área atual é {current?.name??state.area}.</p>}
   {region.coverage!=='published'&&<p className="notice">{region.coverage==='client-only'?'A wiki não publicou a página desta região. Apenas o drop confirmado no cliente está listado.':'A wiki não publica todos os drops normais desta área. Aqui estão somente recompensas documentadas, com suas condições.'}</p>}
   {active?.some(id=>state&&commandProtection({kind:'compactor',itemId:id,enabled:true},state,prefs))&&<p className="notice warning-text">Há filtros ativos que consomem itens protegidos ou reservados localmente. Desative esses filtros na coluna “Ativo no jogo”; reservas locais não bloqueiam o compactador nativo por conta própria.</p>}

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Blockidle Companion",
   "description": "Terminal, bancada de crafts, coleções, forja e acessórios com atualização pelo GitHub.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "minimum_chrome_version": "116",
   "permissions": [
     "storage",
@@ -61,5 +61,9 @@
   ],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'self'; connect-src 'self' https://blockidle.io https://api.github.com https://github.com https://objects.githubusercontent.com https://release-assets.githubusercontent.com; img-src 'self' data: https://blockidle.io"
-  }
+  },
+  "optional_permissions": [
+    "alarms",
+    "notifications"
+  ]
 }

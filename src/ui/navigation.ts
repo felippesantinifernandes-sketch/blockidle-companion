@@ -1,1 +1,2 @@
-import{create}from'zustand';export const useNavigation=create<{page:string;craftId?:string;go:(page:string)=>void;openCraft:(id:string)=>void}>(set=>({page:'Visão Geral',go:page=>set({page}),openCraft:craftId=>set({page:'Crafts',craftId})}));
+import{create}from'zustand';
+export const useNavigation=create<{page:string;craftId?:string;craftRequest:number;objectiveRequest:number;go:(page:string)=>void;openCraft:(id:string)=>void;openObjectives:()=>void}>(set=>({page:location.hash==='#forja'?'Crafts':'Visão Geral',craftRequest:0,objectiveRequest:0,go:page=>set({page}),openCraft:craftId=>set(s=>({page:'Crafts',craftId,craftRequest:s.craftRequest+1})),openObjectives:()=>set(s=>({page:'Crafts',objectiveRequest:s.objectiveRequest+1}))}));
