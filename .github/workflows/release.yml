@@ -24,6 +24,7 @@ jobs:
       - run: npm run test:updater
       - run: npm run test:objectives
       - run: npm run test:forge-alerts
+      - run: npm run test:sales
       - run: npm run test:features
       - run: Copy-Item RESULTADO-DOS-TESTES.md dist/RESULTADO-DOS-TESTES.md
       - run: node scripts/package.mjs

@@ -1,3 +1,6 @@
+import {useId} from 'react';
+import {ChevronDown,ChevronRight} from 'lucide-react';
+import {useStore} from '../store';
 import { useState, type ReactNode } from 'react';
 import { items, itemName } from '../../catalog/itemCatalog';
 export const number = (v: number) => new Intl.NumberFormat('pt-BR').format(v);
@@ -6,7 +9,7 @@ export function Card({ title, children, action }: {
     title?: string;
     children: ReactNode;
     action?: ReactNode;
-}) { return <section className="card">{title && <div className="card-heading"><h2>{title}</h2>{action}</div>}{children}</section>; }
+}) { const {prefs,patch}=useStore(),id=useId(),collapsed=!!(title&&prefs.collapsedSections[title]);return <section className={'card'+(collapsed?' card-collapsed':'')}>{title&&<div className="card-heading"><h2 aria-label={title}><button className="section-toggle" aria-expanded={!collapsed} aria-controls={id} aria-label={(collapsed?'Expandir seção: ':'Recolher seção: ')+title} onClick={()=>patch({collapsedSections:{...prefs.collapsedSections,[title]:!collapsed}})}>{collapsed?<ChevronRight size={18}/>:<ChevronDown size={18}/>}<span>{title}</span></button></h2>{action}</div>}<div className="card-content" id={id} hidden={collapsed}>{children}</div></section>; }
 export function Empty({ title, children }: {
     title: string;
     children?: ReactNode;

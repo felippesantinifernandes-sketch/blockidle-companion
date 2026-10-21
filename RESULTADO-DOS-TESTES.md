@@ -1,32 +1,31 @@
-# Resultado da validação — 0.5.0
+# Validação da versão 0.6.0
 
-Conferência local em 20/10/2026: **228 verificações aprovadas**. TypeScript e compilação de produção aprovados.
+Conferência local em 21/10/2026: **267 verificações aprovadas**. TypeScript e compilação de produção aprovados.
 
-- Testes unitários: **138**. Inclui um teste opcional de importação offline do diagnóstico enviado pelo usuário. Seu conteúdo não é copiado para o projeto. No GitHub esse teste é omitido quando a variável local não existe: 137 aprovados e 1 omitido.
-- Interface e transporte: **13**.
-- Ações nativas: **22**.
-- Bancada e forja: **10**.
-- Atualizador: **8**.
-- Objetivos: **14**.
-- Avisos da forja: **8**.
-- Filtros, SkyBlock e tela Jogo: **15**.
+| Suíte | Verificações |
+| --- | ---: |
+| Unitários (inclui diagnóstico local opcional) | 152 |
+| Interface e transporte | 13 |
+| Ações nativas | 22 |
+| Bancada e Forja | 10 |
+| Atualizador | 8 |
+| Objetivos | 14 |
+| Avisos da Forja | 8 |
+| Acessórios, SkyBlock e tela Jogo | 15 |
+| Venda, compactador e personalização | 25 |
 
-## Cobertura nova
+Sem o diagnóstico local, há 151 unitários e um teste omitido; o total executado é 266. As suítes de venda e ações nativas foram repetidas após a última alteração do adaptador.
 
-Filtros: família ausente, tier intermediário e família completa; posse no terminal; próximo/maior tier; combinação de atributos; distinção entre vida e cura, defesa e redução de dano, engastes e atributos diretos; busca, raridade e largura de 390 px.
+Os resultados detalhados são produzidos pelas suítes listadas em package.json. A publicação executa TypeScript, testes unitários, compilação de produção e todas as suítes de navegador antes de gerar os pacotes.
 
-SkyBlock: leitura do cálculo do cliente, meta 32, ausência explícita da leitura, total coerente, tiers cumulativos sem duplicação, XP de habilidade restante, custos inteiros de missões Tier I e migração/restauração de preferências. A lista de rotas é parcial; custos variáveis não são inventados.
+A cobertura inclui interface e transporte, ações nativas anteriores, bancada/Forja, atualização, objetivos, avisos, acessórios, SkyBlock, tela Jogo e venda por excedente. A nova suíte de vendas confere checkbox, busca/região/limpeza, reserva, preço, baús autorizados, capacidade com e sem campo de slots no estado, proteções, comandos divergentes, automação desligada, visibilidade simulada oculta, falhas e bloqueio de repetição, builds, substituição/limpeza do compactador, ordem das guias e seções recolhíveis persistentes. Também verifica largura de 390 px e erros de página.
 
-Tela Jogo: leitura da aba vinculada em página própria; respostas simuladas de ranking e erro; título/ícone neutros e restauração; prevenção de descarte e restauração da configuração anterior; abertura reutiliza aba existente. O bloqueio de ação sob presença experimental foi testado com o getter de visibilidade do navegador **simulado como oculto**; não representa medição de execução contínua em segundo plano no Windows.
+## Limites
 
-## Limites e dados
+Os testes utilizam perfis de navegador isolados, clientes e endpoints simulados. Não houve venda, retirada nem alteração de filtros na conta real do usuário. O teste de visibilidade simula o getter do navegador como oculto; não comprova execução contínua em segundo plano no Windows.
 
-Não houve transação na conta real nem homologação autenticada de um novo build do jogo. As suítes usam clientes/endpoints simulados e perfis de teste. A guarda de build e as verificações de estoque/sessão continuam ativas. A presença experimental não simula cliques, movimento ou coleta; seu comportamento em uma conta real e a continuidade sob suspensão do navegador/sistema não foram comprovados.
+O build 6b899075fb foi informado pelo usuário e confrontado com os módulos públicos coletados em 21/10/2026. Somente filtros do compactador e vendas têm suporte nesse build; cada execução relê o estado e compara contrato e versão. Receitas e movimentações anteriores continuam bloqueadas nele. A evidência dos arquivos está em docs/compatibility-0.6.0.json. Não é uma homologação autenticada do servidor.
 
-O ranking usa o módulo oficial já carregado na aba; os testes usam nomes fictícios. Resultados não são persistidos em snapshots nem diagnósticos.
+Preços vêm do catálogo carregado no jogo. Offline, apenas valores explícitos coletados são exibidos. A confirmação de venda exige diminuição exata do estoque, preservação da reserva e recebimento do ouro esperado. Respostas divergentes bloqueiam repetição até revisão.
 
-As APIs de alarmes/notificações do Chromium foram exercitadas, inclusive reinício. A exibição visual da notificação pelo Windows, a autorização humana de pasta/permissões e o Microsoft Edge separado não foram observados.
-
-A consulta pública confirmou que o jogo bloqueia incorporação em outras páginas. Por isso a tela Jogo abre uma janela separada. A aparência/atividade começa desativada e não exige novas permissões.
-
-O catálogo de 462 crafts, 102 transformações e 61 acessórios mantém a base anterior. A auditoria de 19/10 identificou alterações do jogo ainda não incorporadas nesse catálogo (Ruínas, novos itens e receitas de Slayer). Esta versão acrescenta os painéis solicitados, sem declarar essa atualização de catálogo nem liberar builds novos.
+O teste opcional de importação de diagnóstico lê somente o arquivo local apontado por BLOCKIDLE_DIAGNOSTIC; ele não é copiado para o projeto nem para os pacotes. Sem essa variável, o teste é omitido.

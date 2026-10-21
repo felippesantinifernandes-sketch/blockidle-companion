@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-21",
+  "buildReportedByUser": "6b899075fb",
+  "modules": {
+    "catalogo.js": {
+      "url": "https://blockidle.io/js/catalogo.js",
+      "sha256": "c9a0c8da82589294481e8bfcfa82a7973588cc859d6b7e96f76fc4fc14c80b5d"
+    },
+    "rede.js": {
+      "url": "https://blockidle.io/js/rede.js",
+      "sha256": "b87635f8921b7a1367140dde4e97b0e19096c4c84665ca39e3d8e89a0ab4a6b0"
+    },
+    "mochilacfg.js": {
+      "url": "https://blockidle.io/js/mochilacfg.js",
+      "sha256": "1feb891c93c81d99229d18807a7ddaba23f53f9333d91e1a0b0a25d4e48e81ec"
+    }
+  }
+}

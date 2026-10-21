@@ -1,11 +1,14 @@
-# Blockidle Companion 0.5.0
+# Blockidle Companion 0.6.0
 
-Filtros avançados de acessórios pela engrenagem: atributos/efeitos, família, raridade e tiers acima do melhor item em posse. Atalhos para o próximo tier e a maior versão; posse no terminal também conta.
+- Nova guia Venda: checkbox por item, preço de NPC, reserva na mochila, busca e filtro por região; limpar busca ou desmarcar todas as vendas.
+- Venda manual revisada e automação opcional do excedente. Baús da ilha e colheita podem abastecer lotes de até 64; ração, sacos, bolsas e Ender ficam fora. Reserva primeiro na mochila.
+- Preço e estoque são conferidos novamente antes da venda. Favoritos, proteções, reservas e materiais de objetivos são preservados. Falhas pausam a automação; resultados incertos exigem revisão.
+- Compactador: leitura das vagas do cliente, substituição de modelos por região e limpeza confirmada dos filtros.
+- Suporte restrito de filtros e vendas ao build 6b899075fb. Receitas e movimentações antigas nesse build permanecem bloqueadas. Builds desconhecidos não executam ações.
+- Setas para recolher/expandir seções com escolha persistente. Ordem das guias configurável por setas em Configurações.
+- Histórico identifica vendas manuais/automáticas e quantidades confirmadas; recupera registros antigos com campos opcionais nulos.
+- Corrigido o texto da versão na tela de compatibilidade. README renovado com guia de uso, imagem e documentação.
 
-Plano de nível SkyBlock com leitura do cálculo do cliente, meta inicial 32, fontes de XP e custos fixos de Slayer separados de gastos variáveis. Destinos da mesma coleção/habilidade não duplicam XP.
+Inclui as melhorias da 0.5: filtros avançados de acessórios, planejamento SkyBlock, página própria, ranking e opções de apresentação do jogo. Atualização direta da 0.4 preserva preferências; venda inicia desativada.
 
-Página própria e tela Jogo para abrir/reutilizar a janela do Blockidle, selecionar a aba e consultar o ranking do servidor. Aparência discreta opcional (título e ícone neutros), prevenção de descarte e presença experimental ao trocar de guia, com restauração ao desativar.
-
-O jogo bloqueia incorporação em outras páginas, por isso usa janela separada. O navegador e o sistema podem congelar/suspender processos: o modo experimental não garante atividade contínua. As ações manuais continuam conferindo a visibilidade real e o build validado. Nenhuma nova permissão de navegador é solicitada.
-
-O catálogo anterior de receitas e a validação do build permanecem com seus limites publicados. Esta versão não declara compatibilidade transacional com um novo build sem validação. Testes usam estado e respostas simulados; não realizam transações na conta do usuário.
+A automação funciona com o painel aberto e o jogo realmente visível, no máximo uma regra a cada 15 segundos. Não assume atividade contínua em segundo plano. Testes utilizam respostas simuladas; nenhuma venda foi feita em conta real.

@@ -1,0 +1,27 @@
+import {readActionLog} from '../api/manual';
+import {describe,it,expect,vi} from 'vitest';
+import {defaults,parseBackup} from '../db/preferences';
+import {normalize} from '../core/normalizer';
+import {salePlan,saleEligible,salePrices} from '../core/sales';
+import {orderedNames} from '../ui/pageOrder';
+import {commandSchema} from '../api/commands';
+import {supportsCommandBuild} from '../core/versionMonitor';
+import {compactorCapacity} from '../core/regions';
+const state=()=>normalize({inventario:{wheat_seeds:900},guardado:{'bau:1,0,0':{wheat_seeds:700}},base:{'1,0,0':'chest'},ouro:0},'demo');
+const rule={itemId:'wheat_seeds',enabled:true,keep:256,includeStored:false};
+describe('Venda por excedente',()=>{
+ it('recupera registros confirmados antigos com erro nulo',async()=>{const command=salePlan(state(),defaults,rule).command!;vi.stubGlobal('chrome',{runtime:{id:'fixture'},storage:{local:{get:async()=>({'blockidle.actions.v1':[{at:1,command,status:'confirmed',changed:644,error:null}]})}}});try{const logs=await readActionLog();expect(logs).toHaveLength(1);expect(logs[0].changed).toBe(644);}finally{vi.unstubAllGlobals();}});
+ it('mantém a reserva e calcula receita fracionária',()=>{const p=salePlan(state(),defaults,rule);expect(p.quantity).toBe(644);expect(p.value).toBe(322);expect(p.stored).toBe(700);expect(p.command?.pulls).toEqual([]);});
+ it('não vende estoque abaixo da reserva nem usa baús sem opção',()=>{const s=state();s.storages[0].items.wheat_seeds=200;expect(salePlan(s,defaults,rule).command).toBeUndefined();expect(salePlan(s,defaults,{...rule,includeStored:true}).command).toBeUndefined();expect(salePlan(s,defaults,{...rule,includeStored:true}).excess).toBe(644);});
+ it('retira só um lote de baú autorizado quando a reserva está na mochila',()=>{const s=state();s.storages[0].items.wheat_seeds=256;const p=salePlan(s,defaults,{...rule,includeStored:true});expect(p.quantity).toBe(64);expect(p.command?.pulls).toEqual([{storageId:'bau:1,0,0',itemId:'wheat_seeds',quantity:64}]);});
+ it('não retira de ração, sacos, Ender ou bolsas',()=>{const s=state();s.storages=s.storages.filter(v=>v.kind!=='chest');s.storages[0].items.wheat_seeds=256;s.storages.push({id:'fazenda:criador',kind:'special',originalName:'ração',items:{wheat_seeds:1000}});expect(salePlan(s,defaults,{...rule,includeStored:true}).quantity).toBe(0);});
+ it('bloqueia favoritos e reservas',()=>{expect(salePlan(state(),{...defaults,favorites:['wheat_seeds']},rule).command).toBeUndefined();expect(salePlan(state(),{...defaults,reserves:{wheat_seeds:1}},rule).command).toBeUndefined();});
+ it('usa preços atuais do catálogo conectado e não reintroduz preços antigos ausentes',()=>{const s=state();s.character.companionCapabilities={salePrices:{wheat_seeds:0.75}};expect(salePlan(s,defaults,rule).value).toBe(483);s.character.companionCapabilities={salePrices:{}};expect(salePlan(s,defaults,rule).command).toBeUndefined();});
+ it('não estima preços ausentes nem permite equipamentos',()=>{expect(salePrices.wheat_seeds).toBe(0.5);expect(saleEligible('diamond_sword')).toBe(false);expect(saleEligible('not_an_item')).toBe(false);});
+ it('respeita limite por operação e reserva zero',()=>{const s=state();s.storages[0].items.wheat_seeds=2000000;expect(salePlan(s,defaults,{...rule,keep:0}).quantity).toBe(1000000);});
+ it('migra backup antigo preservando configurações',()=>{const {sales,pageOrder,collapsedSections,...old}=defaults;const p=parseBackup(JSON.stringify({format:'blockidle-companion-preferences',version:1,preferences:{...old,theme:'light'}}));expect(p.sales).toEqual({enabled:false,rules:[]});expect(p.theme).toBe('light');expect(p.pageOrder).toEqual([]);});
+ it('restaura ordem sem duplicados ou guias desconhecidas',()=>{const n=orderedNames(['Venda','Venda','inexistente','Crafts']);expect(n[0]).toBe('Venda');expect(n[1]).toBe('Crafts');expect(new Set(n).size).toBe(n.length);});
+ it('valida comandos e aceita limpar apenas com substituição explícita',()=>{expect(commandSchema.safeParse({kind:'sell',itemId:'wheat_seeds',quantity:0,keep:0,expectedInventory:1,unitPrice:0.5,pulls:[],automatic:false}).success).toBe(false);expect(commandSchema.safeParse({kind:'profile',itemIds:[],replace:true}).success).toBe(true);});
+ it('mantém permissão por operação e rejeita versões não revistas',()=>{expect(supportsCommandBuild('6b899075fb','sell')).toBe(true);expect(supportsCommandBuild('6b899075fb','craft')).toBe(false);expect(supportsCommandBuild('unknown','compactor')).toBe(false);});
+ it('usa vagas do catálogo lido no jogo, sem presumir 7000',()=>{const s=state();s.character.compactador='personal_compactor_6000';s.character.companionCapabilities={compactorSlots:{personal_compactor_6000:7}};expect(compactorCapacity(s)).toBe(7);s.character.compactador='personal_compactor_7000';expect(compactorCapacity(s)).toBeUndefined();});
+});

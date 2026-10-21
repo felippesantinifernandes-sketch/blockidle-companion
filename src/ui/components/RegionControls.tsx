@@ -6,15 +6,15 @@ import {useActions} from '../actions';
 import {regions,currentRegion,compactorCapacity,defaultModel,regionModel,dropOptions} from '../../core/regions';
 import {commandProtection} from '../../core/transformations';
 import {itemName} from '../../catalog/itemCatalog';
-import {observedBuild} from '../../core/versionMonitor';
+import {supportsCommandBuild} from '../../core/versionMonitor';
 import {Card,ItemIcon,number} from './common';
 export function RegionControls({onTransform}:{onTransform?:(id:string)=>void}){
  const {state,prefs,patch}=useStore(),{busy,perform,lockedScope}=useActions();
- const [selection,setSelection]=useState('auto'),[query,setQuery]=useState(''),[onlyUsable,setOnlyUsable]=useState(false),[confirm,setConfirm]=useState(false);
+ const [selection,setSelection]=useState('auto'),[query,setQuery]=useState(''),[onlyUsable,setOnlyUsable]=useState(false),[confirm,setConfirm]=useState(false),[replace,setReplace]=useState(false),[clear,setClear]=useState(false);
  const current=currentRegion(state),region=selection==='auto'?current:regions.find(r=>r.id===selection);
  const limit=compactorCapacity(state),model=region?regionModel(region,prefs,limit??12):{compactorIds:[],lapidaryIds:[]};
  const active=Array.isArray(state?.character.autoCompactar)?state.character.autoCompactar.filter((v):v is string=>typeof v==='string'):undefined;
- const live=state?.source==='live'&&state.build===observedBuild&&!!limit&&!!active;
+ const live=state?.source==='live'&&supportsCommandBuild(state.build,'compactor')&&!!limit&&!!active;
  const locked=!!lockedScope&&lockedScope===state?.scope;
  const drops=useMemo(()=>{if(!region)return [];const map=new Map<string,typeof region.drops>();for(const d of region.drops)map.set(d.itemId,[...(map.get(d.itemId)??[]),d]);return [...map.entries()].sort(([a],[b])=>itemName(a).localeCompare(itemName(b),'pt-BR'));},[region]);
  const visible=drops.filter(([id])=>itemName(id).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(query.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase())&&(!onlyUsable||dropOptions(id).compact.length||dropOptions(id).lapidary.length));
@@ -37,7 +37,7 @@ export function RegionControls({onTransform}:{onTransform?:(id:string)=>void}){
     {options.lapidary.map(r=><div className="drop-recipe" key={r.id}><span>Lapidação manual: 80 → 1 {itemName(r.id)}</span><label className="checkbox-label"><input type="checkbox" aria-label={'Lapidar no modelo: '+itemName(r.id)} checked={model.lapidaryIds.includes(r.id)} onChange={e=>toggle(r.id,'lapidaryIds',e.target.checked)}/>Lapidação manual no modelo</label><button className="text-button" onClick={()=>onTransform?.(id)}>Ver lapidação</button></div>)}
     {!options.compact.length&&<label className="checkbox-label muted"><input type="checkbox" disabled aria-label={'Não compactável: '+itemName(id)}/>{options.smelting?'Exige fundição antes de compactar o lingote.':'Sem receita de compactação publicada.'}</label>}
     </div></article>;})}{!visible.length&&<p className="muted">Nenhum drop encontrado.</p>}</div>
-  <div className="button-row"><button className="primary" disabled={!live||busy||locked||overflow||!model.compactorIds.length} onClick={()=>setConfirm(true)}><ShieldCheck size={15}/>Aplicar modelo ao compactador</button><small>{overflow?'O modelo excede o limite somado aos filtros já ativos. Desative ou desmarque filtros antes de aplicar.':'Os filtros já ativos serão preservados.'}</small></div>
-  {confirm&&<div className="confirmation"><h3>Confirmar filtros no jogo</h3><p>{model.compactorIds.map(itemName).join(', ')}.</p><p className="muted">O jogo valida equipamento e desbloqueios. Cada resposta será conferida; o processo para ao primeiro resultado sem confirmação.</p><div className="button-row"><button onClick={()=>setConfirm(false)}>Cancelar</button><button className="primary" disabled={busy||locked} onClick={async()=>{await perform({kind:'profile',itemIds:model.compactorIds});setConfirm(false);}}>Confirmar aplicação</button></div></div>}
+  <div className="button-row"><button className="primary" disabled={!live||busy||locked||overflow||!model.compactorIds.length} onClick={()=>{setReplace(false);setClear(false);setConfirm(true);}}><ShieldCheck size={15}/>Aplicar modelo ao compactador</button><button disabled={!live||busy||locked||!model.compactorIds.length} onClick={()=>{setReplace(true);setClear(false);setConfirm(true);}}>Substituir pelos filtros desta região</button><button disabled={!live||busy||locked||!active?.length} onClick={()=>{setReplace(true);setClear(true);setConfirm(true);}}>Limpar filtros do compactador</button><small>{overflow?'O modelo excede o limite somado aos filtros já ativos. Desative ou desmarque filtros antes de aplicar.':'Os filtros já ativos serão preservados.'}</small></div>
+  {confirm&&<div className="confirmation"><h3>Confirmar filtros no jogo</h3><p>{clear?'Desativar todos os filtros do compactador.':model.compactorIds.map(itemName).join(', ')+'.'}</p>{replace&&!clear&&<p>Os filtros de outras regiões serão removidos antes de aplicar este modelo.</p>}<p className="muted">O jogo valida equipamento e desbloqueios. Cada resposta será conferida; o processo para ao primeiro resultado sem confirmação.</p><div className="button-row"><button onClick={()=>setConfirm(false)}>Cancelar</button><button className="primary" disabled={busy||locked} onClick={async()=>{await perform({kind:'profile',itemIds:clear?[]:model.compactorIds,...(replace?{replace:true}:{})});setConfirm(false);}}>Confirmar aplicação</button></div></div>}
  </Card>;
 }

@@ -1,3 +1,4 @@
+import {salePlan} from '../core/sales';
 import {gameTab,initializeGameFeatures} from './gameFeatures';
 initializeGameFeatures();
 import{initializeForgeNotifications,syncForgeNotifications,restoreForgeNotifications}from'./forgeNotifications';
@@ -11,7 +12,7 @@ import {readPreferences} from '../db/preferences';
 import {normalize} from '../core/normalizer';
 import {commandProtection} from '../core/transformations';
 import {recipes} from '../catalog/itemCatalog';
-import {observedBuild} from '../core/versionMonitor';
+import {supportsCommandBuild} from '../core/versionMonitor';
 const cache=new Map<number,{state:Record<string,unknown>;at:number;scope:string;observation?:'hud'|'response'}>();
 initializeForgeNotifications();
 const remember=(id:number,entry:{state:Record<string,unknown>;at:number;scope:string;observation?:'hud'|'response'})=>{cache.set(id,entry);void syncForgeNotifications(id,normalize(entry.state,'live'));};
@@ -31,13 +32,13 @@ async function read(tabId:number){let entry=cache.get(tabId);if(!entry){const re
  catch{/* Existing response cache remains usable for reading if HUD is unavailable. */}
  remember(tabId,entry);return entry;
 }
-async function log(command:unknown,result:{ok:boolean;uncertain?:boolean;error?:string;changed?:number}){try{const key='blockidle.actions.v1',all=(await chrome.storage.local.get(key))[key];await chrome.storage.local.set({[key]:[...(Array.isArray(all)?all:[]),sanitize({at:Date.now(),command,status:result.ok?'confirmed':result.uncertain?'uncertain':'rejected',changed:result.changed,error:result.error})].slice(-100)});}catch{/* Logging failure never repeats a transaction. */}}
+async function log(command:unknown,result:{ok:boolean;uncertain?:boolean;error?:string;changed?:number}){try{const key='blockidle.actions.v1',all=(await chrome.storage.local.get(key))[key];await chrome.storage.local.set({[key]:[...(Array.isArray(all)?all:[]),sanitize({at:Date.now(),command,status:result.ok?'confirmed':result.uncertain?'uncertain':'rejected',...(result.changed!==undefined?{changed:result.changed}:{}),...(result.error!==undefined?{error:result.error}:{})})].slice(-100)});}catch{/* Logging failure never repeats a transaction. */}}
 chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
  if(sender.id!==chrome.runtime.id)return;
  if(msg?.type==='COMPANION_OBSERVED'&&sender.tab?.id!==undefined&&game(sender.url)){try{remember(sender.tab.id,{state:projectState(msg.state),at:msg.at,scope:String(msg.scope??''),observation:'response'});reply({ok:true});}catch{reply({ok:false});}return;}
  if(!sender.url?.startsWith(chrome.runtime.getURL(''))||!['COMPANION_READ_ACTIVE','COMPANION_MANUAL','COMPANION_RECONCILE'].includes(msg?.type))return;
  void(async()=>{let tabId:number|undefined,locked=false;try{
-  tabId=await active(msg.type==='COMPANION_READ_ACTIVE');const entry=await read(tabId);
+  tabId=await active(msg.type==='COMPANION_READ_ACTIVE'||msg.command?.kind==='sell'&&msg.command?.automatic===true);const entry=await read(tabId);
   if(msg.type==='COMPANION_READ_ACTIVE'){reply({ok:true,...entry,tabId});return;}
   if(msg.tabId!==tabId||msg.scope!==entry.scope)throw new Error('A aba ou a sessão mudou. Reconecte antes de agir.');
   if(msg.type==='COMPANION_RECONCILE'){if(busy.has(tabId))throw new Error('Aguarde a operação terminar.');const [fresh]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:refreshNativeState,args:[allowed]});if(!fresh?.result)throw new Error('Não foi possível confirmar o estado no servidor.');const next={state:projectState(fresh.result),at:Date.now(),scope:entry.scope,observation:'hud' as const};remember(tabId,next);uncertain.delete(tabId);await clearPending(tabId);reply({ok:true,...next,tabId});return;}
@@ -47,7 +48,12 @@ chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
   const requested=commandSchema.parse(msg.command);let command:NativeCommand;const state=normalize(entry.state,'live'); state.scope=entry.scope;state.tabId=tabId;
   const prefs=await readPreferences();const goals=objectivePlan(state,prefs);
   if(requested.kind==='goalStep'){if(requested.review!==goals.review)throw new Error('O estoque, a fila ou os objetivos mudaram. Atualize e revise a etapa novamente.');const step=goals.goals.find(g=>g.objective.id===requested.goalId)?.steps.find(s=>s.id===requested.stepId);if(!step?.command||step.reasons.length)throw new Error('Esta etapa ainda não está liberada no planejamento atual.');command=step.command;}else{const block=goalCommandBlock(requested,state,prefs,goals);if(block)throw new Error(block);command=requested;}
-  if(state.build!==observedBuild)throw new Error('Ações no jogo suspensas: build atual não validado para este adaptador.');
+  if(!supportsCommandBuild(state.build,command.kind))throw new Error('Ações no jogo suspensas: build atual não validado para este adaptador.');
+  if(command.kind==='sell'){
+   const itemId=command.itemId,rule=prefs.sales.rules.find(r=>r.itemId===itemId);
+   if(!rule?.enabled||command.keep!==rule.keep||command.pulls.length&&!rule.includeStored||command.automatic&&!prefs.sales.enabled)throw new Error('A regra de venda foi desativada ou alterada.');
+   const plan=salePlan(state,prefs,rule);if(!plan.command)throw new Error(plan.reason??'Não há excedente para vender agora.');if(command.automatic)command={...plan.command,automatic:true};else if(JSON.stringify({...command,automatic:false})!==JSON.stringify(plan.command))throw new Error('A prévia de venda mudou. Atualize antes de continuar.');
+  }
   const blocked=command.kind==='goalTransform'?undefined:commandProtection(command,state,prefs);if(blocked)throw new Error(blocked);
   const workbench=command.kind==='craft'?craftRecipes.find(r=>r.id===command.recipeId):undefined;if(command.kind==='craft'&&!workbench)throw new Error('Receita da bancada não validada.');
   const recipe=(command.kind==='transform'||command.kind==='goalTransform')?recipes.find(r=>r.id===command.recipeId):undefined;
@@ -55,9 +61,9 @@ chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
   const recipeIds=command.kind==='compactor'?[command.itemId]:command.kind==='profile'?command.itemIds:[];
   if(recipeIds.some(id=>!recipes.some(r=>r.id===id&&(r.compactable||r.kind==='lapidary'))))throw new Error('O item não possui receita de Compactador Pessoal.');
   const protectedIds=[...new Set([...prefs.favorites,...prefs.protectedItems,...Object.entries(prefs.reserves).filter(([,q])=>q>0).map(([id])=>id),...prefs.policies.filter(p=>p.enabled&&(p.action==='protect'||p.minimumReserve>0)).map(p=>p.itemId),...prefs.groups.flatMap(g=>g.protectedItemIds),...(requested.kind!=='goalStep'&&requested.kind!=='compactor'&&requested.kind!=='profile'&&prefs.preserveGoalMaterials?Object.keys(goals.claims):[])])];
-  if(await active()!==tabId)throw new Error('A aba ativa mudou antes da execução.');
+  if(await active(command.kind==='sell'&&command.automatic)!==tabId)throw new Error('A aba ativa mudou antes da execução.');
   requests.add(msg.requestId);if(requests.size>200)requests.delete(requests.values().next().value!);busy.add(tabId);locked=true;await markPending(tabId,entry.scope);
-  const [execution]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:runNativeCommand,args:[{command,fields:allowed,build:observedBuild,protectedIds,...(requested.kind==='goalStep'?{goalGuard:goalSnapshot(state,goals)}:{}),...(workbench?{workbench}:{}),...(recipe?{recipe:{id:recipe.id,input:Object.keys(recipe.ingredients)[0],ratio:Object.values(recipe.ingredients)[0],kind:recipe.kind??'compact'}}:{})}]});
+  const [execution]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:runNativeCommand,args:[{command,fields:allowed,build:state.build!,protectedIds,...(requested.kind==='goalStep'?{goalGuard:goalSnapshot(state,goals)}:{}),...(workbench?{workbench}:{}),...(recipe?{recipe:{id:recipe.id,input:Object.keys(recipe.ingredients)[0],ratio:Object.values(recipe.ingredients)[0],kind:recipe.kind??'compact'}}:{})}]});
   const result=execution?.result;if(!result)throw new Error('A ação não devolveu um resultado. Revise o jogo antes de continuar.');
   if(result.raw)remember(tabId,{state:projectState(result.raw),at:Date.now(),scope:entry.scope,observation:'hud'});
   if(result.uncertain)uncertain.add(tabId);else await clearPending(tabId);await log(requested,result);

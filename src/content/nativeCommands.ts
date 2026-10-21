@@ -8,6 +8,7 @@ export async function readNativeHud(fields:string[]) {
  const hud=(window as unknown as {__hudRef?:{estado:Record<string,unknown>}}).__hudRef;
  if(!hud?.estado||!hud.estado.inventario)return null;
  const result=Object.fromEntries(fields.filter(key=>key in hud.estado).map(key=>[key,hud.estado[key]]));
+ if(fields.includes('companionCapabilities'))try{const url=location.origin+'/js/catalogo.js';if(performance.getEntriesByType('resource').some(r=>r.name===url)){const c=await import(/* @vite-ignore */ url);result.companionCapabilities={compactorSlots:c.COMPACTADOR_VAGAS,salePrices:Object.fromEntries(Object.entries(c.ITENS??{}).filter(([,m]:[string,any])=>typeof m.preco==='number'&&Number.isFinite(m.preco)&&m.preco>0).map(([id,m]:[string,any])=>[id,m.preco]))};}}catch{}
  if(fields.includes('skyblock'))try{const url=location.origin+'/js/nivelsb.js';if(performance.getEntriesByType('resource').some(r=>r.name===url)){const mod=await import(/* @vite-ignore */ url),catalog=await import(/* @vite-ignore */ location.origin+'/js/catalogo.js');const x=mod.xpSkyBlock(hud.estado);result.skyblock={...x,collectionIds:Object.keys(catalog.COLECOES),caps:Object.fromEntries(Object.keys(catalog.HABILIDADES).map(id=>[id,catalog.maxHabilidade(id,hud.estado)]))};}}catch{/* Missing modules leave the SkyBlock panel explicitly unavailable. */}
  return result;
 }
@@ -65,16 +66,17 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
   const invoke=async(promise:Promise<any>)=>{sent=true;host.__companionPending=(host.__companionPending??0)+1;const settled=()=>{host.__companionPending=Math.max(0,(host.__companionPending??1)-1);};void promise.then(settled,settled);const r=await timed(promise);if(!r||typeof r!=='object')throw new Error('Resposta da operação inválida.');if(r.versao&&r.versao!==input.build){build=r.versao;latest=r.estado??latest;throw new Error('O build mudou durante a ação. Revise o jogo.');}if(r.erro){if(r.estado){latest=r.estado;hud.aplicar?.(r.estado);}throw new Error(String(r.erro).slice(0,240));}return r;};
   const filters=(s:State):string[]=>{if(!Array.isArray(s.autoCompactar)||s.autoCompactar.some((id:unknown)=>typeof id!=='string'))throw new Error('Formato dos filtros do compactador não reconhecido.');return s.autoCompactar;};
   if(input.command.kind==='compactor'||input.command.kind==='profile'){
+   if(typeof network.autoCompactar!=='function'||!catalog.COMPACTADOR_VAGAS)throw new Error('Contrato atual do compactador não reconhecido.');
    const command=input.command,active=filters(before);
    const requested=command.kind==='compactor'?[command.itemId]:command.itemIds;
    if(new Set(requested).size!==requested.length||requested.length>12)throw new Error('Modelo com filtros duplicados ou acima do limite.');
    for(const id of requested){const base=catalog.ENCANTADOS?.[id]?.base??catalog.lapidaDe?.(id);if(!base)throw new Error('O cliente atual não reconhece esta receita no compactador.');if((command.kind==='profile'||command.enabled)&&(protectedItem(id)||protectedItem(base)))throw new Error('Item ou ingrediente protegido/reservado.');}
-   const target=command.kind==='profile'?[...new Set([...active,...requested])]:command.enabled?[...new Set([...active,command.itemId])]:active.filter(id=>id!==command.itemId);
+   const target=command.kind==='profile'?(command.replace?requested:[...new Set([...active,...requested])]):command.enabled?[...new Set([...active,command.itemId])]:active.filter(id=>id!==command.itemId);
    const limit=catalog.COMPACTADOR_VAGAS?.[before.compactador];
    if(!Number.isInteger(limit)||limit<=0)throw new Error('Compactador Pessoal não encontrado no estado atual.');
    if(target.length>limit)throw new Error('O modelo ultrapassa os '+limit+' filtros do compactador. Os filtros atuais foram preservados.');
-   const steps=command.kind==='profile'?requested.filter(id=>!active.includes(id)).map(id=>({id,on:true})):active.includes(command.itemId)===command.enabled?[]:[{id:command.itemId,on:command.enabled}];
-   for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,300));guard();const r=await invoke(network.autoCompactar(step.id,step.on));if(!Array.isArray(r.autoCompactar)||r.autoCompactar.includes(step.id)!==step.on)throw new Error('O servidor não confirmou o filtro solicitado.');changed++;before=await refresh();if(filters(before).includes(step.id)!==step.on)throw new Error('O filtro não coincide com o novo estado.');}
+   const steps=command.kind==='profile'?[...(command.replace?active.filter(id=>!requested.includes(id)).map(id=>({id,on:false})):[]),...requested.filter(id=>!active.includes(id)).map(id=>({id,on:true}))]:active.includes(command.itemId)===command.enabled?[]:[{id:command.itemId,on:command.enabled}];
+   for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,300));guard();const r=await invoke(network.autoCompactar(step.id,step.on));const confirmed=Array.isArray(r.autoCompactar)?r.autoCompactar:r.estado?.autoCompactar;if(!Array.isArray(confirmed)||confirmed.includes(step.id)!==step.on)throw new Error('O servidor não confirmou o filtro solicitado.');changed++;before=await refresh();if(filters(before).includes(step.id)!==step.on)throw new Error('O filtro não coincide com o novo estado.');}
    const final=filters(before);if([...target].sort().join('|')!==[...final].sort().join('|'))throw new Error('Os filtros finais divergem do modelo confirmado.');
    return {ok:true,message:steps.length?'Filtros confirmados no jogo.':'Os filtros já estavam configurados.',changed,raw:projection(before,build)};
   }
@@ -93,6 +95,26 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    for(const p of pulls){const chest=/^bau:(-?\d+),(-?\d+),(-?\d+)$/.exec(p.storageId),farm=/^fazenda:(colheita|criador|ovos|abate)$/.exec(p.storageId);let payload:State={acao:'tirar',item:p.itemId,qtd:p.quantity};if(chest){if(!catalog.ehBauIlha?.(before.base?.[p.storageId.slice(4)]))throw new Error('Baú da retirada não existe.');payload={...payload,local:'bau',x:Number(chest[1]),y:Number(chest[2]),z:Number(chest[3])};}else if(p.storageId==='ender')payload.local='ender';else if(farm)payload={...payload,local:'fazenda',id:farm[1]};else throw new Error('Origem de retirada desconhecida.');if(quantity(map(before,p.storageId)[p.itemId])<p.quantity)throw new Error('O estoque do baú mudou.');guard();const result=await invoke(network.armazem(payload)),after=result.estado;if(!after)throw new Error('Retirada sem confirmação; o craft não será enviado.');latest=after;hud.aplicar?.(after);if(inventory(after,p.itemId)-inventory(before,p.itemId)!==p.quantity||quantity(map(before,p.storageId)[p.itemId])-quantity(map(after,p.storageId)[p.itemId])!==p.quantity||total(before,p.itemId)!==total(after,p.itemId))throw new Error('Retirada parcial ou divergente. Revise o Terminal antes de craftar.');before=after;changed++;}
    return before;
   };
+  if(input.command.kind==='sell'){
+   const c={...input.command},m=catalog.ITENS?.[input.command.itemId];
+   if(protectedItem(c.itemId)||!m||m.ferramenta||m.armadura||m.pet||m.pocao||catalog.PETS?.[c.itemId]||catalog.ACESSORIOS?.[c.itemId]||/rod|flint_and_steel|crafting_table|mesa_portatil|furnace|hopper|bow$|booster_cookie|vale_gemas|_bed$/.test(c.itemId))throw new Error('Este item não está liberado para venda pelo Companion.');
+   if(typeof network.vender!=='function'||typeof m.preco!=='number'||!Number.isFinite(m.preco)||m.preco<=0||m.preco!==c.unitPrice)throw new Error('O preço atual diverge da lista. Atualize os preços antes de vender.');
+   if(c.automatic&&!c.pulls.length){c.quantity=Math.min(c.quantity,Math.max(0,inventory(before,c.itemId)-c.keep));if(!c.quantity)return{ok:true,changed:0,message:'Sem excedente: reserva preservada.',raw:projection(before,build)};}
+   else if(inventory(before,c.itemId)!==c.expectedInventory)throw new Error('O estoque mudou. Atualize a prévia de venda.');
+   if(c.pulls.length>1||c.pulls.some(p=>p.itemId!==c.itemId||p.quantity>64||!(p.storageId.startsWith('bau:')||p.storageId==='fazenda:colheita')))throw new Error('Retirada fora das origens autorizadas para venda.');
+   const pulled=c.pulls.reduce((n,p)=>n+p.quantity,0);
+   if(c.quantity>1000000||c.quantity<1||inventory(before,c.itemId)+pulled-c.quantity<c.keep)throw new Error('A venda consumiria a reserva da mochila.');
+   if(pulled){
+    const slots=before.slotsMochila??catalog.MOCHILA_SLOTS;
+    if(typeof catalog.slotsUsados!=='function'||typeof catalog.pilhaDe!=='function'||typeof catalog.multPilha!=='function'||!Number.isInteger(slots)||slots<=0)throw new Error('Capacidade da mochila não confirmada.');
+    const mult=catalog.multPilha(before.pilhaNivel??0),stack=catalog.pilhaDe(c.itemId,mult),used=catalog.slotsUsados(before.inventario,mult),q=inventory(before,c.itemId),extra=Math.ceil((q+pulled)/stack)-Math.ceil(q/stack);
+    if(used+extra>slots)throw new Error('Abra espaço na mochila antes de vender dos baús.');
+    before=await withdraw(c.pulls,before);
+   }
+   guard();const result=await invoke(network.vender(c.itemId,c.quantity));const after=result.estado??await refresh();latest=after;hud.aplicar?.(after);
+   if(inventory(before,c.itemId)-inventory(after,c.itemId)!==c.quantity||total(before,c.itemId)-total(after,c.itemId)!==c.quantity||inventory(after,c.itemId)<c.keep||typeof after.ouro!=='number'||typeof before.ouro!=='number'||after.ouro-before.ouro+1e-7<c.quantity*c.unitPrice)throw new Error('Os saldos não confirmam a venda e o ouro recebido. Revise antes de continuar.');
+   return{ok:true,changed:c.quantity,message:'Venda confirmada: '+c.quantity+' × '+m.nome+'. Reserva preservada.',raw:projection(after,build)};
+  }
   if(input.command.kind==='craft'){
    const c=input.command,r=input.workbench;if(!r||r.id!==c.recipeId)throw new Error('Receita não validada.');
    if(r.kind!=='table'&&c.batches!==1)throw new Error('Esta operação nativa cria uma receita por confirmação.');

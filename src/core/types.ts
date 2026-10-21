@@ -58,7 +58,12 @@ export interface DropPolicy {
     targetGroupId?: string;
     enabled: boolean;
 }
+export interface SaleRule {itemId:string;enabled:boolean;keep:number;includeStored:boolean}
+export type SaleCommand={kind:'sell';itemId:string;quantity:number;keep:number;expectedInventory:number;unitPrice:number;pulls:{storageId:string;itemId:string;quantity:number}[];automatic:boolean};
 export interface Preferences {
+    sales:{enabled:boolean;rules:SaleRule[]};
+    pageOrder:string[];
+    collapsedSections:Record<string,boolean>;
     gameOptions: {neutral:boolean;keepActive:boolean;preventDiscard:boolean};
     objectives: CraftObjective[];
     preserveGoalMaterials: boolean;
@@ -122,7 +127,7 @@ export interface Region { id: string; name: string; area: string; layer?: string
 export type CraftCommand={kind:'craft';recipeId:string;batches:number;pulls:{storageId:string;itemId:string;quantity:number}[];expectedStock:Record<string,number>};
 export interface CraftObjective {id:string;recipeId:string;quantity:number;enabled:boolean;choices:Record<string,string>}
 export type GoalStepCommand={kind:'goalStep';goalId:string;stepId:string;review:string};
-export type ManualCommand = GoalStepCommand|CraftCommand| {kind:'compactor';itemId:string;enabled:boolean}|{kind:'profile';itemIds:string[]}|{kind:'move';direction:'deposit'|'withdraw';storageId:string;itemId:string;quantity:number}|{kind:'transform';recipeId:string;expectedBatches:number};
+export type ManualCommand = SaleCommand|GoalStepCommand|CraftCommand| {kind:'compactor';itemId:string;enabled:boolean}|{kind:'profile';itemIds:string[];replace?:boolean}|{kind:'move';direction:'deposit'|'withdraw';storageId:string;itemId:string;quantity:number}|{kind:'transform';recipeId:string;expectedBatches:number};
 export type GoalTransformCommand={kind:'goalTransform';recipeId:string;batches:number;pulls:{storageId:string;itemId:string;quantity:number}[];expectedAvailable:number};
 export type NativeCommand=Exclude<ManualCommand,GoalStepCommand>|GoalTransformCommand;
 export interface CommandResult {ok:boolean;error?:string;uncertain?:boolean;message?:string;state?:GameState;changed?:number;requestId?:string}
