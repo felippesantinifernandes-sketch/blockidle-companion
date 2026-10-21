@@ -1,6 +1,7 @@
+import{SkyblockProgress}from'../components/SkyblockProgress';
 import{AccessoryRecommendations}from'../components/AccessoryRecommendations';
 import{useNavigation}from'../navigation';
-import{Accessories}from'../components/Accessories';
+import{Accessories}from'../components/AccessoryCollection';
 import {locationLabel} from '../../core/regions';
 import { capacity } from '../../core/capacity';
 import { items } from '../../catalog/itemCatalog';
@@ -29,5 +30,5 @@ export function Progress() {
     const state = useStore(s => s.state);
     if (!state)
         return <Empty title="Progressão não conectada"/>;
-    return <><p className="notice">Valores disponíveis no estado são exibidos como recebidos, sem estimar níveis ou recompensas ausentes.</p>{['habilidades', 'anas', 'colecoes', 'forja', 'minions', 'progressos'].map(key => <Card title={key} key={key}><DataTree value={state.progress[key]}/></Card>)}</>;
+    return <><SkyblockProgress/><p className="notice">Valores disponíveis no estado são exibidos como recebidos, sem estimar níveis ou recompensas ausentes.</p>{['habilidades', 'anas', 'colecoes', 'forja', 'minions', 'progressos'].map(key => <Card title={key} key={key}><DataTree value={state.progress[key]}/></Card>)}</>;
 }

@@ -7,13 +7,15 @@ export interface NativeResult {ok:boolean;error?:string;uncertain?:boolean;messa
 export async function readNativeHud(fields:string[]) {
  const hud=(window as unknown as {__hudRef?:{estado:Record<string,unknown>}}).__hudRef;
  if(!hud?.estado||!hud.estado.inventario)return null;
- return Object.fromEntries(fields.filter(key=>key in hud.estado).map(key=>[key,hud.estado[key]]));
+ const result=Object.fromEntries(fields.filter(key=>key in hud.estado).map(key=>[key,hud.estado[key]]));
+ if(fields.includes('skyblock'))try{const url=location.origin+'/js/nivelsb.js';if(performance.getEntriesByType('resource').some(r=>r.name===url)){const mod=await import(/* @vite-ignore */ url),catalog=await import(/* @vite-ignore */ location.origin+'/js/catalogo.js');const x=mod.xpSkyBlock(hud.estado);result.skyblock={...x,collectionIds:Object.keys(catalog.COLECOES),caps:Object.fromEntries(Object.keys(catalog.HABILIDADES).map(id=>[id,catalog.maxHabilidade(id,hud.estado)]))};}}catch{/* Missing modules leave the SkyBlock panel explicitly unavailable. */}
+ return result;
 }
 
 /** One bounded GET for explicit reconciliation. ABA is the live module's tab marker, not authentication. */
 export async function refreshNativeState(fields:string[]) {
  const host=window as unknown as {__hudRef?:{estado:Record<string,unknown>;aplicar?:(s:Record<string,unknown>)=>void};__companionPending?:number};
- if(location.origin!=='https://blockidle.io'||document.visibilityState!=='visible'||!host.__hudRef)throw new Error('Mantenha o jogo carregado na aba ativa.');
+ if(location.origin!=='https://blockidle.io'||(Object.getOwnPropertyDescriptor(Document.prototype,'visibilityState')?.get?.call(document)??document.visibilityState)!=='visible'||!host.__hudRef)throw new Error('Mantenha o jogo carregado na aba ativa.');
  if(host.__companionPending)throw new Error('A requisição anterior ainda está pendente. Aguarde antes de revisar.');
  const url=location.origin+'/js/rede.js';if(!performance.getEntriesByType('resource').some(r=>r.name===url))throw new Error('Módulo da aba não identificado.');
  const network=await import(/* @vite-ignore */ url);
@@ -39,7 +41,7 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
  };
  const fail=(error:string,uncertain=sent)=>({ok:false,error,uncertain,changed,...(latest?{raw:projection(latest,build)}:{})});
  try{
-  if(location.origin!=='https://blockidle.io'||document.visibilityState!=='visible')return fail('Mantenha a aba do jogo ativa.',false);
+  if(location.origin!=='https://blockidle.io'||(Object.getOwnPropertyDescriptor(Document.prototype,'visibilityState')?.get?.call(document)??document.visibilityState)!=='visible')return fail('Mantenha a aba do jogo ativa.',false);
   const hud=host.__hudRef;
   if(!hud?.estado?.inventario)return fail('O cliente oficial ainda não está pronto. Recarregue a aba.',false);
   if(host.__companionPending)return fail('Há uma requisição anterior ainda pendente. Aguarde a confirmação.',false);
@@ -58,7 +60,7 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    return r.estado as State;
   };
   let before=await refresh();
-  const guard=()=>{if(document.visibilityState!=='visible'||Date.now()>=deadline)throw new Error('A aba mudou ou a ação expirou.');};
+  const guard=()=>{if((Object.getOwnPropertyDescriptor(Document.prototype,'visibilityState')?.get?.call(document)??document.visibilityState)!=='visible'||Date.now()>=deadline)throw new Error('A aba mudou ou a ação expirou.');};
   const protectedItem=(id:string)=>input.protectedIds.includes(id);
   const invoke=async(promise:Promise<any>)=>{sent=true;host.__companionPending=(host.__companionPending??0)+1;const settled=()=>{host.__companionPending=Math.max(0,(host.__companionPending??1)-1);};void promise.then(settled,settled);const r=await timed(promise);if(!r||typeof r!=='object')throw new Error('Resposta da operação inválida.');if(r.versao&&r.versao!==input.build){build=r.versao;latest=r.estado??latest;throw new Error('O build mudou durante a ação. Revise o jogo.');}if(r.erro){if(r.estado){latest=r.estado;hud.aplicar?.(r.estado);}throw new Error(String(r.erro).slice(0,240));}return r;};
   const filters=(s:State):string[]=>{if(!Array.isArray(s.autoCompactar)||s.autoCompactar.some((id:unknown)=>typeof id!=='string'))throw new Error('Formato dos filtros do compactador não reconhecido.');return s.autoCompactar;};

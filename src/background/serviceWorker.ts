@@ -1,3 +1,5 @@
+import {gameTab,initializeGameFeatures} from './gameFeatures';
+initializeGameFeatures();
 import{initializeForgeNotifications,syncForgeNotifications,restoreForgeNotifications}from'./forgeNotifications';
 import {objectivePlan,goalCommandBlock,goalSnapshot} from '../core/objectives';
 import type {NativeCommand} from '../core/types';
@@ -23,7 +25,7 @@ const game=(url?:string)=>{try{return new URL(url??'').origin==='https://blockid
 chrome.sidePanel.setPanelBehavior({openPanelOnActionClick:true}).catch(()=>{});
 chrome.tabs.onRemoved.addListener(id=>{cache.delete(id);busy.delete(id);uncertain.delete(id);void clearPending(id);});
 chrome.tabs.onUpdated.addListener((id,change)=>{if(change.url||change.status==='loading'){cache.delete(id);uncertain.delete(id);}});
-async function active(){const [tab]=await chrome.tabs.query({active:true,lastFocusedWindow:true});if(!tab?.id||!game(tab.url))throw new Error('Abra a aba do Blockidle nesta janela para conectar.');return tab.id;}
+async function active(readOnly=false){return gameTab(readOnly);}
 async function read(tabId:number){let entry=cache.get(tabId);if(!entry){const result=await chrome.tabs.sendMessage(tabId,{type:'COMPANION_CACHED_STATE'});if(!result?.ok)throw new Error(result?.error??'Aguardando estado. Recarregue a aba do jogo.');entry={state:projectState(result.state),at:result.at,scope:String(result.scope??'')};}
  try{const [result]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:readNativeHud,args:[allowed]});if(result?.result){const raw=projectState(result.result);if(raw.versao===undefined&&entry.state.versao!==undefined)raw.versao=entry.state.versao;entry={...entry,state:raw,at:Date.now(),observation:'hud'};}}
  catch{/* Existing response cache remains usable for reading if HUD is unavailable. */}
@@ -35,7 +37,7 @@ chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
  if(msg?.type==='COMPANION_OBSERVED'&&sender.tab?.id!==undefined&&game(sender.url)){try{remember(sender.tab.id,{state:projectState(msg.state),at:msg.at,scope:String(msg.scope??''),observation:'response'});reply({ok:true});}catch{reply({ok:false});}return;}
  if(!sender.url?.startsWith(chrome.runtime.getURL(''))||!['COMPANION_READ_ACTIVE','COMPANION_MANUAL','COMPANION_RECONCILE'].includes(msg?.type))return;
  void(async()=>{let tabId:number|undefined,locked=false;try{
-  tabId=await active();const entry=await read(tabId);
+  tabId=await active(msg.type==='COMPANION_READ_ACTIVE');const entry=await read(tabId);
   if(msg.type==='COMPANION_READ_ACTIVE'){reply({ok:true,...entry,tabId});return;}
   if(msg.tabId!==tabId||msg.scope!==entry.scope)throw new Error('A aba ou a sessão mudou. Reconecte antes de agir.');
   if(msg.type==='COMPANION_RECONCILE'){if(busy.has(tabId))throw new Error('Aguarde a operação terminar.');const [fresh]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:refreshNativeState,args:[allowed]});if(!fresh?.result)throw new Error('Não foi possível confirmar o estado no servidor.');const next={state:projectState(fresh.result),at:Date.now(),scope:entry.scope,observation:'hud' as const};remember(tabId,next);uncertain.delete(tabId);await clearPending(tabId);reply({ok:true,...next,tabId});return;}

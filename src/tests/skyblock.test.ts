@@ -1,0 +1,15 @@
+import {describe,it,expect} from 'vitest';import {normalize} from '../core/normalizer';import {skyblockSnapshot,skyblockRoutes,summarizeSkyblock} from '../core/skyblock';import rules from '../catalog/skyblockRules.json';import {defaults,parseBackup} from '../db/preferences';
+const state=()=>normalize({inventario:{},skyblock:{total:3150,partes:[['Fontes do jogo',3150]]},colecoes:{diamond:1000},habilidades:{mineracao:175},slayer:{xp:{revenant:0}}});
+describe('Metas de nível SkyBlock',()=>{
+ it('nível 32 exige 3200 XP, sem usar XP geral ou de encantamento',()=>expect(summarizeSkyblock(skyblockSnapshot(state())!.total,32,[],[]).needed).toBe(50));
+ it('não inventa nível quando a leitura do cliente não veio',()=>expect(skyblockSnapshot(normalize({inventario:{},nivel:99,xp:3200}))).toBeUndefined());
+ it('recusa total inconsistente com as partes',()=>{const s=state();(s.progress.skyblock as any).total=999;expect(skyblockSnapshot(s)).toBeUndefined();});
+ it('meta atingida não dá faltante negativo',()=>expect(summarizeSkyblock(3300,32,[],[]).needed).toBe(0));
+ it('tier maior substitui o menor em vez de duplicar XP da coleção',()=>{const all=skyblockRoutes(state()),ids=['collection:diamond:4','collection:diamond:5'];const p=summarizeSkyblock(3150,32,all,ids);expect(p.gain).toBe(8);expect(p.routes).toHaveLength(1);expect(p.routes[0].required).toBe(4000);});
+ it('não conta repetidamente a mesma rota nem aceita IDs antigos',()=>{const all=skyblockRoutes(state());expect(summarizeSkyblock(3150,32,all,['collection:diamond:4','collection:diamond:4','inválido']).gain).toBe(4);});
+ it('coleta não é apresentada como custo total zero em ouro',()=>{const all=skyblockRoutes(state());const p=summarizeSkyblock(3150,32,all,['collection:diamond:4']);expect(p.variableCost).toBe(true);expect(p.routes[0].gold).toBeUndefined();});
+ it('custo de Slayer usa número inteiro de missões e a taxa publicada do Tier I',()=>{const r=skyblockRoutes(state()).find(r=>r.id==='slayer:revenant:0')!;const boss=rules.SLAYERS.revenant.tiers[0];expect(r.required).toBe(Math.ceil(rules.SLAYER_NIVEIS.revenant[0]/boss.xpSlayer));expect(r.gold).toBe(r.required*boss.custo);expect(r.xp).toBe(15);});
+ it('níveis de habilidade descontam o XP já ganho',()=>{const r=skyblockRoutes(state()).find(r=>r.id==='skill:mineracao:2')!;expect(r.required).toBe(200);expect(r.xp).toBe(5);});
+ it('backup anterior recebe opções inativas e preserva configurações',()=>{const old:any=structuredClone(defaults);delete old.gameOptions;old.theme='light';const migrated=parseBackup(JSON.stringify({format:'blockidle-companion-preferences',version:1,preferences:old}));expect(migrated.gameOptions).toEqual({neutral:false,keepActive:false,preventDiscard:false});expect(migrated.theme).toBe('light');});
+ it('backup preserva as opções de aparência e atividade',()=>{const prefs=structuredClone(defaults);prefs.gameOptions={neutral:true,keepActive:true,preventDiscard:true};expect(parseBackup(JSON.stringify({format:'blockidle-companion-preferences',version:1,preferences:prefs})).gameOptions).toEqual(prefs.gameOptions);});
+});

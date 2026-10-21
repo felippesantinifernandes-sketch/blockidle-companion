@@ -1,4 +1,4 @@
-# Blockidle Companion 0.4.0
+# Blockidle Companion 0.5.0
 
 Extensão independente para Chrome/Edge (Manifest V3), com painel em português para terminal, bancada de crafts, coleções, forja, acessórios e compactador. Não é um produto oficial do Blockidle.
 

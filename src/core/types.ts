@@ -59,6 +59,7 @@ export interface DropPolicy {
     enabled: boolean;
 }
 export interface Preferences {
+    gameOptions: {neutral:boolean;keepActive:boolean;preventDiscard:boolean};
     objectives: CraftObjective[];
     preserveGoalMaterials: boolean;
     forgeNotifications: boolean;

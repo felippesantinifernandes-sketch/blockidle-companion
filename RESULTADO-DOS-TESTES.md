@@ -1,28 +1,32 @@
-# Resultado da validação — 0.4.0
+# Resultado da validação — 0.5.0
 
-Conferência local em 19/10/2026: **191 verificações aprovadas**.
+Conferência local em 20/10/2026: **228 verificações aprovadas**. TypeScript e compilação de produção aprovados.
 
-- TypeScript e compilação de produção Manifest V3: aprovados.
-- Suíte unitária: **116 testes**. Inclui importação offline de diagnóstico local, sem copiar seu conteúdo para o projeto. No ambiente público, esse teste opcional é omitido se BLOCKIDLE_DIAGNOSTIC não estiver definido.
-- Interface/transporte: **13 verificações**, navegação, busca, proteção, reservas, persistência, IndexedDB, sanitização, isolamento de aba e largura de 360 px.
-- Ações nativas anteriores: **22 verificações**, filtros, modelos, terminal, movimentações, compactação/lapidação, deduplicação, bloqueio persistente de resultado incerto e recusa de build divergente.
-- Bancada/forja/acessórios: **10 verificações**, grade e fontes, retirada só do faltante, fila, interrupção em parcial, estoque alterado, coleção, origens aceitas, prazo da forja e largura de 390 px.
-- Atualizador: **8 verificações**, consulta pública simulada, hash, manifesto, correspondência da pasta, persistência da autorização, gravação, preferências preservadas e pacote adulterado recusado.
-- Objetivos/evolução: **14 verificações**, migração 0.3, etapas, quantidade exata de compactação, invalidação de revisão, fila alterada entre HUD e preflight, retirada parcial, comando forjado, drops, filtros conflitantes/sugeridos, ganho líquido de MP, criação de objetivo, aviso de versão e ausência de erros JavaScript.
-- Avisos da forja: **8 verificações**, usando APIs reais de alarmes e notificações do Chromium. Confere agendamento, retorno bem-sucedido da API, ledger de entrega, deduplicação, cancelamento, desativação e retomada depois de reiniciar o navegador.
+- Testes unitários: **138**. Inclui um teste opcional de importação offline do diagnóstico enviado pelo usuário. Seu conteúdo não é copiado para o projeto. No GitHub esse teste é omitido quando a variável local não existe: 137 aprovados e 1 omitido.
+- Interface e transporte: **13**.
+- Ações nativas: **22**.
+- Bancada e forja: **10**.
+- Atualizador: **8**.
+- Objetivos: **14**.
+- Avisos da forja: **8**.
+- Filtros, SkyBlock e tela Jogo: **15**.
 
-## Dados e proteção
+## Cobertura nova
 
-As definições públicas de catálogo, sistemas SkyBlock, armaduras, forja e acessórios foram conferidas em 19/10/2026 e permaneceram iguais à coleta anterior. O planejamento combina 462 receitas de craft e 102 transformações, respeitando rendimentos, alternativas, requisitos, equipamento consumido, prioridades e produções pendentes. O estoque de uma meta não é atribuído novamente a outra. Coleções são desbloqueios e não materiais.
+Filtros: família ausente, tier intermediário e família completa; posse no terminal; próximo/maior tier; combinação de atributos; distinção entre vida e cura, defesa e redução de dano, engastes e atributos diretos; busca, raridade e largura de 390 px.
 
-O comando externo de objetivo só contém a identificação da etapa e sua revisão. O worker reconstrói a operação e o MAIN confere novamente quantidades globais relevantes e fila com o estado recebido do servidor. A compactação do objetivo pede quantidade exata. A lapidação nativa processa tudo e fica bloqueada se consumiria excedentes. Proteções manuais continuam valendo. Filtros que já estão ativos no jogo exigem revisão explícita para serem desativados.
+SkyBlock: leitura do cálculo do cliente, meta 32, ausência explícita da leitura, total coerente, tiers cumulativos sem duplicação, XP de habilidade restante, custos inteiros de missões Tier I e migração/restauração de preferências. A lista de rotas é parcial; custos variáveis não são inventados.
 
-## Limites da validação
+Tela Jogo: leitura da aba vinculada em página própria; respostas simuladas de ranking e erro; título/ícone neutros e restauração; prevenção de descarte e restauração da configuração anterior; abertura reutiliza aba existente. O bloqueio de ação sob presença experimental foi testado com o getter de visibilidade do navegador **simulado como oculto**; não representa medição de execução contínua em segundo plano no Windows.
 
-**Não houve movimentação da conta real nem homologação autenticada do servidor do jogo.** Os testes de ações usam cliente/endpoints simulados, perfis descartáveis e dados fictícios. O servidor real continua responsável por acesso, espaço, desbloqueios e regras finais. Não houve requisição POST ao jogo real.
+## Limites e dados
 
-Os avisos usam o último prazo observado. A janela humana de autorização não foi automatizada: no teste de alarmes, as duas APIs opcionais foram pré-autorizadas em um manifesto de teste, com os mesmos arquivos compilados. O retorno da API de notificações foi conferido; a exibição visual do balão pelo Windows não foi observada. Sistema, navegador fechado e suspensão podem atrasar avisos. Mudanças em outra aba/aparelho só são conhecidas na próxima leitura.
+Não houve transação na conta real nem homologação autenticada de um novo build do jogo. As suítes usam clientes/endpoints simulados e perfis de teste. A guarda de build e as verificações de estoque/sessão continuam ativas. A presença experimental não simula cliques, movimento ou coleta; seu comportamento em uma conta real e a continuidade sob suspensão do navegador/sistema não foram comprovados.
 
-O teste do atualizador grava em OPFS isolado, com seletor substituído. A API nativa de seleção foi detectada, mas a janela humana de autorização de pasta não foi automatizada. A instalação pessoal não foi alterada.
+O ranking usa o módulo oficial já carregado na aba; os testes usam nomes fictícios. Resultados não são persistidos em snapshots nem diagnósticos.
 
-Chrome/Chromium foi testado; Edge não foi homologado separadamente. Regiões com dados incompletos permanecem sinalizadas. Drops não publicados não são garantidos. Equipamentos que precisem ser preparados/equipados e processos sem receita de execução publicada continuam como requisitos ou obtenção manual. O tempo de trabalho da forja é uma soma sequencial, não um agendamento ótimo com vagas compartilhadas. Recomendações de acessórios não presumem preços de mercado; o MP do servidor prevalece.
+As APIs de alarmes/notificações do Chromium foram exercitadas, inclusive reinício. A exibição visual da notificação pelo Windows, a autorização humana de pasta/permissões e o Microsoft Edge separado não foram observados.
+
+A consulta pública confirmou que o jogo bloqueia incorporação em outras páginas. Por isso a tela Jogo abre uma janela separada. A aparência/atividade começa desativada e não exige novas permissões.
+
+O catálogo de 462 crafts, 102 transformações e 61 acessórios mantém a base anterior. A auditoria de 19/10 identificou alterações do jogo ainda não incorporadas nesse catálogo (Ruínas, novos itens e receitas de Slayer). Esta versão acrescenta os painéis solicitados, sem declarar essa atualização de catálogo nem liberar builds novos.

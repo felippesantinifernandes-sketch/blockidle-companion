@@ -1,4 +1,4 @@
-# Instalar e atualizar — Blockidle Companion 0.4.0
+# Instalar e atualizar — Blockidle Companion 0.5.0
 
 1. Extraia o ZIP da extensão para uma pasta permanente.
 2. Abra chrome://extensions ou edge://extensions → Modo do desenvolvedor → Carregar sem compactação.
