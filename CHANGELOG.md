@@ -1,5 +1,13 @@
 # Histórico de versões
 
+## Não lançado
+
+- Automações: nova grade **Conjuntos de filtros** em 3 colunas (Compactador, Apagador e Auto-venda), com 9 quadrados cada. Cada quadrado guarda um conjunto completo; o que está ativo no jogo fica com borda verde.
+- Criar conjunto a partir da lista atual do jogo, do modelo da região (compactador) ou escolhendo itens da mochila, dos drops de uma região ou do catálogo. Editar, duplicar e esvaziar quadrados.
+- Novas ações confirmadas: salvar a lista do Apagador Pessoal e a lista da auto-venda nativa do jogo (7 vagas). Itens protegidos, favoritos, reservados ou de objetivos não entram. As regras de aceitação espelham o cliente do jogo (31/10/2026).
+- Aviso quando a opção do jogo “Vender também qualquer outro item que não couber” está ligada, pois ela vende itens fora da lista.
+- O estado lido agora inclui `apagar`, `autoVender`, `autoVenderJa` e `autoVenderTudo`, e as vagas do apagador vêm do catálogo conectado.
+
 ## 0.6.0 · 21/10/2026
 
 - Nova guia Venda: checkbox por item, preço de NPC, reserva na mochila, busca e filtro por região; limpar busca ou desmarcar todas as vendas.

@@ -8,7 +8,7 @@ export async function readNativeHud(fields:string[]) {
  const hud=(window as unknown as {__hudRef?:{estado:Record<string,unknown>}}).__hudRef;
  if(!hud?.estado||!hud.estado.inventario)return null;
  const result=Object.fromEntries(fields.filter(key=>key in hud.estado).map(key=>[key,hud.estado[key]]));
- if(fields.includes('companionCapabilities'))try{const url=location.origin+'/js/catalogo.js';if(performance.getEntriesByType('resource').some(r=>r.name===url)){const c=await import(/* @vite-ignore */ url);result.companionCapabilities={compactorSlots:c.COMPACTADOR_VAGAS,salePrices:Object.fromEntries(Object.entries(c.ITENS??{}).filter(([,m]:[string,any])=>typeof m.preco==='number'&&Number.isFinite(m.preco)&&m.preco>0).map(([id,m]:[string,any])=>[id,m.preco]))};}}catch{}
+ if(fields.includes('companionCapabilities'))try{const url=location.origin+'/js/catalogo.js';if(performance.getEntriesByType('resource').some(r=>r.name===url)){const c=await import(/* @vite-ignore */ url);result.companionCapabilities={compactorSlots:c.COMPACTADOR_VAGAS,eraserSlots:c.APAGADOR_VAGAS,salePrices:Object.fromEntries(Object.entries(c.ITENS??{}).filter(([,m]:[string,any])=>typeof m.preco==='number'&&Number.isFinite(m.preco)&&m.preco>0).map(([id,m]:[string,any])=>[id,m.preco]))};}}catch{}
  if(fields.includes('skyblock'))try{const url=location.origin+'/js/nivelsb.js';if(performance.getEntriesByType('resource').some(r=>r.name===url)){const mod=await import(/* @vite-ignore */ url),catalog=await import(/* @vite-ignore */ location.origin+'/js/catalogo.js');const x=mod.xpSkyBlock(hud.estado);result.skyblock={...x,collectionIds:Object.keys(catalog.COLECOES),caps:Object.fromEntries(Object.keys(catalog.HABILIDADES).map(id=>[id,catalog.maxHabilidade(id,hud.estado)]))};}}catch{/* Missing modules leave the SkyBlock panel explicitly unavailable. */}
  return result;
 }
@@ -79,6 +79,31 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,300));guard();const r=await invoke(network.autoCompactar(step.id,step.on));const confirmed=Array.isArray(r.autoCompactar)?r.autoCompactar:r.estado?.autoCompactar;if(!Array.isArray(confirmed)||confirmed.includes(step.id)!==step.on)throw new Error('O servidor não confirmou o filtro solicitado.');changed++;before=await refresh();if(filters(before).includes(step.id)!==step.on)throw new Error('O filtro não coincide com o novo estado.');}
    const final=filters(before);if([...target].sort().join('|')!==[...final].sort().join('|'))throw new Error('Os filtros finais divergem do modelo confirmado.');
    return {ok:true,message:steps.length?'Filtros confirmados no jogo.':'Os filtros já estavam configurados.',changed,raw:projection(before,build)};
+  }
+  if(input.command.kind==='eraser'||input.command.kind==='autosell'){
+   const command=input.command,eraser=command.kind==='eraser',field=eraser?'apagar':'autoVender',label=eraser?'apagador':'auto-venda';
+   if(typeof network.armazem!=='function'||!catalog.ITENS)throw new Error('Contrato atual da '+label+' não reconhecido.');
+   const list=(s:State):string[]=>{const v=s[field]??[];if(!Array.isArray(v)||v.some((id:unknown)=>typeof id!=='string'))throw new Error('Formato da lista do '+label+' não reconhecido.');return v;};
+   const requested=command.itemIds,active=list(before);
+   if(new Set(requested).size!==requested.length)throw new Error('Lista com itens duplicados.');
+   const limit=eraser?catalog.APAGADOR_VAGAS?.[before.apagador]:7;
+   if(eraser&&(!catalog.APAGADOR_VAGAS||!Number.isInteger(limit)||limit<=0))throw new Error('Apagador Pessoal não encontrado no estado atual.');
+   if(requested.length>limit)throw new Error('O conjunto ultrapassa as '+limit+' vagas do '+label+'. A lista atual foi preservada.');
+   for(const id of requested){const m=catalog.ITENS[id];if(!m)throw new Error('O cliente atual não reconhece o item '+id+'.');if(protectedItem(id))throw new Error('Item protegido, favorito ou reservado: '+(m.nome??id)+'.');
+    if(eraser&&(m.pet||m.encantado||['booster_cookie','vale_gemas'].includes(id)||Object.hasOwn(catalog.APAGADOR_VAGAS,id)||Object.hasOwn(catalog.COMPACTADOR_VAGAS??{},id)||['epico','lendario','mitico'].includes(catalog.raridadeDe?.(id))))throw new Error('O apagador não aceita '+(m.nome??id)+'.');
+    if(!eraser&&!(m.preco>0))throw new Error('Sem preço de NPC: '+(m.nome??id)+'.');}
+   const confirmedList=(r:any)=>Array.isArray(r?.estado?.[field])?r.estado[field]:Array.isArray(r?.[field])?r[field]:undefined;
+   if(eraser){
+    if(active.length===requested.length&&active.every((id,i)=>id===requested[i]))return {ok:true,message:'A lista do apagador já estava salva.',changed,raw:projection(before,build)};
+    guard();const r=await invoke(network.armazem({acao:'apagar_salvar',lista:requested}));const confirmed=confirmedList(r);
+    if(!confirmed||[...confirmed].sort().join('|')!==[...requested].sort().join('|'))throw new Error('O servidor não confirmou a lista do apagador.');changed++;
+   }else{
+    const steps=[...active.filter(id=>!requested.includes(id)).map(id=>({id,on:false})),...requested.filter(id=>!active.includes(id)).map(id=>({id,on:true}))];
+    for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,300));guard();const r=await invoke(network.armazem({acao:'autovender',id:step.id,liga:step.on}));const confirmed=confirmedList(r);if(confirmed&&confirmed.includes(step.id)!==step.on)throw new Error('O servidor não confirmou a auto-venda solicitada.');changed++;}
+   }
+   before=await refresh();const final=list(before);
+   if([...final].sort().join('|')!==[...requested].sort().join('|'))throw new Error('A lista final do '+label+' diverge do conjunto confirmado.');
+   return {ok:true,message:eraser?'Apagador salvo no jogo.':'Auto-venda confirmada no jogo.',changed,raw:projection(before,build)};
   }
   const quantity=(value:unknown)=>{if(value===undefined)return 0;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw new Error('Formato de quantidade não reconhecido no estado atual.');return value;};
   const inventory=(s:State,id:string)=>quantity(s.inventario?.[id]);
