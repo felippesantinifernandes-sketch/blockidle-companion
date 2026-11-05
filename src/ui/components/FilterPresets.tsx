@@ -32,6 +32,7 @@ export function FilterPresets(){
   <div className="preset-columns">{listKinds.map(kind=>{const active=activeList(state,kind),limit=listCapacity(state,kind);return <section className="preset-column" key={kind} aria-label={'Conjuntos: '+listLabels[kind].name}>
    <header><strong>{listLabels[kind].name}</strong><span className="badge">{active?active.length:'?'} / {limit??'?'} no jogo</span></header>
    <div className="preset-active" aria-label={'Ativos no jogo: '+listLabels[kind].name}>{active?.length?active.map(id=><span key={id} title={itemName(id)}><ItemIcon id={kind==='compactor'?inputOf(id)??id:id}/></span>):<small className="muted">{active?'Lista vazia no jogo.':state?.source==='live'?'O jogo não informou esta lista.':'Conecte ao jogo para ver.'}</small>}</div>
+   {kind==='autosell'&&<AutosellOptions/>}
    <div className="preset-grid">{presets[kind].map((p,index)=>{const icon=p&&presetIcon(kind,p),isActive=!!p&&!!active&&sameSet(p.itemIds,active),isSelected=(selected?.kind===kind&&selected.index===index)||(draft?.kind===kind&&draft.index===index);
     return <button key={index} className={'preset-square'+(p?'':' preset-empty')+(isActive?' active':'')+(isSelected?' selected':'')} aria-pressed={isSelected} aria-label={p?p.name+' · '+p.itemIds.length+' itens'+(isActive?' · ativo no jogo':''):'Novo conjunto de '+listLabels[kind].name+' no quadrado '+(index+1)} title={p?p.name+'\n'+p.itemIds.map(itemName).join(', '):'Criar conjunto'} onClick={()=>open({kind,index})}>
      {p?<>{icon?<ItemIcon id={icon}/>:<span className="item-icon">∅</span>}<span className="preset-name">{p.name}</span><span className="preset-count">{p.itemIds.length}</span></>:<Plus size={16}/>}
@@ -86,4 +87,12 @@ function PresetEditor({draft,onChange,onCancel,onSave}:{draft:Draft;onChange:(d:
   {full&&<small className="muted">Limite de {limit} itens atingido. Tire um item para escolher outro.</small>}
   <div className="button-row"><button onClick={onCancel}>Cancelar</button><button className="primary" onClick={onSave}><Save size={14}/>Salvar no quadrado</button></div>
  </div>;
+}
+
+function AutosellOptions(){
+ const state=useStore(s=>s.state),{busy,perform,lockedScope}=useActions();
+ const live=state?.source==='live'&&supportsCommandBuild(state.build,'autosellOption',state),locked=!!lockedScope&&lockedScope===state?.scope;
+ const sold=(state?.character.autoVendido as {ouro?:unknown}|undefined)?.ouro;
+ const row=(option:'autoja'|'autotudo',field:'autoVenderJa'|'autoVenderTudo',label:string)=>{const value=state?.character[field];return <label className="checkbox-label"><input type="checkbox" checked={value===true} disabled={!live||busy||locked||typeof value!=='boolean'} onChange={e=>void perform({kind:'autosellOption',option,enabled:e.target.checked})}/>{label}</label>;};
+ return <div className="autosell-options">{row('autoja','autoVenderJa','Vender os marcados assim que chegam')}{row('autotudo','autoVenderTudo','Vender também qualquer outro item que não couber')}{typeof sold==='number'&&<small className="muted">Total vendido pela auto-venda: {Math.floor(sold).toLocaleString('pt-BR')} de ouro</small>}</div>;
 }

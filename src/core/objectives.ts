@@ -104,6 +104,7 @@ export function objectivePlan(state:GameState,prefs:Preferences,catalog=planning
 export function goalCommandBlock(command:ManualCommand,state:GameState,prefs:Preferences,plan=objectivePlan(state,prefs)){
  if(!prefs.preserveGoalMaterials||command.kind==='goalStep'||command.kind==='compactor'&&!command.enabled)return;
  if(command.kind==='compactor'||command.kind==='profile'){const ids=command.kind==='profile'?command.itemIds:[command.itemId];if(ids.some(id=>Object.keys(recipes.find(r=>r.id===id)?.ingredients??{}).some(input=>plan.retained[input]>0)))return'Este filtro consumiria materiais necessários diretamente nos objetivos. Mantenha-o desativado ou pause o objetivo.';return;}
+ if(command.kind==='autosellOption')return;
  if(command.kind==='eraser'||command.kind==='autosell')return command.itemIds.some(id=>(plan.claims[id]??0)>0)?'Material vinculado a um objetivo. Retire-o do '+(command.kind==='eraser'?'apagador':'auto-venda')+' ou pause o objetivo.':undefined;
  const recipe=command.kind==='craft'?craftRecipes.find(r=>r.id===command.recipeId):undefined;
  const ids=command.kind==='craft'?[recipe?.outputId??'',...Object.keys(recipe?.ingredients??{}),...(recipe?.consumes?[recipe.consumes]:[]),...(recipe?.consumesEquipment&&recipe.tool?[String(state.character[recipe.tool]??'')]:[])]:(command.kind==='move'||command.kind==='sell')?[command.itemId]:[command.recipeId];

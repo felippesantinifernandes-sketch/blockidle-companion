@@ -3,7 +3,7 @@ export const observedBuild = 'ef3c8efa9f';
 export const operationsBuild = '6b899075fb';
 /** Build lido em 04/11/2026: rede.js, catalogo.js, mochilacfg.js e armazem.js conferidos contra as chamadas do adaptador. */
 export const currentBuild = '0ddf20e09b';
-const filterKinds=['compactor','profile','eraser','autosell'];
+const filterKinds=['compactor','profile','eraser','autosell','autosellOption'];
 /** Ações revisadas por build. Crafts, movimentações e transformações seguem restritos ao build original. */
 export const verifiedBuilds:Record<string,'all'|string[]>={[observedBuild]:'all',[operationsBuild]:[...filterKinds,'sell'],[currentBuild]:[...filterKinds,'sell']};
 /** Funções de rede.js e constantes de catalogo.js que o adaptador usa. */

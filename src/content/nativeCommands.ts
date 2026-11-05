@@ -76,9 +76,19 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    if(!Number.isInteger(limit)||limit<=0)throw new Error('Compactador Pessoal não encontrado no estado atual.');
    if(target.length>limit)throw new Error('O modelo ultrapassa os '+limit+' filtros do compactador. Os filtros atuais foram preservados.');
    const steps=command.kind==='profile'?[...(command.replace?active.filter(id=>!requested.includes(id)).map(id=>({id,on:false})):[]),...requested.filter(id=>!active.includes(id)).map(id=>({id,on:true}))]:active.includes(command.itemId)===command.enabled?[]:[{id:command.itemId,on:command.enabled}];
-   for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,300));guard();const r=await invoke(network.autoCompactar(step.id,step.on));const confirmed=Array.isArray(r.autoCompactar)?r.autoCompactar:r.estado?.autoCompactar;if(!Array.isArray(confirmed)||confirmed.includes(step.id)!==step.on)throw new Error('O servidor não confirmou o filtro solicitado.');changed++;before=await refresh();if(filters(before).includes(step.id)!==step.on)throw new Error('O filtro não coincide com o novo estado.');}
+   for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,1000));guard();const r=await invoke(network.autoCompactar(step.id,step.on));const confirmed=Array.isArray(r.autoCompactar)?r.autoCompactar:r.estado?.autoCompactar;if(!Array.isArray(confirmed)||confirmed.includes(step.id)!==step.on)throw new Error('O servidor não confirmou o filtro solicitado.');changed++;before=await refresh();if(filters(before).includes(step.id)!==step.on)throw new Error('O filtro não coincide com o novo estado.');}
    const final=filters(before);if([...target].sort().join('|')!==[...final].sort().join('|'))throw new Error('Os filtros finais divergem do modelo confirmado.');
    return {ok:true,message:steps.length?'Filtros confirmados no jogo.':'Os filtros já estavam configurados.',changed,raw:projection(before,build)};
+  }
+  if(input.command.kind==='autosellOption'){
+   const command=input.command,field=command.option==='autoja'?'autoVenderJa':'autoVenderTudo';
+   if(typeof network.armazem!=='function')throw new Error('Contrato atual da auto-venda não reconhecido.');
+   if(typeof before[field]!=='boolean'&&before[field]!==undefined)throw new Error('Formato da opção da auto-venda não reconhecido.');
+   if(!!before[field]===command.enabled)return {ok:true,message:'A opção já estava assim.',changed,raw:projection(before,build)};
+   guard();const r=await invoke(network.armazem({acao:command.option,liga:command.enabled}));const confirmed=r?.estado?.[field]??r?.[field];
+   if(confirmed!==undefined&&!!confirmed!==command.enabled)throw new Error('O servidor não confirmou a opção da auto-venda.');changed++;
+   before=await refresh();if(!!before[field]!==command.enabled)throw new Error('A opção da auto-venda não coincide com o novo estado.');
+   return {ok:true,message:'Opção da auto-venda confirmada no jogo.',changed,raw:projection(before,build)};
   }
   if(input.command.kind==='eraser'||input.command.kind==='autosell'){
    const command=input.command,eraser=command.kind==='eraser',field=eraser?'apagar':'autoVender',label=eraser?'apagador':'auto-venda';
@@ -99,7 +109,7 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
     if(!confirmed||[...confirmed].sort().join('|')!==[...requested].sort().join('|'))throw new Error('O servidor não confirmou a lista do apagador.');changed++;
    }else{
     const steps=[...active.filter(id=>!requested.includes(id)).map(id=>({id,on:false})),...requested.filter(id=>!active.includes(id)).map(id=>({id,on:true}))];
-    for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,300));guard();const r=await invoke(network.armazem({acao:'autovender',id:step.id,liga:step.on}));const confirmed=confirmedList(r);if(confirmed&&confirmed.includes(step.id)!==step.on)throw new Error('O servidor não confirmou a auto-venda solicitada.');changed++;}
+    for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,1000));guard();const r=await invoke(network.armazem({acao:'autovender',id:step.id,liga:step.on}));const confirmed=confirmedList(r);if(confirmed&&confirmed.includes(step.id)!==step.on)throw new Error('O servidor não confirmou a auto-venda solicitada.');changed++;}
    }
    before=await refresh();const final=list(before);
    if([...final].sort().join('|')!==[...requested].sort().join('|'))throw new Error('A lista final do '+label+' diverge do conjunto confirmado.');

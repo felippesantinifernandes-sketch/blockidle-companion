@@ -73,3 +73,13 @@
 .status-sync .text-button{padding:2px 0;font-size:11px;justify-content:flex-start}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media (max-width:700px){.status-bar{position:static}}
+.area-banner{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.area-banner>div:not(.button-row){display:flex;flex-direction:column;gap:2px;flex:1;min-width:200px}
+.area-banner .button-row{margin-top:0}
+.area-rules{display:flex;flex-direction:column;gap:4px;overflow-x:auto}
+.area-rule{display:grid;grid-template-columns:minmax(130px,1.2fr) repeat(5,minmax(110px,1fr));gap:6px;align-items:center;padding:4px 6px;border-radius:7px;min-width:720px}
+.area-rule.head{font-size:10px;letter-spacing:.3px;text-transform:uppercase;color:var(--muted)}
+.area-rule.current{background:var(--raised);outline:1px solid var(--accent)}
+.area-rule span{display:flex;gap:6px;align-items:center;min-width:0}
+.area-rule select{width:100%;padding:6px 8px;font-size:11px}
+.autosell-options{display:flex;flex-direction:column;gap:6px;font-size:11px}
