@@ -8,6 +8,8 @@ import {locationLabel} from '../../core/regions';
 import {activeList,listCapacity} from '../../core/nativeLists';
 import {itemName} from '../../catalog/itemCatalog';
 import type {GameState} from '../../core/types';
+import {normalize} from '../../core/normalizer';
+import {hasChrome} from '../../db/preferences';
 
 export const SYNC_MINUTES=5;
 const num=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)?v:undefined;
@@ -36,7 +38,9 @@ export function StatusBar(){
  useEffect(()=>{const t=setInterval(()=>setNow(Date.now()),15000);return()=>clearInterval(t);},[]);
  const live=state?.source==='live';
  useEffect(()=>{if(!live)return;const t=setInterval(()=>void useActions.getState().sync(),SYNC_MINUTES*60000);return()=>clearInterval(t);},[live]);
- if(!state)return null;
+ const [offline,setOffline]=useState<{state:GameState;at:number;via:string}>();
+ useEffect(()=>{if(state||!hasChrome())return;void chrome.storage.local.get('blockidle.server-state.v1').then(r=>{const v=r['blockidle.server-state.v1'];if(v?.state)try{setOffline({state:normalize(v.state,'import'),at:v.at,via:v.via});}catch{/* retrato inválido */}});},[state]);
+ if(!state){if(!offline)return null;const o=statusSummary(offline.state,now);return <section className="status-bar" aria-label="Último retrato do jogo"><div className="status-chip status-off"><strong>{offline.state.build??'build ?'}</strong><span>Sem aba conectada</span></div><div className="status-item"><small>Área</small><strong>{o.area}</strong></div>{o.gold!==undefined&&<div className="status-item"><small>Ouro</small><strong className="status-gold">{number(Math.floor(o.gold))}</strong></div>}{o.backpack!==undefined&&<div className="status-item"><small>Mochila</small><strong>{o.backpack}{o.full?' · cheia':''}</strong></div>}{o.offline&&<div className="status-item"><small>Offline hoje</small><strong>{hours(o.offline.used)} / {hours(o.offline.cap)}</strong></div>}<div className="status-item status-sync"><small>Último retrato</small><strong>há {ago(now-offline.at)}</strong><span className="muted">{offline.via==='server'?'lido do servidor em segundo plano':'lido pela aba do jogo'}</span></div></section>;}
  const s=statusSummary(state,now),compat=contractStatus(state);
  const level=state.source!=='live'?'off':compat.level==='compatible'?'ok':compat.level==='suspect'?'warn':'bad';
  const compatLabel=state.source!=='live'?(state.source==='demo'?'Demonstração':'Importado'):compat.level==='compatible'?'Compatível':compat.level==='suspect'?'Build novo · só filtros':'Só leitura';

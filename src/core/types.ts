@@ -65,6 +65,7 @@ export interface AreaRule {compactor:number|null;eraser:number|null;autosell:num
 export interface Preferences {
     presenceDefaultApplied:boolean;
     valueGuard:number|null;
+    backgroundSync:boolean;
     notify:{enabled:boolean;backpackFull:boolean;offline:boolean;queueEmpty:boolean;dragon:boolean;auction:boolean;bazaar:boolean;build:boolean;areaRule:boolean};
     areaRules:Record<string,AreaRule>;
     areaMode:'suggest'|'auto';
