@@ -4,6 +4,10 @@ import {stateEvents,nextDragon,nextAuction,fallbackRareLots,type NotifyEvent,typ
 import {readNativeAuction,readNativeBazaar} from '../content/gamePresentation';
 import {itemName} from '../catalog/itemCatalog';
 import type {GameState} from '../core/types';
+import {learn,type LearnedDrops} from '../core/learnedDrops';
+export const DROPS_KEY='blockidle.drops.v1';
+let drops:LearnedDrops|undefined,dropsTimer:ReturnType<typeof setTimeout>|undefined;
+async function learnFrom(prev:GameState|undefined,next:GameState){drops??=((await chrome.storage.local.get(DROPS_KEY))[DROPS_KEY] as LearnedDrops|undefined)??{};if(!learn(prev,next,drops))return;clearTimeout(dropsTimer);dropsTimer=setTimeout(()=>void chrome.storage.local.set({[DROPS_KEY]:drops}),5000);}
 
 const prefix='blockidle.notify.',DRAGON=prefix+'dragon',AUCTION=prefix+'auction',BAZAAR=prefix+'bazaar',seen=prefix+'seen';
 const last=new Map<number,GameState>();
@@ -15,6 +19,7 @@ export function observeState(tabId:number,raw:Record<string,unknown>){
  let next:GameState;try{next=normalize(raw,'live');}catch{return;}
  const prev=last.get(tabId);last.set(tabId,next);
  for(const e of stateEvents(prev,next))void notify(e);
+ void learnFrom(prev,next).catch(()=>{});
 }
 const gameTabId=async()=>{try{const saved=(await chrome.storage.session.get('companionGameTab')).companionGameTab;if(Number.isInteger(saved)){const t=await chrome.tabs.get(saved).catch(()=>undefined);if(t?.url?.startsWith('https://blockidle.io/play'))return t.id;}const tabs=await chrome.tabs.query({url:'https://blockidle.io/play*'});return tabs.length===1?tabs[0].id:undefined;}catch{return undefined;}};
 async function schedule(){

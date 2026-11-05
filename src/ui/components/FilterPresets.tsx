@@ -1,3 +1,4 @@
+import {useBazaar} from '../bazaar';
 import {useMemo,useState} from 'react';
 import {Plus,Save,ShieldCheck,Trash2,Pencil,Copy} from 'lucide-react';
 import {useStore} from '../store';
@@ -44,8 +45,9 @@ export function FilterPresets(){
    const live=state?.source==='live'&&supportsCommandBuild(state.build,command.kind,state)&&!!active&&!!limit;
    const blocked=state?commandProtection(command,state,prefs)??goalCommandBlock(command,state,prefs):undefined;
    const invalid=p.itemIds.filter(id=>!eligible(kind,id,state));
+   const prices=useBazaar.getState().prices,pricey=kind!=='compactor'&&prefs.valueGuard!==null&&prices?p.itemIds.filter(id=>Math.max(prices[id]?.sell??0,prices[id]?.buy??0)>prefs.valueGuard!):[];
    const over=!!limit&&p.itemIds.length>limit;
-   const reason=!state||state.source!=='live'?'Conecte ao jogo para aplicar.':!supportsCommandBuild(state.build,command.kind,state)?'Build atual do jogo não validado para esta ação.':!active?'O jogo não informou esta lista. Recarregue a aba.':!limit?(kind==='eraser'?'Guarde um Apagador Pessoal na janela da mochila.':'Guarde um Compactador Pessoal na janela da mochila.'):over?'O conjunto tem '+p.itemIds.length+' itens, mas há '+limit+' vagas.':invalid.length?'Não aceitos nesta lista: '+invalid.map(itemName).join(', ')+'.':blocked;
+   const reason=!state||state.source!=='live'?'Conecte ao jogo para aplicar.':!supportsCommandBuild(state.build,command.kind,state)?'Build atual do jogo não validado para esta ação.':!active?'O jogo não informou esta lista. Recarregue a aba.':!limit?(kind==='eraser'?'Guarde um Apagador Pessoal na janela da mochila.':'Guarde um Compactador Pessoal na janela da mochila.'):over?'O conjunto tem '+p.itemIds.length+' itens, mas há '+limit+' vagas.':invalid.length?'Não aceitos nesta lista: '+invalid.map(itemName).join(', ')+'.':pricey.length?'Acima do seu limite de valor no Bazar: '+pricey.map(itemName).join(', ')+'.':blocked;
    const same=!!active&&sameSet(p.itemIds,active);
    return <div className="preset-detail">
     <div className="preset-detail-head"><div><h3>{p.name}</h3><small className="muted">{listLabels[kind].name} · quadrado {index+1} · {p.itemIds.length} itens{same?' · ativo no jogo':''}</small></div>
