@@ -18,7 +18,7 @@ const fingerprint=(area:string|undefined,steps:AreaStep[])=>area+'|'+JSON.string
 async function runSteps(steps:AreaStep[]){
  const run=useRun.getState();if(run.running)return;run.set({running:true,note:undefined});
  try{for(const [i,step] of steps.entries()){if(i)await new Promise(r=>setTimeout(r,STEP_GAP_MS));const result=await useActions.getState().perform(step.command);if(!result.ok){useRun.getState().set({note:'Parou em “'+step.label+'”: '+(result.error??'sem confirmação')});return;}}
-  useRun.getState().set({note:'Regra da área aplicada.'});}
+  useRun.getState().set({note:'Regra da área aplicada.'});try{if(typeof chrome!=='undefined'&&chrome.runtime?.id)void chrome.runtime.sendMessage({type:'COMPANION_NOTIFY_AREA',message:steps.map(s=>s.label).join(' · ')});}catch{/* sem extensão */}}
  finally{useRun.getState().set({running:false});}
 }
 /** Observa a troca de área. No modo automático, aplica a regra; no modo sugerir, o aviso aparece sozinho. */

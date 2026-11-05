@@ -102,3 +102,4 @@ button.bazaar-row:hover,button.bazaar-row.selected{background:var(--raised);bord
 .occupancy-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(50px,140px) auto;gap:8px;align-items:center}
 .occupancy-row>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .occupancy-row .status-meter{width:100%}
+.notify-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px;margin:8px 0 6px 22px}

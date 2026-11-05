@@ -18,6 +18,7 @@
 - **Movimentação no build `0ddf20e09b`**: retirar e depositar entre mochila, Ender, sacos, bolsas, farms, baús da ilha e Terminal. O depósito usa `por`. Terminal e baús da ilha usam o passeio (liga, até 3 tentativas em “só na ilha”, sempre desliga ao final) e avisam que o Steve para durante a operação.
 - **Pegar e craftar no build `0ddf20e09b`**: crafts da mesa, do SkyBlock, de armaduras, forja, compactação e lapidação liberados. A retirada de baús da ilha usa o passeio uma vez para todas as retiradas e desliga antes de craftar. Receitas que divergem do cliente atual continuam bloqueadas antes de qualquer pedido.
 - Ações rápidas **Guardar mochila no Ender** e **Juntar nos baús**, com confirmação e bloqueio se a mochila tiver item protegido. Barra de **lotação dos baús** na guia Terminal.
+- **Notificações do jogo** (Configurações › Avisos), cada uma pode ser desligada: mochila cheia, tempo offline em 80%, fila de craft vazia, Dragão nasce em 5 minutos, Dark Auction com lote raro, Bazar com algo para resgatar, build do jogo mudou e regra de área aplicada.
 - Nova guia **Bazar**: preços de compra e venda imediata, margem de revenda já com a taxa, volume, filtro por categoria, livro de ofertas, gráfico de 24 h, prévia com a taxa real da conta, compra e venda imediata, ordens de compra e venda, cancelamento e resgate. Toda escrita pede confirmação; vender item protegido, favorito, reservado ou de objetivo fica bloqueado. No máximo uma consulta por segundo.
 
 ## 0.6.0 · 21/10/2026

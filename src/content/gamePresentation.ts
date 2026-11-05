@@ -55,3 +55,14 @@ export async function readNativeBazaar(req:BazaarRead){
   return {ok:true as const,orders,claim};
  }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha na consulta ao Bazar.'};}
 }
+/** Leitura do Dark Auction (GET /api/leilao) pela aba. Devolve só os itens dos lotes e quais o jogo marca como raros. */
+export async function readNativeAuction(){
+ try{
+  const url=location.origin+'/js/rede.js';if(!performance.getEntriesByType('resource').some(r=>r.name===url))throw Error('Cliente do jogo não identificado.');
+  const network=await import(/* @vite-ignore */ url);if(typeof network.leilao!=='function')throw Error('Contrato do leilão não reconhecido.');
+  const r=await network.leilao();if(r?.erro)throw Error(String(r.erro).slice(0,160));
+  let rare:string[]=[];try{const sys=await import(/* @vite-ignore */ location.origin+'/js/sistemas_sb.js');if(Array.isArray(sys.RAROS_LEILAO))rare=sys.RAROS_LEILAO.filter((x:unknown)=>typeof x==='string');}catch{/* usa a lista padrão */}
+  const lots=Array.isArray(r?.lotes)?r.lotes.slice(0,20).flatMap((l:any)=>typeof l?.item==='string'&&/^[a-z0-9_]{1,100}$/.test(l.item)?[l.item]:[]):[];
+  return {ok:true as const,round:typeof r?.rodada==='number'?r.rodada:null,lots,rare};
+ }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha na consulta ao leilão.'};}
+}

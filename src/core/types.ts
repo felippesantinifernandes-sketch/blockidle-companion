@@ -64,6 +64,7 @@ export interface FilterPreset {name:string;itemIds:string[]}
 export interface AreaRule {compactor:number|null;eraser:number|null;autosell:number|null;autoJa:boolean|null;autoTudo:boolean|null}
 export interface Preferences {
     presenceDefaultApplied:boolean;
+    notify:{enabled:boolean;backpackFull:boolean;offline:boolean;queueEmpty:boolean;dragon:boolean;auction:boolean;bazaar:boolean;build:boolean;areaRule:boolean};
     areaRules:Record<string,AreaRule>;
     areaMode:'suggest'|'auto';
     filterPresets:{compactor:(FilterPreset|null)[];eraser:(FilterPreset|null)[];autosell:(FilterPreset|null)[]};
