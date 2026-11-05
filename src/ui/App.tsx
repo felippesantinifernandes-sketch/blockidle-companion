@@ -1,4 +1,5 @@
 import {Sales} from './pages/Sales';
+import { StatusBar } from './components/StatusBar';
 import {useSalesAutomation} from './salesAutomation';
 import {GamePage} from './pages/Game';
 import{UpdateBanner}from'./components/UpdateBanner';
@@ -129,7 +130,7 @@ export function App() {
  {state?.source === 'live' && Date.now() - state.capturedAt > 120000 && <div className="notice">Este retrato tem mais de 2 minutos. Volte à aba do jogo e aguarde uma nova resposta de estado para atualizar os dados.</div>}
  {state?.source === 'import' && <div className="notice">Estado importado: este arquivo não recebe atualizações da aba. Use “Conectar jogo” para voltar aos dados ao vivo.</div>}
  {!state && <div className="connect-banner"><div><Sparkles size={23}/><div><strong>Bem-vindo ao seu Companion</strong><p>Abra o Blockidle nesta janela, conecte e aguarde a próxima atualização do jogo.</p></div></div><button onClick={() => { setState(normalize(demoState, 'demo')); setStatus('Explorando demonstração'); setError(''); }}>Explorar demonstração <ArrowUpRight size={16}/></button></div>}
- <UpdateBanner/><ActionStatus/>{content}<LocalRefresh/><footer><span><ShieldCheck size={13}/>Consulta e ações supervisionadas</span><span>{state ? 'Capturado em ' + time(state.capturedAt) : status}</span></footer></div></main><input ref={file} type="file" hidden accept=".json,application/json" onChange={async (e) => {
+ <StatusBar/><UpdateBanner/><ActionStatus/>{content}<LocalRefresh/><footer><span><ShieldCheck size={13}/>Consulta e ações supervisionadas</span><span>{state ? 'Capturado em ' + time(state.capturedAt) : status}</span></footer></div></main><input ref={file} type="file" hidden accept=".json,application/json" onChange={async (e) => {
             try {
                 const f = e.target.files?.[0];
                 if (!f)

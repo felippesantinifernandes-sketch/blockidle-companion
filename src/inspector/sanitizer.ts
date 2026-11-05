@@ -25,6 +25,9 @@ export function projectState(input: unknown): Record<string, unknown> {
     if (!['inventario', 'guardado', 'base', 'habilidades', 'atributos'].some(k => k in inner))
         throw new Error('JSON sem campos de estado reconhecidos.');
     const selected = Object.fromEntries(allowed.filter(k => k in inner).map(k => [k, inner[k]]));
+    // alvo.nome é o bloco/mob da tarefa atual, não um jogador: renomeado antes do filtro de chaves sensíveis.
+    const alvo = selected.alvo as Record<string, unknown> | undefined;
+    if (alvo && typeof alvo === 'object' && !Array.isArray(alvo) && typeof alvo.nome === 'string') { const { nome, ...rest } = alvo; selected.alvo = { ...rest, rotulo: nome.slice(0, 60) }; }
     if (obj.versao !== undefined && selected.versao === undefined)
         selected.versao = obj.versao;
     return sanitize(selected) as Record<string, unknown>;

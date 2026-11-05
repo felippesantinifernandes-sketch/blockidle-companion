@@ -14,3 +14,9 @@ describe('Compatibilidade por contrato',()=>{
 describe('Campos de status',()=>{
  it('preserva os campos novos e o vencimento do cookie, mas remove dados de conta',()=>{const raw=projectState({estado:{inventario:{},bits:10,gemas:3,mochilaCheia:true,offlineHoje:{usadoMs:1,tetoMs:2},autoVendido:{ouro:50},cookieAte:123,email:'a@b.c'},versao:'x'});expect(raw.cookieAte).toBe(123);expect(raw).not.toHaveProperty('email');const s=normalize(raw,'live');expect(s.character.offlineHoje).toEqual({usadoMs:1,tetoMs:2});expect(s.character.autoVendido).toEqual({ouro:50});expect(s.character.mochilaCheia).toBe(true);});
 });
+import {statusSummary} from '../ui/components/StatusBar';
+import {demoState} from './demo';
+describe('Barra de status',()=>{
+ it('resume área, moedas, mochila, offline e auto-venda',()=>{const s=statusSummary(normalize(demoState,'demo'),0);expect(s.gold).toBe(120400);expect(s.bits).toBe(3200);expect(s.task).toBe('Pedra Dura');expect(s.offline?.ratio).toBeCloseTo(18360000/64800000);expect(s.sold).toBe(18420);expect(s.backpack).toMatch(/\/ 35$/);});
+ it('mostra vencimento do cookie e tolera campos ausentes',()=>{const st=normalize({inventario:{},cookieAte:5000},'live');const s=statusSummary(st,1000);expect(s.cookie).toMatch(/vence em/);expect(s.offline).toBeUndefined();expect(statusSummary(normalize({inventario:{},cookieAte:5},'live'),10).cookie).toBe('vencido');});
+});

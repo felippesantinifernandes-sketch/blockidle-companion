@@ -36,11 +36,12 @@ async function log(command:unknown,result:{ok:boolean;uncertain?:boolean;error?:
 chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
  if(sender.id!==chrome.runtime.id)return;
  if(msg?.type==='COMPANION_OBSERVED'&&sender.tab?.id!==undefined&&game(sender.url)){try{remember(sender.tab.id,{state:projectState(msg.state),at:msg.at,scope:String(msg.scope??''),observation:'response'});reply({ok:true});}catch{reply({ok:false});}return;}
- if(!sender.url?.startsWith(chrome.runtime.getURL(''))||!['COMPANION_READ_ACTIVE','COMPANION_MANUAL','COMPANION_RECONCILE'].includes(msg?.type))return;
+ if(!sender.url?.startsWith(chrome.runtime.getURL(''))||!['COMPANION_READ_ACTIVE','COMPANION_MANUAL','COMPANION_RECONCILE','COMPANION_SYNC'].includes(msg?.type))return;
  void(async()=>{let tabId:number|undefined,locked=false;try{
   tabId=await active(msg.type==='COMPANION_READ_ACTIVE'||msg.command?.kind==='sell'&&msg.command?.automatic===true);const entry=await read(tabId);
   if(msg.type==='COMPANION_READ_ACTIVE'){reply({ok:true,...entry,tabId});return;}
   if(msg.tabId!==tabId||msg.scope!==entry.scope)throw new Error('A aba ou a sessão mudou. Reconecte antes de agir.');
+  if(msg.type==='COMPANION_SYNC'){if(busy.has(tabId))throw new Error('Ação em andamento; sincronização adiada.');const [fresh]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:refreshNativeState,args:[allowed]});if(!fresh?.result)throw new Error('Não foi possível sincronizar com o servidor.');const next={state:projectState(fresh.result),at:Date.now(),scope:entry.scope,observation:'hud' as const};remember(tabId,next);reply({ok:true,...next,tabId});return;}
   if(msg.type==='COMPANION_RECONCILE'){if(busy.has(tabId))throw new Error('Aguarde a operação terminar.');const [fresh]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:refreshNativeState,args:[allowed]});if(!fresh?.result)throw new Error('Não foi possível confirmar o estado no servidor.');const next={state:projectState(fresh.result),at:Date.now(),scope:entry.scope,observation:'hud' as const};remember(tabId,next);uncertain.delete(tabId);await clearPending(tabId);reply({ok:true,...next,tabId});return;}
   if(busy.has(tabId))throw new Error('Já existe uma ação em andamento nesta aba.');
   if(uncertain.has(tabId)||await pending(tabId,entry.scope)){reply({ok:false,uncertain:true,error:'O resultado anterior precisa de revisão. Use Revisar estado antes de continuar.'});return;}
