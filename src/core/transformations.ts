@@ -14,6 +14,7 @@ export function commandProtection(command:ManualCommand,state:GameState,prefs:Pr
  if(command.kind==='goalStep')return;
  if(command.kind==='sell')return isProtected(command.itemId,prefs)?'Venda bloqueada: item protegido, favorito ou reservado.':undefined;
  if(command.kind==='autosellOption'||command.kind==='bazaarCancel'||command.kind==='bazaarClaim')return;
+ if(command.kind==='wardrobeKit')return command.eraser?.some(id=>isProtected(id,prefs))?'Item protegido, favorito ou reservado não pode entrar no apagador do conjunto.':undefined;
  if(command.kind==='enderBackpack'||command.kind==='terminalStash'){const inv=state.storages.find(s=>s.kind==='inventory')?.items??{};const p=Object.keys(inv).find(id=>(inv[id]??0)>0&&isProtected(id,prefs));return p?'A mochila tem item protegido ou reservado ('+(items[p]?.name??p)+'). Mova-o antes de guardar tudo.':undefined;}
  if(command.kind==='bazaarNow'||command.kind==='bazaarOrder')return command.side==='v'&&isProtected(command.itemId,prefs)?'Venda bloqueada: item protegido, favorito ou reservado.':undefined;
  if(command.kind==='eraser'||command.kind==='autosell')return command.itemIds.some(id=>isProtected(id,prefs))?'Item protegido, favorito ou reservado não pode entrar no '+(command.kind==='eraser'?'apagador':'auto-venda')+'.':undefined;

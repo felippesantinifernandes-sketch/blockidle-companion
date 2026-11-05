@@ -19,3 +19,7 @@ describe('Regras por área',()=>{
 describe('Opções da auto-venda',()=>{
  it('valida o comando e segue as regras de build dos filtros',()=>{expect(commandSchema.safeParse({kind:'autosellOption',option:'autoja',enabled:true}).success).toBe(true);expect(commandSchema.safeParse({kind:'autosellOption',option:'vender',enabled:true}).success).toBe(false);expect(supportsCommandBuild(currentBuild,'autosellOption')).toBe(true);const s=state('mina');expect(commandProtection({kind:'autosellOption',option:'autoja',enabled:true},s,defaults)).toBeUndefined();expect(goalCommandBlock({kind:'autosellOption',option:'autoja',enabled:true},s,defaults)).toBeUndefined();});
 });
+describe('Guarda-roupa nas regras por área',()=>{
+ it('grava o conjunto e liga a área só quando difere',()=>{const p=prefs();p.areaRules.mina={...p.areaRules.mina,autoTudo:null,wardrobe:1};const s=state('mina',{autoCompactar:['ench_cobblestone','ench_coal'],apagar:['cobblestone']});const plan=areaPlan(s,p);expect(plan.steps.map(x=>x.command)).toEqual([{kind:'wardrobeKit',slot:1,area:'mina',compactor:['ench_cobblestone','ench_coal'],eraser:['cobblestone']}]);
+  const done=state('mina',{autoCompactar:['ench_cobblestone','ench_coal'],apagar:['cobblestone'],guardaComp:{1:['ench_coal','ench_cobblestone']},guardaApag:{1:['cobblestone']},guardaAuto:{mina:1}});expect(areaPlan(done,p).steps).toEqual([]);});
+});

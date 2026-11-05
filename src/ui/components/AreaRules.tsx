@@ -46,16 +46,18 @@ export function AreaRuleBanner(){
 const triState=(v:boolean|null)=>v===null?'':v?'on':'off';
 export function AreaRulesCard(){
  const {state,prefs,patch}=useStore(),current=state?.area;
+ const wardrobeSlots=Math.max(4,...Object.keys(state?.character.guardaComp&&typeof state.character.guardaComp==='object'?state.character.guardaComp as object:{}).map(k=>Number(k)+1).filter(Number.isFinite));
  const update=(area:string,change:Partial<AreaRule>)=>{const next={...(prefs.areaRules[area]??emptyRule()),...change};const rules={...prefs.areaRules};if(ruleIsEmpty(next))delete rules[area];else rules[area]=next;patch({areaRules:rules});};
  return <Card title="Regras por área">
-  <p className="muted">Escolha, para cada área, qual quadrado da grade vale em cada lista. Ao chegar na área, a extensão sugere aplicar o que estiver diferente no jogo. No modo automático, aplica sozinha com o painel aberto, um pedido por vez, e para no primeiro erro. “—” deixa a lista como está.</p>
+  <p className="muted">Escolha, para cada área, qual quadrado da grade vale em cada lista. Ao chegar na área, a extensão sugere aplicar o que estiver diferente no jogo. No modo automático, aplica sozinha com o painel aberto, um pedido por vez, e para no primeiro erro. “—” deixa a lista como está. Com um conjunto do guarda-roupa, a extensão grava as listas do Compactador e do Apagador nele e liga a troca automática do jogo nesta área: daí em diante o próprio jogo troca, mesmo com a extensão fechada (a Auto-venda não faz parte do conjunto).</p>
   <div className="toolbar"><label className="checkbox-label">Modo<select aria-label="Modo das regras por área" value={prefs.areaMode} onChange={e=>patch({areaMode:e.target.value as 'suggest'|'auto'})}><option value="suggest">Sugerir (pede confirmação)</option><option value="auto">Automático ao mudar de área</option></select></label>{prefs.areaMode==='auto'&&<small className="warning-text">O apagador descarta itens de forma definitiva. Revise os conjuntos ligados às áreas.</small>}</div>
   <div className="area-rules" role="table" aria-label="Regras por área">
-   <div className="area-rule head" role="row"><span role="columnheader">Área</span>{listKinds.map(k=><span role="columnheader" key={k}>{listLabels[k].name}</span>)}<span role="columnheader">Vender ao chegar</span><span role="columnheader">Vender tudo</span></div>
+   <div className="area-rule head" role="row"><span role="columnheader">Área</span>{listKinds.map(k=><span role="columnheader" key={k}>{listLabels[k].name}</span>)}<span role="columnheader">Vender ao chegar</span><span role="columnheader">Vender tudo</span><span role="columnheader">Guarda-roupa</span></div>
    {gameAreas.map(([id,name])=>{const rule=prefs.areaRules[id]??emptyRule();return <div className={'area-rule'+(id===current?' current':'')} role="row" key={id}>
     <span role="cell"><strong>{name}</strong>{id===current&&<small className="badge">aqui</small>}</span>
     {listKinds.map(k=><span role="cell" key={k}><select aria-label={listLabels[k].name+' em '+name} value={rule[k]??''} onChange={e=>update(id,{[k]:e.target.value===''?null:Number(e.target.value)})}><option value="">—</option>{prefs.filterPresets[k].map((p,i)=><option key={i} value={i} disabled={!p}>{i+1} · {p?.name??'vazio'}</option>)}</select></span>)}
     {(['autoJa','autoTudo'] as const).map(key=><span role="cell" key={key}><select aria-label={(key==='autoJa'?'Vender ao chegar':'Vender tudo')+' em '+name} value={triState(rule[key])} onChange={e=>update(id,{[key]:e.target.value===''?null:e.target.value==='on'})}><option value="">—</option><option value="on">Ligar</option><option value="off">Desligar</option></select></span>)}
+    <span role="cell"><select aria-label={'Conjunto do guarda-roupa em '+name} value={rule.wardrobe??''} onChange={e=>update(id,{wardrobe:e.target.value===''?null:Number(e.target.value)})}><option value="">—</option>{Array.from({length:wardrobeSlots},(_,i)=><option key={i} value={i}>Conjunto {i+1}</option>)}</select></span>
    </div>;})}
   </div>
  </Card>;

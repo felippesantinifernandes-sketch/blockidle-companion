@@ -205,6 +205,18 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    else {for(const[id,n]of Object.entries(requirements))if(physical(before,id)-physical(after,id)!==n)throw new Error('Consumo dos materiais não confirmado. Revise os saldos.');if(r.kind==='forge'){const old=(before.forja??[]) as State[],next=(after.forja??[]) as State[];if(next.length!==old.length+1||!next.some(f=>f.id===r.outputId&&typeof f.fim==='number'&&f.fim>Date.now()-10000&&!old.some(a=>a.id===f.id&&a.fim===f.fim)))throw new Error('A nova tarefa da Forja não foi confirmada.');message='Forja iniciada. O prazo confirmado aparece na fila.';}else{const equipped=r.tool&&after[r.tool]===r.outputId;const armor=Object.values(after.armadura??{}).includes(r.outputId);const produced=physical(after,r.outputId)-physical(before,r.outputId)>=r.output;if(!equipped&&!armor&&!produced)throw new Error('A saída do craft não foi confirmada.');message='Craft confirmado: '+r.name+'.';}}
    return{ok:true,changed:c.batches,message,raw:projection(after,build)};
   }
+  if(input.command.kind==='wardrobeKit'){
+   // Guarda-roupa (guardaui.js): sub compactador/apagador grava a lista ATUAL no conjunto, ou apaga se já for igual. Por isso conferimos antes.
+   const c=input.command,n=c.slot,same=(a:unknown,b:string[])=>{const x=Array.isArray(a)?a:a===undefined||a===null?[]:undefined;return !!x&&x.length===b.length&&[...x].sort().join('|')===[...b].sort().join('|');};
+   if(typeof network.armazem!=='function')throw new Error('Contrato do guarda-roupa não reconhecido.');
+   const kit=before.guardado?.['guarda'+n];if(!kit||typeof kit!=='object'||!Object.values(kit).some(Boolean))throw new Error('O conjunto '+(n+1)+' do guarda-roupa está vazio. Guarde uma armadura nele no jogo.');
+   const steps:{sub:string;check:(s:State)=>boolean}[]=[];
+   if(c.compactor){if(!same(before.autoCompactar,c.compactor))throw new Error('A lista atual do compactador não é a do conjunto. Aplique a regra da área antes.');if(!same(before.guardaComp?.[n],c.compactor))steps.push({sub:'compactador',check:s=>same(s.guardaComp?.[n],c.compactor!)});}
+   if(c.eraser){if(c.eraser.some(protectedItem))throw new Error('Item protegido no apagador do conjunto.');if(!same(before.apagar,c.eraser))throw new Error('A lista atual do apagador não é a do conjunto. Aplique a regra da área antes.');if(!same(before.guardaApag?.[n],c.eraser))steps.push({sub:'apagador',check:s=>same(s.guardaApag?.[n],c.eraser!)});}
+   if(before.guardaAuto?.[c.area]!==n)steps.push({sub:'auto',check:s=>s.guardaAuto?.[c.area]===n});
+   for(const [i,st] of steps.entries()){if(i)await new Promise(resolve=>setTimeout(resolve,1000));guard();const r=await invoke(network.armazem({acao:'guarda',sub:st.sub,n,...(st.sub==='auto'?{area:c.area}:{})}));if(r.estado){latest=r.estado;hud.aplicar?.(r.estado);}changed++;before=await refresh();if(!st.check(before))throw new Error('O guarda-roupa não confirmou: '+st.sub+'.');}
+   return {ok:true,changed,message:steps.length?'Conjunto '+(n+1)+' gravado e ligado nesta área.':'O conjunto já estava gravado nesta área.',raw:projection(before,build)};
+  }
   if(input.command.kind==='enderBackpack'||input.command.kind==='terminalStash'){
    const stash=input.command.kind==='terminalStash';if(typeof network.armazem!=='function')throw new Error('Contrato do armazém não reconhecido.');
    const inv=(st:State)=>Object.values(st.inventario??{}).reduce((n:number,v)=>n+quantity(v),0),start=inv(before);

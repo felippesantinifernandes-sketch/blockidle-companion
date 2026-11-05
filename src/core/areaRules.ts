@@ -5,7 +5,8 @@ import type {AreaRule,GameState,ManualCommand,Preferences} from './types';
 export const gameAreas:[string,string][]=[['floresta','Floresta'],['mina','Mina'],['fazenda','Fazenda'],['celeiro','Celeiro'],['masmorra','Masmorra'],['ruinas','Ruínas'],['end','The End'],['ninho','Ninho do Dragão'],['tumba','Tumba Ardente'],['brasa','Coração da Tumba'],['vazio','Câmara do Vazio'],['catacumba','Catacumbas'],['lago','Lago'],['lava','Lago de Lava'],['nether','Nether']];
 export const areaName=(id:string|undefined)=>gameAreas.find(([a])=>a===id)?.[1]??id??'?';
 export const emptyRule=():AreaRule=>({compactor:null,eraser:null,autosell:null,autoJa:null,autoTudo:null});
-export const ruleIsEmpty=(r:AreaRule|undefined)=>!r||(listKinds.every(k=>r[k]===null)&&r.autoJa===null&&r.autoTudo===null);
+export const ruleIsEmpty=(r:AreaRule|undefined)=>!r||(listKinds.every(k=>r[k]===null)&&r.autoJa===null&&r.autoTudo===null&&(r.wardrobe??null)===null);
+const rec=(v:unknown)=>v&&typeof v==='object'&&!Array.isArray(v)?v as Record<string,unknown>:{};
 export interface AreaStep{label:string;command:ManualCommand}
 /** Pedidos necessários para deixar o jogo igual à regra da área atual. Só o que difere entra. */
 export function areaPlan(state:GameState|null|undefined,prefs:Preferences):{area?:string;steps:AreaStep[];missing:string[]}{
@@ -16,6 +17,13 @@ export function areaPlan(state:GameState|null|undefined,prefs:Preferences):{area
   const active=activeList(state,kind);if(active&&sameSet(active,preset.itemIds))continue;
   steps.push({label:labels[kind]+': '+preset.name,command:kind==='compactor'?{kind:'profile',itemIds:preset.itemIds,replace:true}:{kind,itemIds:preset.itemIds}});}
  for(const [key,option,label] of [['autoJa','autoja','Vender ao chegar'],['autoTudo','autotudo','Vender tudo que não couber']] as const){const want=rule![key];if(want===null)continue;const field=key==='autoJa'?'autoVenderJa':'autoVenderTudo';if(state.character[field]===want)continue;steps.push({label:label+': '+(want?'ligar':'desligar'),command:{kind:'autosellOption',option,enabled:want}});}
+ const slot=rule!.wardrobe??null;
+ if(slot!==null){
+  const comp=rule!.compactor!==null?prefs.filterPresets.compactor[rule!.compactor]?.itemIds:undefined,erase=rule!.eraser!==null?prefs.filterPresets.eraser[rule!.eraser]?.itemIds:undefined;
+  const savedC=rec(state.character.guardaComp)[slot],savedA=rec(state.character.guardaApag)[slot],auto=rec(state.character.guardaAuto)[area];
+  const differs=(saved:unknown,want:string[]|undefined)=>!!want&&!sameSet(Array.isArray(saved)?saved as string[]:[],want);
+  if(differs(savedC,comp)||differs(savedA,erase)||auto!==slot)steps.push({label:'Guarda-roupa: conjunto '+(slot+1)+' nesta área',command:{kind:'wardrobeKit',slot,area,...(comp?{compactor:comp}:{}),...(erase?{eraser:erase}:{})}});
+ }
  return {area,steps,missing};
 }
 const labels:Record<ListKind,string>={compactor:'Compactador',eraser:'Apagador',autosell:'Auto-venda'};
