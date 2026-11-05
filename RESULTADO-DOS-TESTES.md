@@ -1,31 +1,28 @@
-# Validação da versão 0.6.0
+# Validação da versão 0.7.0
 
-Conferência local em 21/10/2026: **267 verificações aprovadas**. TypeScript e compilação de produção aprovados.
+Conferência local em 05/11/2026. TypeScript e compilação de produção aprovados.
 
 | Suíte | Verificações |
 | --- | ---: |
-| Unitários (inclui diagnóstico local opcional) | 152 |
+| Unitários (inclui contrato do build, segurança, regras por área, Bazar, Dragão, radar e árvore de craft) | 215 |
 | Interface e transporte | 13 |
-| Ações nativas | 22 |
-| Bancada e Forja | 10 |
+| Ações nativas (inclui passeio, guarda-roupa e radar no build 0ddf20e09b) | 27 |
+| Bancada e Forja (inclui craft com passeio no build 0ddf20e09b) | 11 |
 | Atualizador | 8 |
 | Objetivos | 14 |
 | Avisos da Forja | 8 |
-| Acessórios, SkyBlock e tela Jogo | 15 |
 | Venda, compactador e personalização | 25 |
 
-Sem o diagnóstico local, há 151 unitários e um teste omitido; o total executado é 266. As suítes de venda e ações nativas foram repetidas após a última alteração do adaptador.
+Há um teste unitário omitido (diagnóstico local opcional). A suíte de acessórios, SkyBlock e tela Jogo (`test:features`) não pôde ser executada no ambiente desta conferência; a publicação a executa antes de gerar os pacotes.
 
-Os resultados detalhados são produzidos pelas suítes listadas em package.json. A publicação executa TypeScript, testes unitários, compilação de produção e todas as suítes de navegador antes de gerar os pacotes.
-
-A cobertura inclui interface e transporte, ações nativas anteriores, bancada/Forja, atualização, objetivos, avisos, acessórios, SkyBlock, tela Jogo e venda por excedente. A nova suíte de vendas confere checkbox, busca/região/limpeza, reserva, preço, baús autorizados, capacidade com e sem campo de slots no estado, proteções, comandos divergentes, automação desligada, visibilidade simulada oculta, falhas e bloqueio de repetição, builds, substituição/limpeza do compactador, ordem das guias e seções recolhíveis persistentes. Também verifica largura de 390 px e erros de página.
+A publicação executa TypeScript, testes unitários, compilação de produção e todas as suítes de navegador antes de gerar os pacotes.
 
 ## Limites
 
-Os testes utilizam perfis de navegador isolados, clientes e endpoints simulados. Não houve venda, retirada nem alteração de filtros na conta real do usuário. O teste de visibilidade simula o getter do navegador como oculto; não comprova execução contínua em segundo plano no Windows.
+Os testes utilizam perfis de navegador isolados, clientes e endpoints simulados. Não houve venda, compra no Bazar, retirada, craft, gravação do guarda-roupa nem alteração de filtros na conta real do usuário.
 
-O build 6b899075fb foi informado pelo usuário e confrontado com os módulos públicos coletados em 21/10/2026. Somente filtros do compactador e vendas têm suporte nesse build; cada execução relê o estado e compara contrato e versão. Receitas e movimentações anteriores continuam bloqueadas nele. A evidência dos arquivos está em docs/compatibility-0.6.0.json. Não é uma homologação autenticada do servidor.
+O build 0ddf20e09b foi comparado com os módulos públicos do cliente em 04/11/2026 e conferido de novo em 05/11/2026 (sem alterações). As funções de `rede.js`, as ações `acao` e as rotas do Bazar usadas pelo adaptador são verificadas contra a lista extraída desses módulos. A evidência dos arquivos está em docs/compatibility-0.7.0.json. Não é uma homologação autenticada do servidor.
 
-Preços vêm do catálogo carregado no jogo. Offline, apenas valores explícitos coletados são exibidos. A confirmação de venda exige diminuição exata do estoque, preservação da reserva e recebimento do ouro esperado. Respostas divergentes bloqueiam repetição até revisão.
+Preços vêm do catálogo e do Bazar carregados no jogo. Offline, apenas valores explícitos coletados são exibidos. Respostas divergentes bloqueiam repetição até revisão.
 
 O teste opcional de importação de diagnóstico lê somente o arquivo local apontado por BLOCKIDLE_DIAGNOSTIC; ele não é copiado para o projeto nem para os pacotes. Sem essa variável, o teste é omitido.

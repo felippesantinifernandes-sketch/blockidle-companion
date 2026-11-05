@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-11-05",
+  "buildReportedByUser": "0ddf20e09b",
+  "modulesCollectedAt": "2026-11-04",
+  "modules": {
+    "armazem.js": {
+      "url": "https://blockidle.io/js/armazem.js",
+      "sha256": "ecb431599210eb7c3ba2f4d6055bbd37d802beebca13f693b9aa4756be9edd45"
+    },
+    "catalogo.js": {
+      "url": "https://blockidle.io/js/catalogo.js",
+      "sha256": "c95eb9edab8777ba3e05d4f2922386861fdaeb11146369c30b9d0af1223bb465"
+    },
+    "dragao.js": {
+      "url": "https://blockidle.io/js/dragao.js",
+      "sha256": "fb3920fc11e218c8f2be44d8ab62d25998b18a608da1b64ee9c742ec2f35ae96"
+    },
+    "dragaoui.js": {
+      "url": "https://blockidle.io/js/dragaoui.js",
+      "sha256": "c5f2752221f303a7b6d5cc394c1fd3bf425f3bf55822e846a4dace1303440154"
+    },
+    "guardaui.js": {
+      "url": "https://blockidle.io/js/guardaui.js",
+      "sha256": "7d66bf0419d8a887149c7d11e0f7a11dd2932a6be6e02947847140df7ea71960"
+    },
+    "lojas.js": {
+      "url": "https://blockidle.io/js/lojas.js",
+      "sha256": "10ee1c3ae62d42a7b8da99eae05eb867b141a65984e96b240d5e192e8a7371aa"
+    },
+    "main.js": {
+      "url": "https://blockidle.io/js/main.js",
+      "sha256": "c9b92dfbca314dcc103fd2cb71e4fb29f5ef40e93c956a90f926d2f424f329e2"
+    },
+    "mochilacfg.js": {
+      "url": "https://blockidle.io/js/mochilacfg.js",
+      "sha256": "9dce86116ae556084407c447e34442313136ac7c8ab0bc60ee22114ec9523022"
+    },
+    "rede.js": {
+      "url": "https://blockidle.io/js/rede.js",
+      "sha256": "14d540e22bdd3005f6145b9f6ee595c15a23d69e7dc5da2dab985332a00a7695"
+    },
+    "sistemas_sb.js": {
+      "url": "https://blockidle.io/js/sistemas_sb.js",
+      "sha256": "19367a8108e4d97250138a1ada633dabc77e2fdb0dcec5514a1dedadcfd54bea"
+    }
+  }
+}

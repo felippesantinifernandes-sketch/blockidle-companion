@@ -1,6 +1,6 @@
 # Histórico de versões
 
-## Não lançado
+## 0.7.0 · 05/11/2026
 
 - **Vai ter Dragão? O Steve vai entrar?** A guia Eventos lê o Dragão pelo jogo (luta, invocação, olhos no altar) e confere cada regra do Entrar sozinho: opção ligada, Selo de Convocação (e o Encantado no invocado), portal, Combate 12, fora da Câmara do Vazio, Catacumbas, passeio, Invasão e de missão de Slayer (que segura o Steve na Masmorra). Cada condição que falha diz o que fazer. A barra de status mostra “entra/não entra” e o aviso chega 10 minutos antes dizendo o motivo.
 - **Objetivo fixado no topo da guia Crafts:** escolha um item e a quantidade; o painel mostra o progresso, a ordem para craftar (incluindo os crafts intermediários), a árvore completa com ícones e o que falta coletar ou comprar, com onde está guardado e o custo no Bazar. “Adicionar e fixar como objetivo” também na receita.

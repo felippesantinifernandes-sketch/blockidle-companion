@@ -39,7 +39,7 @@ Em **Automações › Conjuntos de filtros**, a página tem três colunas (Compa
 
 Em **Regras por área**, escolha qual quadrado vale em cada área. No modo **Sugerir** (padrão), o painel avisa ao chegar na área e aplica com um clique. No modo **Automático**, aplica sozinho com o painel aberto. O apagador descarta itens de forma definitiva; revise os conjuntos antes de ligar o automático.
 
-## Venda por excedente · 0.6
+## Venda do excedente guardado
 
 ![Aba Venda](docs/images/venda.png)
 
@@ -58,7 +58,7 @@ A reserva deve estar na mochila antes de vender de baús. A retirada usa lotes d
 
 Baixe o ZIP da extensão em **Releases**, extraia em uma pasta permanente e use **Carregar sem compactação** em chrome://extensions ou edge://extensions, com o modo do desenvolvedor ativado. Selecione a pasta que contém manifest.json e recarregue o jogo.
 
-**Já utiliza a extensão?** Atualize pela central em Configurações, selecionando a mesma pasta instalada. Também é possível substituir os arquivos nessa pasta e recarregar a extensão. Não desinstale: manter a mesma instalação preserva suas preferências. É possível atualizar diretamente da 0.4 para a 0.6; os novos campos recebem valores iniciais e a venda começa desativada.
+**Já utiliza a extensão?** Atualize pela central em Configurações, selecionando a mesma pasta instalada. Também é possível substituir os arquivos nessa pasta e recarregar a extensão. Não desinstale: manter a mesma instalação preserva suas preferências. É possível atualizar diretamente da 0.4 ou da 0.6 para a 0.7; os novos campos recebem valores iniciais, as regras por área começam no modo Sugerir e as notificações começam desligadas.
 
 [Instruções completas de instalação](INSTALACAO.md)
 
@@ -78,4 +78,4 @@ Requer Node.js 22. Instale as dependências com `npm ci`, compile com `npm run b
 
 - [Resultado dos testes](RESULTADO-DOS-TESTES.md)
 - [Histórico de versões](CHANGELOG.md)
-- [Evidências de compatibilidade](docs/compatibility-0.6.0.json)
+- [Evidências de compatibilidade](docs/compatibility-0.7.0.json)

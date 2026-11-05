@@ -1,14 +1,15 @@
-# Blockidle Companion 0.6.0
+# Blockidle Companion 0.7.0
 
-- Nova guia Venda: checkbox por item, preço de NPC, reserva na mochila, busca e filtro por região; limpar busca ou desmarcar todas as vendas.
-- Venda manual revisada e automação opcional do excedente. Baús da ilha e colheita podem abastecer lotes de até 64; ração, sacos, bolsas e Ender ficam fora. Reserva primeiro na mochila.
-- Preço e estoque são conferidos novamente antes da venda. Favoritos, proteções, reservas e materiais de objetivos são preservados. Falhas pausam a automação; resultados incertos exigem revisão.
-- Compactador: leitura das vagas do cliente, substituição de modelos por região e limpeza confirmada dos filtros.
-- Suporte restrito de filtros e vendas ao build 6b899075fb. Receitas e movimentações antigas nesse build permanecem bloqueadas. Builds desconhecidos não executam ações.
-- Setas para recolher/expandir seções com escolha persistente. Ordem das guias configurável por setas em Configurações.
-- Histórico identifica vendas manuais/automáticas e quantidades confirmadas; recupera registros antigos com campos opcionais nulos.
-- Corrigido o texto da versão na tela de compatibilidade. README renovado com guia de uso, imagem e documentação.
+Compatível com o build do jogo `0ddf20e09b` (04/11/2026). Um build novo com o mesmo contrato libera só os filtros; contrato alterado deixa a extensão em leitura, com o motivo na tela.
 
-Inclui as melhorias da 0.5: filtros avançados de acessórios, planejamento SkyBlock, página própria, ranking e opções de apresentação do jogo. Atualização direta da 0.4 preserva preferências; venda inicia desativada.
+- **Filtros da mochila em grade 3×9** (Automações): Compactador, Apagador e Auto-venda, 9 conjuntos cada, com as opções do jogo “vender ao chegar” e “vender tudo”.
+- **Regras por área** (modo Sugerir ou Automático) ligadas aos conjuntos e ao guarda-roupa do jogo, drops aprendidos por área, sugestão de conjuntos e limite de valor no Bazar.
+- **Crafts:** objetivo fixado no topo com a árvore do que falta (inclusive crafts intermediários), onde está cada material, custo no Bazar e Pegar e craftar no build atual.
+- **Bazar:** preços, margem, livro, gráfico de 24 h, prévia com a taxa real, compra e venda imediata, ordens, cancelamento e resgate, sempre com confirmação.
+- **Terminal:** movimentação no build atual (Terminal e baús da ilha com passeio), Guardar mochila no Ender, Juntar nos baús e lotação dos baús.
+- **Eventos:** Dragão (e se o Steve vai entrar sozinho, com o motivo quando não vai), Dark Auction e calendário do jogo.
+- **Barra de status**, sincronização a cada 5 minutos (também em segundo plano, opcional) e **notificações** configuráveis.
+- **Novidades:** radar de mudanças do jogo e prompt pronto para atualizar a extensão.
+- Retirada a venda automática própria da extensão (a auto-venda nativa do jogo cobre isso). A venda manual do excedente continua.
 
-A automação funciona com o painel aberto e o jogo realmente visível, no máximo uma regra a cada 15 segundos. Não assume atividade contínua em segundo plano. Testes utilizam respostas simuladas; nenhuma venda foi feita em conta real.
+Atualização direta da 0.4 ou da 0.6 preserva preferências. Regras por área começam no modo Sugerir e as notificações começam desligadas. Os testes usam respostas simuladas; nenhuma ação foi feita em conta real.
