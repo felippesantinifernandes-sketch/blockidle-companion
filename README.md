@@ -17,14 +17,17 @@
 
 | Guia | Para que serve |
 | --- | --- |
-| Terminal | Busca unificada, localização e movimentação supervisionada dos materiais. |
-| Venda | Preços de NPC, seleção por região, checkbox por item e reserva na mochila. |
+| Terminal | Busca global com cada lugar, movimentação (com passeio para Terminal e baús da ilha), Guardar mochila no Ender, Juntar nos baús e lotação dos baús. |
+| Venda | Venda manual do excedente guardado, com reserva na mochila. |
+| Bazar | Preços, margem de revenda, livro de ofertas, gráfico de 24 h, prévia com a taxa real, compra, venda, ordens e resgate. |
 | Automações | Grade de conjuntos (Compactador, Apagador, Auto-venda), regras por área, modelos por região e transformações. |
-| Crafts | Bancada ligada à wiki, materiais disponíveis/faltantes e objetivos encadeados. |
+| Crafts | O que falta em cada receita, onde está, quanto custa no Bazar, Pegar e craftar, e objetivos encadeados. |
 | Personagem | Coleção de acessórios, efeitos, famílias e próximos tiers. |
 | Progressão | Coleções, habilidades e planejamento do nível SkyBlock. |
 | Jogo | Página própria, janela do jogo e consulta ao ranking. |
-| Configurações | Ordem das guias, tema, atualização e preferências locais. |
+| Eventos | Dragão do End, Dark Auction e calendário do jogo. |
+| Novidades | Radar de mudanças do jogo e prompt pronto para atualizar a extensão. |
+| Configurações | Notificações, sincronização em segundo plano, ordem das guias, tema e atualização. |
 
 No topo de todas as guias, a barra de status mostra build e compatibilidade, área, moedas, mochila, tempo offline e filtros ativos. Ela sincroniza com o jogo a cada 5 minutos.
 
