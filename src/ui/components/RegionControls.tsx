@@ -14,7 +14,7 @@ export function RegionControls({onTransform}:{onTransform?:(id:string)=>void}){
  const current=currentRegion(state),region=selection==='auto'?current:regions.find(r=>r.id===selection);
  const limit=compactorCapacity(state),model=region?regionModel(region,prefs,limit??12):{compactorIds:[],lapidaryIds:[]};
  const active=Array.isArray(state?.character.autoCompactar)?state.character.autoCompactar.filter((v):v is string=>typeof v==='string'):undefined;
- const live=state?.source==='live'&&supportsCommandBuild(state.build,'compactor')&&!!limit&&!!active;
+ const live=state?.source==='live'&&supportsCommandBuild(state.build,'compactor',state)&&!!limit&&!!active;
  const locked=!!lockedScope&&lockedScope===state?.scope;
  const drops=useMemo(()=>{if(!region)return [];const map=new Map<string,typeof region.drops>();for(const d of region.drops)map.set(d.itemId,[...(map.get(d.itemId)??[]),d]);return [...map.entries()].sort(([a],[b])=>itemName(a).localeCompare(itemName(b),'pt-BR'));},[region]);
  const visible=drops.filter(([id])=>itemName(id).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(query.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase())&&(!onlyUsable||dropOptions(id).compact.length||dropOptions(id).lapidary.length));

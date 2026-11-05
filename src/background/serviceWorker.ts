@@ -48,7 +48,7 @@ chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
   const requested=commandSchema.parse(msg.command);let command:NativeCommand;const state=normalize(entry.state,'live'); state.scope=entry.scope;state.tabId=tabId;
   const prefs=await readPreferences();const goals=objectivePlan(state,prefs);
   if(requested.kind==='goalStep'){if(requested.review!==goals.review)throw new Error('O estoque, a fila ou os objetivos mudaram. Atualize e revise a etapa novamente.');const step=goals.goals.find(g=>g.objective.id===requested.goalId)?.steps.find(s=>s.id===requested.stepId);if(!step?.command||step.reasons.length)throw new Error('Esta etapa ainda não está liberada no planejamento atual.');command=step.command;}else{const block=goalCommandBlock(requested,state,prefs,goals);if(block)throw new Error(block);command=requested;}
-  if(!supportsCommandBuild(state.build,command.kind))throw new Error('Ações no jogo suspensas: build atual não validado para este adaptador.');
+  if(!supportsCommandBuild(state.build,command.kind,state))throw new Error('Ações no jogo suspensas: build atual não validado para este adaptador.');
   if(command.kind==='sell'){
    const itemId=command.itemId,rule=prefs.sales.rules.find(r=>r.itemId===itemId);
    if(!rule?.enabled||command.keep!==rule.keep||command.pulls.length&&!rule.includeStored||command.automatic&&!prefs.sales.enabled)throw new Error('A regra de venda foi desativada ou alterada.');

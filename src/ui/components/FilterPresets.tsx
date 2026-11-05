@@ -40,11 +40,11 @@ export function FilterPresets(){
   {draft&&<PresetEditor draft={draft} onChange={setDraft} onCancel={()=>setDraft(null)} onSave={()=>{savePreset(draft.kind,draft.index,{name:draft.name.trim()||listLabels[draft.kind].name,itemIds:draft.itemIds});setDraft(null);setSelected({kind:draft.kind,index:draft.index});}}/>}
   {!draft&&selected&&(()=>{const {kind,index}=selected,p=presets[kind][index];if(!p)return null;
    const active=activeList(state,kind),limit=listCapacity(state,kind),diff=presetDiff(p,active),command=commandFor(kind,p.itemIds);
-   const live=state?.source==='live'&&supportsCommandBuild(state.build,command.kind)&&!!active&&!!limit;
+   const live=state?.source==='live'&&supportsCommandBuild(state.build,command.kind,state)&&!!active&&!!limit;
    const blocked=state?commandProtection(command,state,prefs)??goalCommandBlock(command,state,prefs):undefined;
    const invalid=p.itemIds.filter(id=>!eligible(kind,id,state));
    const over=!!limit&&p.itemIds.length>limit;
-   const reason=!state||state.source!=='live'?'Conecte ao jogo para aplicar.':!supportsCommandBuild(state.build,command.kind)?'Build atual do jogo não validado para esta ação.':!active?'O jogo não informou esta lista. Recarregue a aba.':!limit?(kind==='eraser'?'Guarde um Apagador Pessoal na janela da mochila.':'Guarde um Compactador Pessoal na janela da mochila.'):over?'O conjunto tem '+p.itemIds.length+' itens, mas há '+limit+' vagas.':invalid.length?'Não aceitos nesta lista: '+invalid.map(itemName).join(', ')+'.':blocked;
+   const reason=!state||state.source!=='live'?'Conecte ao jogo para aplicar.':!supportsCommandBuild(state.build,command.kind,state)?'Build atual do jogo não validado para esta ação.':!active?'O jogo não informou esta lista. Recarregue a aba.':!limit?(kind==='eraser'?'Guarde um Apagador Pessoal na janela da mochila.':'Guarde um Compactador Pessoal na janela da mochila.'):over?'O conjunto tem '+p.itemIds.length+' itens, mas há '+limit+' vagas.':invalid.length?'Não aceitos nesta lista: '+invalid.map(itemName).join(', ')+'.':blocked;
    const same=!!active&&sameSet(p.itemIds,active);
    return <div className="preset-detail">
     <div className="preset-detail-head"><div><h3>{p.name}</h3><small className="muted">{listLabels[kind].name} · quadrado {index+1} · {p.itemIds.length} itens{same?' · ativo no jogo':''}</small></div>
