@@ -22,7 +22,7 @@ export const catalogDrops=(area:string)=>[...new Set(regions.filter(r=>r.area===
 export interface Suggestion{compactor:string[];eraser:string[];autosell:string[];seen:string[]}
 const seed=(id:string)=>/seeds?$|_seed$|sementes/.test(id);
 /** Vai para a fornalha (minério bruto, carne, peixe, batata): nunca sugerir apagar ou vender. */
-const furnace=(id:string)=>/^raw_|^(beef|porkchop|mutton|chicken|rabbit|cod|salmon|potato|arrow)$/.test(id)||['Armadura','Arma','Ferramenta','Acessório','Pet','Minion','Livro'].includes(items[id]?.category??'');
+const furnace=(id:string)=>/^raw_|^(beef|porkchop|mutton|chicken|rabbit|cod|salmon|potato|arrow|ancient_debris)$/.test(id)||['Armadura','Arma','Ferramenta','Acessório','Pet','Minion','Livro'].includes(items[id]?.category??'');
 let usedCache:Set<string>|undefined;
 /** Ingredientes de qualquer receita conhecida (compactação, lapidação, mesa, SkyBlock, armaduras, forja). */
 const usedSomewhere=()=>usedCache??=new Set([...autoRecipes,...craftRecipes].flatMap(r=>Object.keys(r.ingredients)));
