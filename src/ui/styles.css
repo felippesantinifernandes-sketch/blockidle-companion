@@ -99,5 +99,6 @@ button.bazaar-row:hover,button.bazaar-row.selected{background:var(--raised);bord
 .bazaar-chart svg{width:100%;max-width:520px;height:100px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
 .toolbar label:not(.checkbox-label){display:flex;flex-direction:column;gap:3px;font-size:11px}
 .occupancy{display:flex;flex-direction:column;gap:4px;font-size:11px}
-.occupancy-row{display:grid;grid-template-columns:minmax(120px,1fr) 140px 50px;gap:8px;align-items:center}
+.occupancy-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(50px,140px) auto;gap:8px;align-items:center}
+.occupancy-row>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .occupancy-row .status-meter{width:100%}
