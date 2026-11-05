@@ -52,6 +52,7 @@ chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
   if(!supportsCommandBuild(state.build,command.kind,state))throw new Error('Ações no jogo suspensas: build atual não validado para este adaptador.');
   if(command.kind==='sell'){
    const itemId=command.itemId,rule=prefs.sales.rules.find(r=>r.itemId===itemId);
+   if(command.automatic)throw new Error('A venda automática da extensão foi retirada. Use a auto-venda nativa do jogo.');
    if(!rule?.enabled||command.keep!==rule.keep||command.pulls.length&&!rule.includeStored||command.automatic&&!prefs.sales.enabled)throw new Error('A regra de venda foi desativada ou alterada.');
    const plan=salePlan(state,prefs,rule);if(!plan.command)throw new Error(plan.reason??'Não há excedente para vender agora.');if(command.automatic)command={...plan.command,automatic:true};else if(JSON.stringify({...command,automatic:false})!==JSON.stringify(plan.command))throw new Error('A prévia de venda mudou. Atualize antes de continuar.');
   }

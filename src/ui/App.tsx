@@ -1,7 +1,6 @@
 import {Sales} from './pages/Sales';
 import { StatusBar } from './components/StatusBar';
 import { AreaRuleBanner, useAreaRules } from './components/AreaRules';
-import {useSalesAutomation} from './salesAutomation';
 import {GamePage} from './pages/Game';
 import{UpdateBanner}from'./components/UpdateBanner';
 import{useNavigation}from'./navigation';
@@ -27,7 +26,6 @@ import { Settings } from './pages/Settings';
 import { time } from './components/common';
 const pages = [['Visão Geral', LayoutDashboard, 'Um olhar completo para sua ilha.'], ['Terminal', Package, 'Encontre cada recurso. Planeje o próximo destino.'], ['Venda', Package, 'Venda apenas o excedente, com uma reserva por item.'], ['Grupos', Boxes, 'Organize seus armazenamentos do seu jeito.'], ['Automações', Workflow, 'Perfis e políticas para planejar com segurança.'], ['Personagem', UserRound, 'Equipamentos, atributos e companheiros.'], ['Progressão', Activity, 'Acompanhe o que você já conquistou.'], ['Crafts', Pickaxe, 'Transforme seu estoque no próximo objetivo.'], ['Jogo', LayoutDashboard, 'Abra o jogo, escolha sua aba e consulte o ranking.'], ['Histórico', HistoryIcon, 'Registros locais da sua evolução.'], ['Configurações', SettingsIcon, 'Um Companion do seu jeito.']] as const;
 export function App() {
-    useSalesAutomation();
     useAreaRules();
     const { state, prefs, ready, error, initialize, setState, setError } = useStore(), [busy, setBusy] = useState(false), [status, setStatus] = useState('Aguardando conexão'), [mobile, setMobile] = useState(false);
     const file = useRef<HTMLInputElement>(null), lastSnapshot = useRef(0), mode = useRef('none'), connecting = useRef(false);

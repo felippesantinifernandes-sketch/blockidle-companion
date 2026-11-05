@@ -19,14 +19,22 @@
 | --- | --- |
 | Terminal | Busca unificada, localização e movimentação supervisionada dos materiais. |
 | Venda | Preços de NPC, seleção por região, checkbox por item e reserva na mochila. |
-| Automações | Modelos do compactador por região, filtros e transformações. |
+| Automações | Grade de conjuntos (Compactador, Apagador, Auto-venda), regras por área, modelos por região e transformações. |
 | Crafts | Bancada ligada à wiki, materiais disponíveis/faltantes e objetivos encadeados. |
 | Personagem | Coleção de acessórios, efeitos, famílias e próximos tiers. |
 | Progressão | Coleções, habilidades e planejamento do nível SkyBlock. |
 | Jogo | Página própria, janela do jogo e consulta ao ranking. |
 | Configurações | Ordem das guias, tema, atualização e preferências locais. |
 
+No topo de todas as guias, a barra de status mostra build e compatibilidade, área, moedas, mochila, tempo offline e filtros ativos. Ela sincroniza com o jogo a cada 5 minutos.
+
 Todas as seções com título podem ser recolhidas pela seta. A escolha e a ordem das guias ficam salvas.
+
+## Filtros da mochila e regras por área
+
+Em **Automações › Conjuntos de filtros**, a página tem três colunas (Compactador, Apagador e Auto-venda) com 9 quadrados cada. Cada quadrado guarda uma lista completa; clique para criar, revisar e aplicar no jogo. O quadrado ativo fica com borda verde.
+
+Em **Regras por área**, escolha qual quadrado vale em cada área. No modo **Sugerir** (padrão), o painel avisa ao chegar na área e aplica com um clique. No modo **Automático**, aplica sozinho com o painel aberto. O apagador descarta itens de forma definitiva; revise os conjuntos antes de ligar o automático.
 
 ## Venda por excedente · 0.6
 
@@ -37,11 +45,11 @@ Todas as seções com título podem ser recolhidas pela seta. A escolha e a orde
 1. Abra **Venda**, escolha uma região ou busque o item.
 2. Marque o checkbox e ajuste **Manter na mochila**.
 3. Opcionalmente, habilite **Incluir baús e colheita**.
-4. Revise uma venda manual ou ative a venda automática dos itens marcados.
+4. Revise e confirme a venda manual.
 
-A automação exige o painel aberto, estado recente e o jogo realmente visível. Não troca a guia em que você está. Processa uma regra por vez, no máximo a cada 15 segundos. Uma falha pausa as vendas; um resultado incerto bloqueia novas transações até revisão.
+A venda automática própria da extensão foi retirada: a auto-venda nativa do jogo vende o que chega com a mochila cheia e é configurada na grade de conjuntos. Um resultado incerto bloqueia novas transações até revisão.
 
-A reserva deve estar na mochila antes de vender de baús. A retirada usa lotes de até 64, após conferir espaço; não inclui ração, bolsas, sacos ou Ender. Editar regras pausa a automação. Favoritos, proteções, reservas locais e materiais de objetivos impedem a venda. A lista usa os preços do catálogo carregado no jogo; offline, mostra os valores explícitos coletados em 21/10/2026. Cada operação confere novamente o preço atual do cliente: não são cotações do Bazar e valores desconhecidos não são estimados.
+A reserva deve estar na mochila antes de vender de baús. A retirada usa lotes de até 64, após conferir espaço; não inclui ração, bolsas, sacos ou Ender. Favoritos, proteções, reservas locais e materiais de objetivos impedem a venda. A lista usa os preços do catálogo carregado no jogo; offline, mostra os valores explícitos coletados em 21/10/2026. Cada operação confere novamente o preço atual do cliente: não são cotações do Bazar e valores desconhecidos não são estimados.
 
 ## Instalar e atualizar
 
@@ -53,7 +61,7 @@ Baixe o ZIP da extensão em **Releases**, extraia em uma pasta permanente e use 
 
 ## Compatibilidade e privacidade
 
-O build anterior `ef3c8efa9f` mantém as ações já validadas. O build `6b899075fb`, informado pelo usuário e comparado com os módulos públicos em 21/10/2026, tem suporte restrito a filtros do compactador e vendas. Cada operação relê estado, confere o build e valida o contrato nativo. Crafts e movimentações antigas nesse build aguardam revisão. Builds desconhecidos permanecem bloqueados.
+O build anterior `ef3c8efa9f` mantém as ações já validadas. Os builds `6b899075fb` e `0ddf20e09b` (comparado com os módulos públicos em 04/11/2026) têm suporte restrito a filtros (compactador, apagador, auto-venda) e venda do excedente. Um build novo cujo contrato continua igual (mesmas funções de `rede.js`, mapas de vagas e campos de estado) libera só os filtros, sempre com confirmação; se o contrato mudar, a extensão fica em leitura e mostra o motivo. Crafts e movimentações nesses builds aguardam revisão.
 
 Os testes usam clientes e respostas simulados. Não comprovam transações em uma conta real. O catálogo mantém lacunas e receitas antigas identificadas; o preço e as regras do servidor prevalecem.
 

@@ -7,6 +7,13 @@
 - Novas ações confirmadas: salvar a lista do Apagador Pessoal e a lista da auto-venda nativa do jogo (7 vagas). Itens protegidos, favoritos, reservados ou de objetivos não entram. As regras de aceitação espelham o cliente do jogo (31/10/2026).
 - Aviso quando a opção do jogo “Vender também qualquer outro item que não couber” está ligada, pois ela vende itens fora da lista.
 - O estado lido agora inclui `apagar`, `autoVender`, `autoVenderJa` e `autoVenderTudo`, e as vagas do apagador vêm do catálogo conectado.
+- **Compatibilidade por contrato** e suporte ao build `0ddf20e09b` (04/11/2026) para filtros e venda do excedente. Um build novo com o mesmo contrato (funções de `rede.js`, mapas de vagas, campos de estado) libera só os filtros; contrato alterado deixa a extensão em leitura, com o motivo na tela.
+- **Barra de status** no topo: build e compatibilidade, área e tarefa, ouro, Bits, Gemas, mochila, tempo offline do dia, filtros ativos, total da auto-venda, cookie e rank. Sincroniza com o servidor a cada 5 minutos (`/api/estado` pela aba do jogo) e tem o botão **Atualizar agora**.
+- **Regras por área**: cada área aponta para um quadrado da grade em cada lista, mais as opções da auto-venda. Modo **Sugerir** (padrão) mostra um aviso ao chegar na área; **Automático** aplica sozinho com o painel aberto. Um pedido por vez, no máximo um por segundo, parando no primeiro erro.
+- Coluna Auto-venda com as opções do jogo **Vender os marcados assim que chegam** e **Vender também qualquer outro item que não couber**, e o total vendido.
+- **Retirado:** a venda automática própria da extensão (a auto-venda nativa faz isso, sem mexer no que já está guardado). A venda manual do excedente guardado continua em Venda.
+- **Retirado:** “Manter presença ao trocar de guia”. Ele fazia o jogo acreditar que a aba estava visível e contornava o limite diário offline do rank. No lugar, o botão **Abrir jogo em janela compacta**. Testes automáticos impedem chamar `visivel`, `ilha` ou `passeio` e sobrescrever a visibilidade.
+- Ações de filtro em sequência agora esperam 1 segundo entre pedidos.
 
 ## 0.6.0 · 21/10/2026
 
