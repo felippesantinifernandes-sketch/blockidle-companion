@@ -205,6 +205,13 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    else {for(const[id,n]of Object.entries(requirements))if(physical(before,id)-physical(after,id)!==n)throw new Error('Consumo dos materiais não confirmado. Revise os saldos.');if(r.kind==='forge'){const old=(before.forja??[]) as State[],next=(after.forja??[]) as State[];if(next.length!==old.length+1||!next.some(f=>f.id===r.outputId&&typeof f.fim==='number'&&f.fim>Date.now()-10000&&!old.some(a=>a.id===f.id&&a.fim===f.fim)))throw new Error('A nova tarefa da Forja não foi confirmada.');message='Forja iniciada. O prazo confirmado aparece na fila.';}else{const equipped=r.tool&&after[r.tool]===r.outputId;const armor=Object.values(after.armadura??{}).includes(r.outputId);const produced=physical(after,r.outputId)-physical(before,r.outputId)>=r.output;if(!equipped&&!armor&&!produced)throw new Error('A saída do craft não foi confirmada.');message='Craft confirmado: '+r.name+'.';}}
    return{ok:true,changed:c.batches,message,raw:projection(after,build)};
   }
+  if(input.command.kind==='dragonAuto'){
+   const c=input.command;if(typeof network.armazem!=='function')throw new Error('Contrato do Dragão não reconhecido.');
+   if((before.dragao?.auto===true)===c.enabled)return {ok:true,changed,message:'A opção já estava assim.',raw:projection(before,build)};
+   guard();const r=await invoke(network.armazem({acao:'dragao_auto',liga:c.enabled}));if(r.estado){latest=r.estado;hud.aplicar?.(r.estado);}changed++;
+   before=await refresh();if(before.dragao&&typeof before.dragao.auto==='boolean'&&before.dragao.auto!==c.enabled)throw new Error('O servidor não confirmou a opção do Dragão.');
+   return {ok:true,changed,message:c.enabled?'O Steve vai sozinho para a luta do Dragão.':'Entrar sozinho desligado.',raw:projection(before,build)};
+  }
   if(input.command.kind==='wardrobeKit'){
    // Guarda-roupa (guardaui.js): sub compactador/apagador grava a lista ATUAL no conjunto, ou apaga se já for igual. Por isso conferimos antes.
    const c=input.command,n=c.slot,same=(a:unknown,b:string[])=>{const x=Array.isArray(a)?a:a===undefined||a===null?[]:undefined;return !!x&&x.length===b.length&&[...x].sort().join('|')===[...b].sort().join('|');};
