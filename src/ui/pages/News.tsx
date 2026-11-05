@@ -15,7 +15,7 @@ export function News(){
  const r:RadarReport|undefined=radar.report;
  const copy=async()=>{if(!r)return;try{await navigator.clipboard.writeText(updatePrompt(r,radar.discord??'',radar.priority??''));setCopied(true);notify('Prompt copiado.');}catch{notify('Não foi possível copiar.',false);}};
  return <>
-  <Card title="Radar de mudanças" action={<button onClick={()=>void radar.run(build)} disabled={radar.running}><RadarIcon size={14}/>{radar.running?'Lendo módulos… '+radar.progress:'Verificar agora'}</button>}>
+  <Card icon={<RadarIcon size={16}/>} title="Radar de mudanças" action={<button onClick={()=>void radar.run(build)} disabled={radar.running}><RadarIcon size={14}/>{radar.running?'Lendo módulos… '+radar.progress:'Verificar agora'}</button>}>
    <p className="muted">O Blockidle não publica changelog. O radar segue os imports de /js/main.js, guarda o hash de cada módulo e, quando o build muda, compara: arquivos, ações, funções de rede.js, itens, receitas, constantes, campos de estado e os comentários datados (DD/MM) que os desenvolvedores deixam. Roda sozinho quando o painel vê um build novo.</p>
    {radar.error&&<p className="notice warning-text">{radar.error}</p>}
    <p className="muted">{radar.snapshot?'Base: build '+radar.snapshot.build+' · '+Object.keys(radar.snapshot.hashes).length+' módulos · '+time(radar.snapshot.at)+(radar.snapshot.catalog?'':' · sem catálogo (abra o jogo para incluir itens e receitas)'):'Nenhuma base ainda. Clique em Verificar agora com o jogo aberto.'}</p>

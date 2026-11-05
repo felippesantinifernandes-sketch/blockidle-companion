@@ -1,6 +1,6 @@
 import {useBazaar} from '../bazaar';
 import {useMemo,useState} from 'react';
-import {Plus,Save,ShieldCheck,Trash2,Pencil,Copy} from 'lucide-react';
+import {Plus,Save,ShieldCheck,Trash2,Pencil,Copy,Filter,Layers,Eraser,Coins} from 'lucide-react';
 import {useStore} from '../store';
 import {useActions} from '../actions';
 import {Card,ItemIcon,ItemName} from './common';
@@ -28,10 +28,10 @@ export function FilterPresets(){
  const locked=!!lockedScope&&lockedScope===state?.scope;
  const savePreset=(kind:ListKind,index:number,value:FilterPreset|null)=>{const next={...presets,[kind]:presets[kind].map((p,i)=>i===index?value:p)};patch({filterPresets:next});};
  const open=(slot:Slot)=>{const p=presets[slot.kind][slot.index];setConfirm(false);if(p){setDraft(null);setSelected(slot);}else{setSelected(null);setDraft({...slot,name:listLabels[slot.kind].name+' '+(slot.index+1),itemIds:[]});}};
- return <Card title="Conjuntos de filtros" action={<span className="badge">3 listas · 9 conjuntos cada</span>}>
+ return <Card icon={<Filter size={16}/>} title="Conjuntos de filtros" action={<span className="badge">3 listas · 9 conjuntos cada</span>}>
   <p className="muted">Cada quadrado guarda um conjunto pronto para uma lista da janela “Configurações da mochila” do jogo. Clique num quadrado vazio para criar; clique num preenchido para revisar e aplicar. O quadrado com borda verde é o que está ativo no jogo agora.</p>
   <div className="preset-columns">{listKinds.map(kind=>{const active=activeList(state,kind),limit=listCapacity(state,kind);return <section className="preset-column" key={kind} aria-label={'Conjuntos: '+listLabels[kind].name}>
-   <header><strong>{listLabels[kind].name}</strong><span className="badge">{active?active.length:'?'} / {limit??'?'} no jogo</span></header>
+   <header><strong className="preset-col-title">{kind==='compactor'?<Layers size={15}/>:kind==='eraser'?<Eraser size={15}/>:<Coins size={15}/>}{listLabels[kind].name}</strong><span className="badge">{active?active.length:'?'} / {limit??'?'} no jogo</span></header>
    <div className="preset-active" aria-label={'Ativos no jogo: '+listLabels[kind].name}>{active?.length?active.map(id=><span key={id} title={itemName(id)}><ItemIcon id={kind==='compactor'?inputOf(id)??id:id}/></span>):<small className="muted">{active?'Lista vazia no jogo.':state?.source==='live'?'O jogo não informou esta lista.':'Conecte ao jogo para ver.'}</small>}</div>
    {kind==='autosell'&&<AutosellOptions/>}
    <div className="preset-grid">{presets[kind].map((p,index)=>{const icon=p&&presetIcon(kind,p),isActive=!!p&&!!active&&sameSet(p.itemIds,active),isSelected=(selected?.kind===kind&&selected.index===index)||(draft?.kind===kind&&draft.index===index);

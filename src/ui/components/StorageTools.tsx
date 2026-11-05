@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Boxes} from 'lucide-react';
 import {useStore} from '../store';
 import {useActions} from '../actions';
 import {Card,number} from './common';
@@ -17,7 +18,7 @@ export function StorageTools(){
  const total=occupancy.reduce((n,c)=>n+c.total,0),used=occupancy.reduce((n,c)=>n+c.used,0);
  const can=(k:ManualCommand)=>state.source==='live'&&supportsCommandBuild(state.build,k.kind,state);
  const blocked=confirm?commandProtection(confirm,state,prefs):undefined;
- return <Card title="Ações rápidas e lotação">
+ return <Card icon={<Boxes size={16}/>} title="Ações rápidas e lotação">
   <div className="button-row"><button disabled={!can({kind:'enderBackpack'})||busy||locked} onClick={()=>setConfirm({kind:'enderBackpack'})}>Guardar mochila no Ender</button><button disabled={!can({kind:'terminalStash'})||busy||locked||!state.terminalAvailable} onClick={()=>setConfirm({kind:'terminalStash'})}>Juntar nos baús</button></div>
   <p className="muted">Ender funciona de qualquer área. “Juntar nos baús” guarda da mochila o que já existe em algum baú da ilha e usa o passeio (o Steve para durante a operação).</p>
   {confirm&&<div className="confirmation"><h3>{confirm.kind==='enderBackpack'?'Guardar a mochila no Ender':'Juntar nos baús'}</h3><p>{confirm.kind==='enderBackpack'?'O jogo move para o Baú do Ender o que couber da mochila.':'O jogo move da mochila os itens que já têm um baú na ilha.'}</p>{blocked&&<p className="warning-text">{blocked}</p>}<div className="button-row"><button onClick={()=>setConfirm(undefined)}>Cancelar</button><button className="primary" disabled={busy||locked||!!blocked} onClick={async()=>{await perform(confirm);setConfirm(undefined);}}>Confirmar</button></div></div>}

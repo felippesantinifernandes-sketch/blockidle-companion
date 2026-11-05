@@ -87,3 +87,13 @@ export async function readNativeEvents(){
   return {ok:true as const,events};
  }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha ao ler o calendário.'};}
 }
+/** Estado do Dragão (GET /api/dragao): fase, horário, tipo, se foi invocado e olhos no altar. Só leitura. */
+export async function readNativeDragon(){
+ try{
+  const url=location.origin+'/js/rede.js';if(!performance.getEntriesByType('resource').some(r=>r.name===url))throw Error('Cliente do jogo não identificado.');
+  const network=await import(/* @vite-ignore */ url);if(typeof network.dragao!=='function')throw Error('Contrato do Dragão não reconhecido.');
+  const r=await network.dragao();if(r?.erro)throw Error(String(r.erro).slice(0,160));
+  const d=r?.dragao&&typeof r.dragao==='object'?r.dragao:{},num=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)?v:undefined;
+  return {ok:true as const,info:{phase:typeof d.fase==='string'?d.fase.slice(0,20):undefined,at:num(d.quando)??num(d.nasce)??num(d.proximo),type:typeof d.tipo==='string'?d.tipo.slice(0,30):undefined,forced:d.forcado===true,eyes:num(d.olhos)??(Array.isArray(d.olhos)?d.olhos.length:undefined)},myEyes:num(r.meusOlhos),haveEyes:num(r.olhosTenho)};
+ }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha ao ler o Dragão.'};}
+}

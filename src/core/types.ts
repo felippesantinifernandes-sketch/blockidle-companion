@@ -66,6 +66,7 @@ export interface Preferences {
     presenceDefaultApplied:boolean;
     valueGuard:number|null;
     backgroundSync:boolean;
+    pinnedObjective:string|null;
     notify:{enabled:boolean;backpackFull:boolean;offline:boolean;queueEmpty:boolean;dragon:boolean;auction:boolean;bazaar:boolean;build:boolean;areaRule:boolean};
     areaRules:Record<string,AreaRule>;
     areaMode:'suggest'|'auto';

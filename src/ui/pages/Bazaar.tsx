@@ -1,5 +1,5 @@
 import {useMemo,useState} from 'react';
-import {RefreshCw,ShoppingCart,Coins,X} from 'lucide-react';
+import {RefreshCw,ShoppingCart,Coins,X,Store,ClipboardList} from 'lucide-react';
 import {useStore} from '../store';
 import {useActions} from '../actions';
 import {Card,ItemIcon,ItemName,number,time} from '../components/common';
@@ -27,7 +27,7 @@ export function Bazaar(){
   return ids.sort((a,b)=>sort==='margin'?margin(b)-margin(a):sort==='volume'?(prices[b].volume??0)-(prices[a].volume??0):itemName(a).localeCompare(itemName(b),'pt-BR'));
  },[bazaar.prices,bazaar.categories,category,query,sort,tax]);
  return <>
-  <Card title="Bazar" action={<button onClick={()=>void bazaar.load()} disabled={bazaar.loading}><RefreshCw size={14}/>{bazaar.loading?'Consultando…':bazaar.at?'Atualizar':'Carregar preços'}</button>}>
+  <Card icon={<Store size={16}/>} title="Bazar" action={<button onClick={()=>void bazaar.load()} disabled={bazaar.loading}><RefreshCw size={14}/>{bazaar.loading?'Consultando…':bazaar.at?'Atualizar':'Carregar preços'}</button>}>
    <p className="muted">Preços lidos do servidor pela aba do jogo, no máximo uma consulta por segundo. “Comprar agora” é o menor preço pedido; “Vender agora” é a maior ordem de compra. A margem desconta a taxa de {gold(tax*100,2)}% (a taxa real da sua conta aparece na prévia de venda). Toda compra, venda ou ordem pede confirmação.</p>
    {bazaar.error&&<p className="notice warning-text">{bazaar.error}</p>}
    {bazaar.at&&<><div className="toolbar"><input aria-label="Buscar no Bazar" placeholder="Buscar item…" value={query} onChange={e=>{setQuery(e.target.value);setLimit(80);}}/><select aria-label="Categoria do Bazar" value={category} onChange={e=>{setCategory(e.target.value);setLimit(80);}}><option value="all">Todas as categorias</option>{bazaar.categories.map(c=><option key={c.name} value={c.name}>{c.name}</option>)}</select><select aria-label="Ordenar Bazar" value={sort} onChange={e=>setSort(e.target.value as typeof sort)}><option value="name">Nome</option><option value="margin">Maior margem de revenda</option><option value="volume">Maior volume</option></select></div>
@@ -77,7 +77,7 @@ function MyOrders(){
  const load=async()=>{setError('');try{const r=await bazaarRead<{orders:BazaarOrder[];claim:Record<string,number>}>({op:'minhas'});setOrders(r.orders);setClaim(r.claim);}catch(e){setError(e instanceof Error?e.message:'Falha no Bazar.');}};
  const live=state?.source==='live'&&supportsCommandBuild(state.build,'bazaarClaim',state),locked=!!lockedScope&&lockedScope===state?.scope;
  const run=async(c:ManualCommand)=>{const r=await perform(c);setConfirm(undefined);if(r.ok)await load();};
- return <Card title="Minhas ordens no Bazar" action={<button onClick={()=>void load()}><RefreshCw size={14}/>{orders?'Atualizar':'Carregar'}</button>}>
+ return <Card icon={<ClipboardList size={16}/>} title="Minhas ordens no Bazar" action={<button onClick={()=>void load()}><RefreshCw size={14}/>{orders?'Atualizar':'Carregar'}</button>}>
   {error&&<p className="notice warning-text">{error}</p>}
   {orders&&<>{Object.keys(claim).length>0&&<div className="notice"><strong>Para resgatar: {Object.entries(claim).map(([k,v])=>number(v)+' '+(k==='ouro'?'de ouro':itemName(k))).join(', ')}</strong><div className="button-row"><button className="primary" disabled={!live||busy||locked} onClick={()=>setConfirm({kind:'bazaarClaim'})}>Resgatar</button></div></div>}
    {orders.map(o=><div className="row" key={o.id}><div><strong>{o.side==='c'?'Compra':'Venda'} · {itemName(o.item)}</strong><small>{number(o.remaining??0)} de {number(o.qtd??0)} restantes · {gold(o.price,2)} por unidade</small></div><button disabled={!live||busy||locked} onClick={()=>setConfirm({kind:'bazaarCancel',orderId:o.id})}>Cancelar ordem</button></div>)}

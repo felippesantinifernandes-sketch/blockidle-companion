@@ -2,6 +2,9 @@
 
 ## Não lançado
 
+- **Vai ter Dragão? O Steve vai entrar?** A guia Eventos lê o Dragão pelo jogo (luta, invocação, olhos no altar) e confere cada regra do Entrar sozinho: opção ligada, Selo de Convocação (e o Encantado no invocado), portal, Combate 12, fora da Câmara do Vazio, Catacumbas, passeio, Invasão e de missão de Slayer (que segura o Steve na Masmorra). Cada condição que falha diz o que fazer. A barra de status mostra “entra/não entra” e o aviso chega 10 minutos antes dizendo o motivo.
+- **Objetivo fixado no topo da guia Crafts:** escolha um item e a quantidade; o painel mostra o progresso, a ordem para craftar (incluindo os crafts intermediários), a árvore completa com ícones e o que falta coletar ou comprar, com onde está guardado e o custo no Bazar. “Adicionar e fixar como objetivo” também na receita.
+- Ícones nos títulos das seções e nas colunas da grade; ícone do item cai para a textura do próprio jogo quando a da wiki falta.
 - Automações: nova grade **Conjuntos de filtros** em 3 colunas (Compactador, Apagador e Auto-venda), com 9 quadrados cada. Cada quadrado guarda um conjunto completo; o que está ativo no jogo fica com borda verde.
 - Criar conjunto a partir da lista atual do jogo, do modelo da região (compactador) ou escolhendo itens da mochila, dos drops de uma região ou do catálogo. Editar, duplicar e esvaziar quadrados.
 - Novas ações confirmadas: salvar a lista do Apagador Pessoal e a lista da auto-venda nativa do jogo (7 vagas). Itens protegidos, favoritos, reservados ou de objetivos não entram. As regras de aceitação espelham o cliente do jogo (31/10/2026).

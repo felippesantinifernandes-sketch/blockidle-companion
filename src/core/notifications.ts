@@ -2,7 +2,7 @@ import type {GameState,Preferences} from './types';
 import {areaName} from './areaRules';
 
 export type NotifyKind=Exclude<keyof Preferences['notify'],'enabled'>;
-export const notifyLabels:Record<NotifyKind,string>={backpackFull:'Mochila cheia',offline:'Tempo offline do dia em 80%',queueEmpty:'Fila de craft vazia',dragon:'Dragão nasce em 5 minutos',auction:'Dark Auction com lote raro',bazaar:'Ordem do Bazar com algo para resgatar',build:'Build do jogo mudou',areaRule:'Regra de área aplicada'};
+export const notifyLabels:Record<NotifyKind,string>={backpackFull:'Mochila cheia',offline:'Tempo offline do dia em 80%',queueEmpty:'Fila de craft vazia',dragon:'Dragão em 10 minutos (e se o Steve vai entrar)',auction:'Dark Auction com lote raro',bazaar:'Ordem do Bazar com algo para resgatar',build:'Build do jogo mudou',areaRule:'Regra de área aplicada'};
 export const defaultNotify=():Preferences['notify']=>({enabled:false,backpackFull:true,offline:true,queueEmpty:true,dragon:true,auction:true,bazaar:true,build:true,areaRule:true});
 export interface NotifyEvent{kind:NotifyKind;title:string;message:string}
 const rec=(v:unknown)=>v&&typeof v==='object'&&!Array.isArray(v)?v as Record<string,unknown>:undefined;
