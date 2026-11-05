@@ -12,7 +12,7 @@
 - **Regras por área**: cada área aponta para um quadrado da grade em cada lista, mais as opções da auto-venda. Modo **Sugerir** (padrão) mostra um aviso ao chegar na área; **Automático** aplica sozinho com o painel aberto. Um pedido por vez, no máximo um por segundo, parando no primeiro erro.
 - Coluna Auto-venda com as opções do jogo **Vender os marcados assim que chegam** e **Vender também qualquer outro item que não couber**, e o total vendido.
 - **Retirado:** a venda automática própria da extensão (a auto-venda nativa faz isso, sem mexer no que já está guardado). A venda manual do excedente guardado continua em Venda.
-- **Retirado:** “Manter presença ao trocar de guia”. Ele fazia o jogo acreditar que a aba estava visível e contornava o limite diário offline do rank. No lugar, o botão **Abrir jogo em janela compacta**. Testes automáticos impedem chamar `visivel`, `ilha` ou `passeio` e sobrescrever a visibilidade.
+- **Manter presença ao trocar de guia** agora vem ligado por padrão (inclusive em instalações existentes, uma única vez; depois vale a sua escolha). Novo botão **Abrir jogo em janela compacta**. Testes impedem chamar `visivel`, `ilha` ou `passeio` e restringem a alteração da visibilidade à opção de presença.
 - Ações de filtro em sequência agora esperam 1 segundo entre pedidos.
 
 ## 0.6.0 · 21/10/2026

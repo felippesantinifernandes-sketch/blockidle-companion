@@ -63,6 +63,7 @@ export type SaleCommand={kind:'sell';itemId:string;quantity:number;keep:number;e
 export interface FilterPreset {name:string;itemIds:string[]}
 export interface AreaRule {compactor:number|null;eraser:number|null;autosell:number|null;autoJa:boolean|null;autoTudo:boolean|null}
 export interface Preferences {
+    presenceDefaultApplied:boolean;
     areaRules:Record<string,AreaRule>;
     areaMode:'suggest'|'auto';
     filterPresets:{compactor:(FilterPreset|null)[];eraser:(FilterPreset|null)[];autosell:(FilterPreset|null)[]};

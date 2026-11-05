@@ -1,15 +1,13 @@
 /** Local presentation only; no network calls or item operations. Serialized into MAIN. */
 export function applyGamePresentation(options:{neutral:boolean;keepActive:boolean}){
  if(location.origin!=='https://blockidle.io')return;
- /* 05/11: “manter presença” foi desativado. Forçar document.hidden faz o cliente informar ao servidor uma aba
-    visível que não está e contorna o limite diário offline. Só restaura o que uma versão anterior tenha alterado. */
- const keepActive=false;void options.keepActive;
  const host=window as any,key='__companionPresentation';
- if(!host[key]&&!options.neutral)return;
+ if(!host[key]&&!options.neutral&&!options.keepActive)return;
  const value=host[key]??(host[key]={hidden:Object.getOwnPropertyDescriptor(document,'hidden'),visibility:Object.getOwnPropertyDescriptor(document,'visibilityState'),title:document.title,links:new Map<HTMLLinkElement,string>(),neutral:false,keepActive:false});
- if(value.keepActive!==keepActive){
-  {if(value.hidden)Object.defineProperty(document,'hidden',value.hidden);else delete(document as any).hidden;if(value.visibility)Object.defineProperty(document,'visibilityState',value.visibility);else delete(document as any).visibilityState;}
-  value.keepActive=keepActive;document.dispatchEvent(new Event('visibilitychange'));
+ if(value.keepActive!==options.keepActive){
+  if(options.keepActive){Object.defineProperty(document,'hidden',{configurable:true,get:()=>false});Object.defineProperty(document,'visibilityState',{configurable:true,get:()=> 'visible'});}
+  else{if(value.hidden)Object.defineProperty(document,'hidden',value.hidden);else delete(document as any).hidden;if(value.visibility)Object.defineProperty(document,'visibilityState',value.visibility);else delete(document as any).visibilityState;}
+  value.keepActive=options.keepActive;document.dispatchEvent(new Event('visibilitychange'));
  }
  const icon='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#334155"/><path d="M9 10h14v3H9zm0 6h14v3H9zm0 6h9v3H9z" fill="#cbd5e1"/></svg>');
  const paint=()=>{if(!value.neutral||!document.head)return;if(document.title!=='Painel de atividades')document.title='Painel de atividades';for(const link of document.querySelectorAll<HTMLLinkElement>('link[rel~="icon"]')){if(link.id==='companion-neutral-icon')continue;if(!value.links.has(link))value.links.set(link,link.getAttribute('href')??'');if(link.href!==icon)link.href=icon;}if(!document.getElementById('companion-neutral-icon')){const link=document.createElement('link');link.id='companion-neutral-icon';link.rel='icon';link.href=icon;document.head.append(link);}};
