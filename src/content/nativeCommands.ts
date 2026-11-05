@@ -200,11 +200,22 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    else {for(const[id,n]of Object.entries(requirements))if(physical(before,id)-physical(after,id)!==n)throw new Error('Consumo dos materiais não confirmado. Revise os saldos.');if(r.kind==='forge'){const old=(before.forja??[]) as State[],next=(after.forja??[]) as State[];if(next.length!==old.length+1||!next.some(f=>f.id===r.outputId&&typeof f.fim==='number'&&f.fim>Date.now()-10000&&!old.some(a=>a.id===f.id&&a.fim===f.fim)))throw new Error('A nova tarefa da Forja não foi confirmada.');message='Forja iniciada. O prazo confirmado aparece na fila.';}else{const equipped=r.tool&&after[r.tool]===r.outputId;const armor=Object.values(after.armadura??{}).includes(r.outputId);const produced=physical(after,r.outputId)-physical(before,r.outputId)>=r.output;if(!equipped&&!armor&&!produced)throw new Error('A saída do craft não foi confirmada.');message='Craft confirmado: '+r.name+'.';}}
    return{ok:true,changed:c.batches,message,raw:projection(after,build)};
   }
+  if(input.command.kind==='enderBackpack'||input.command.kind==='terminalStash'){
+   const stash=input.command.kind==='terminalStash';if(typeof network.armazem!=='function')throw new Error('Contrato do armazém não reconhecido.');
+   const inv=(st:State)=>Object.values(st.inventario??{}).reduce((n:number,v)=>n+quantity(v),0),start=inv(before);
+   let r:State,turned=false;
+   try{if(stash&&before.passeio!==true){if(typeof network.passeio!=='function')throw new Error('Contrato do passeio não reconhecido.');guard();const p=await invoke(network.passeio(true));turned=true;if((p.passeio??p.estado?.passeio)!==true)throw new Error('O servidor não confirmou o passeio na ilha.');await new Promise(resolve=>setTimeout(resolve,1000));}
+    for(let attempt=1;;attempt++){try{guard();r=await invoke(network.armazem({acao:stash?'terminal_juntar':'ender_mochila'}));break;}catch(e){if(stash&&attempt<3&&/só na ilha/i.test(String((e as Error)?.message)))await new Promise(resolve=>setTimeout(resolve,1000));else throw e;}}
+   }finally{if(turned)try{await new Promise(resolve=>setTimeout(resolve,1000));await timed(network.passeio(false));}catch{/* o cliente corrige no resync */}}
+   if(r!.estado){latest=r!.estado;hud.aplicar?.(r!.estado);}
+   const after=await refresh();changed=Math.max(0,start-inv(after));
+   return {ok:true,changed,message:(stash?'Guardado nos baús: ':'Guardado no Ender: ')+changed+' unidade(s) saíram da mochila.',raw:projection(after,build)};
+  }
   if(input.command.kind==='move'){
    const c=input.command;if(protectedItem(c.itemId))throw new Error('Item protegido ou reservado.');
    const metadata=catalog.ITENS?.[c.itemId];if(!metadata||metadata.armadura||metadata.ferramenta||catalog.PETS?.[c.itemId])throw new Error('Equipamento ou identidade individual sem validação para movimentação.');
    if(!Number.isSafeInteger(c.quantity)||c.quantity<1||c.quantity>1000000)throw new Error('Quantidade inválida.');
-   let body:State={acao:c.direction==='deposit'?'guardar':'tirar',item:c.itemId,qtd:c.quantity};
+   let body:State={acao:c.direction==='deposit'?(input.build==='ef3c8efa9f'?'guardar':'por'):'tirar',item:c.itemId,qtd:c.quantity};
    const chest=/^bau:(-?\d+),(-?\d+),(-?\d+)$/.exec(c.storageId),bag=/^bolsa([0-8])$/.exec(c.storageId),farm=/^fazenda:(colheita|criador|ovos|abate)$/.exec(c.storageId);
    if(chest){if(!catalog.ehBauIlha?.(before.base?.[c.storageId.slice(4)]))throw new Error('Baú não encontrado na ilha atual.');body={...body,local:'bau',x:Number(chest[1]),y:Number(chest[2]),z:Number(chest[3])};}
    else if(bag)body={...body,local:'bolsa',n:Number(bag[1])};
@@ -213,7 +224,14 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    else throw new Error('Destino sem operação conhecida.');
    const origin=c.direction==='deposit'?'inventory':c.storageId,destination=c.direction==='deposit'?c.storageId:'inventory';
    if(quantity(map(before,origin)[c.itemId])<c.quantity)throw new Error('O estoque mudou ou a origem não possui a quantidade solicitada.');
-   guard();const r=await invoke(network.armazem(body));if(!r.estado)throw new Error('Movimentação sem estado de confirmação.');const after=r.estado;latest=after;hud.aplicar?.(after);
+   // Terminal e baús da ilha só respondem em passeio (04/11): liga, até 3 tentativas em “só na ilha”, sempre desliga no finally.
+   const island=(!!chest||c.storageId==='terminal')&&input.build!=='ef3c8efa9f';let r:State;
+   if(island){if(typeof network.passeio!=='function')throw new Error('Contrato do passeio não reconhecido.');const was=before.passeio===true;let turned=false;
+    try{if(!was){guard();const p=await invoke(network.passeio(true));turned=true;if((p.passeio??p.estado?.passeio)!==true)throw new Error('O servidor não confirmou o passeio na ilha.');await new Promise(resolve=>setTimeout(resolve,1000));}
+     for(let attempt=1;;attempt++){try{guard();r=await invoke(network.armazem(body));break;}catch(e){if(attempt<3&&/só na ilha/i.test(String((e as Error)?.message)))await new Promise(resolve=>setTimeout(resolve,1000));else throw e;}}
+    }finally{if(turned)try{await new Promise(resolve=>setTimeout(resolve,1000));await timed(network.passeio(false));}catch{/* o cliente corrige o passeio no próximo resync */}}}
+   else{guard();r=await invoke(network.armazem(body));}
+   if(!r!.estado)throw new Error('Movimentação sem estado de confirmação.');let after=r!.estado;latest=after;hud.aplicar?.(after);if(island)after=await refresh();
    const removed=quantity(map(before,origin)[c.itemId])-quantity(map(after,origin)[c.itemId]),added=quantity(map(after,destination)[c.itemId])-quantity(map(before,destination)[c.itemId]);
    if(removed<=0||removed!==added||removed>c.quantity||total(before,c.itemId)!==total(after,c.itemId))throw new Error('Os saldos não confirmam a movimentação. Nenhuma repetição automática será feita.');
    changed=removed;return {ok:true,changed,message:removed===c.quantity?'Movimentação confirmada.':'Movimentação parcial confirmada: '+removed+' de '+c.quantity+'.',raw:projection(after,build)};

@@ -104,7 +104,7 @@ export function objectivePlan(state:GameState,prefs:Preferences,catalog=planning
 export function goalCommandBlock(command:ManualCommand,state:GameState,prefs:Preferences,plan=objectivePlan(state,prefs)){
  if(!prefs.preserveGoalMaterials||command.kind==='goalStep'||command.kind==='compactor'&&!command.enabled)return;
  if(command.kind==='compactor'||command.kind==='profile'){const ids=command.kind==='profile'?command.itemIds:[command.itemId];if(ids.some(id=>Object.keys(recipes.find(r=>r.id===id)?.ingredients??{}).some(input=>plan.retained[input]>0)))return'Este filtro consumiria materiais necessários diretamente nos objetivos. Mantenha-o desativado ou pause o objetivo.';return;}
- if(command.kind==='autosellOption'||command.kind==='bazaarCancel'||command.kind==='bazaarClaim')return;
+ if(command.kind==='autosellOption'||command.kind==='bazaarCancel'||command.kind==='bazaarClaim'||command.kind==='enderBackpack'||command.kind==='terminalStash')return;
  if(command.kind==='bazaarNow'||command.kind==='bazaarOrder')return command.side==='v'&&(plan.claims[command.itemId]??0)>0?'Material vinculado a um objetivo. Pause o objetivo para vender no Bazar.':undefined;
  if(command.kind==='eraser'||command.kind==='autosell')return command.itemIds.some(id=>(plan.claims[id]??0)>0)?'Material vinculado a um objetivo. Retire-o do '+(command.kind==='eraser'?'apagador':'auto-venda')+' ou pause o objetivo.':undefined;
  const recipe=command.kind==='craft'?craftRecipes.find(r=>r.id===command.recipeId):undefined;

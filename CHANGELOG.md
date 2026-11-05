@@ -15,6 +15,8 @@
 - Novo botão **Abrir jogo em janela compacta** na guia Jogo. Testes impedem chamar `visivel`, `ilha` ou `passeio`.
 - Ações de filtro em sequência agora esperam 1 segundo entre pedidos.
 - **Assistente de craft:** a origem aceita segue a regra do jogo (mochila, saco, bolsas, **reservas da aba** e Compactador/Apagador guardados; `oak_planks` aceita qualquer tábua). Cada ingrediente que falta mostra onde está guardado (baú com coordenada e rótulo, Ender, farm) e, depois de consultar o Bazar, quanto custa comprar o que não existe em lugar nenhum. Filtros **Posso fazer agora** e **Falta pouco (75%)**.
+- **Movimentação no build `0ddf20e09b`**: retirar e depositar entre mochila, Ender, sacos, bolsas, farms, baús da ilha e Terminal. O depósito usa `por`. Terminal e baús da ilha usam o passeio (liga, até 3 tentativas em “só na ilha”, sempre desliga ao final) e avisam que o Steve para durante a operação.
+- Ações rápidas **Guardar mochila no Ender** e **Juntar nos baús**, com confirmação e bloqueio se a mochila tiver item protegido. Barra de **lotação dos baús** na guia Terminal.
 - Nova guia **Bazar**: preços de compra e venda imediata, margem de revenda já com a taxa, volume, filtro por categoria, livro de ofertas, gráfico de 24 h, prévia com a taxa real da conta, compra e venda imediata, ordens de compra e venda, cancelamento e resgate. Toda escrita pede confirmação; vender item protegido, favorito, reservado ou de objetivo fica bloqueado. No máximo uma consulta por segundo.
 
 ## 0.6.0 · 21/10/2026
