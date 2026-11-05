@@ -8,3 +8,7 @@ describe('Notificações',()=>{
  it('horários do Dragão (a cada 3 h de Brasília) e do leilão (:40)',()=>{const t=Date.UTC(2026,10,5,4,10);expect(new Date(nextDragon(t)).toISOString()).toBe('2026-11-05T06:00:00.000Z');expect(new Date(nextDragon(Date.UTC(2026,10,5,6,0))).toISOString()).toBe('2026-11-05T09:00:00.000Z');expect(new Date(nextAuction(t)).toISOString()).toBe('2026-11-05T04:40:00.000Z');expect(new Date(nextAuction(Date.UTC(2026,10,5,4,45))).toISOString()).toBe('2026-11-05T05:40:00.000Z');});
  it('backup antigo recebe notificações desligadas com todos os tipos marcados',()=>{const old:any=structuredClone(defaults);delete old.notify;const m=parseBackup(JSON.stringify({format:'blockidle-companion-preferences',version:1,preferences:old}));expect(m.notify.enabled).toBe(false);expect(m.notify.dragon).toBe(true);});
 });
+import {auctionWindow} from '../ui/pages/Events';
+describe('Eventos',()=>{
+ it('janela do Dark Auction',()=>{const h=Date.UTC(2026,10,5,4);expect(auctionWindow(h+45*60000)).toEqual({open:true,until:h+55*60000});expect(auctionWindow(h+10*60000)).toEqual({open:false,until:h+40*60000});expect(auctionWindow(h+56*60000)).toEqual({open:false,until:h+100*60000});});
+});

@@ -9,6 +9,7 @@ import {activeList,listCapacity} from '../../core/nativeLists';
 import {itemName} from '../../catalog/itemCatalog';
 import type {GameState} from '../../core/types';
 import {normalize} from '../../core/normalizer';
+import {nextDragon,nextAuction} from '../../core/notifications';
 import {hasChrome} from '../../db/preferences';
 
 export const SYNC_MINUTES=5;
@@ -56,6 +57,7 @@ export function StatusBar(){
   {s.offline&&<div className="status-item status-offline"><small>Offline hoje</small><strong>{hours(s.offline.used)} / {hours(s.offline.cap)}</strong><span className="status-meter" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(s.offline.ratio*100)} aria-label="Tempo offline usado hoje"><span style={{width:(s.offline.ratio*100)+'%'}} className={s.offline.ratio>=0.8?'high':undefined}/></span></div>}
   <div className="status-item"><small>Filtros</small><strong>{lists.map(([name,list,cap])=><span key={name} title={name+': '+(list?.map(itemName).join(', ')||'vazio')}>{name.slice(0,4)} {list?list.length:'?'}/{cap??'?'} </span>)}</strong>{s.sold!==undefined&&<span className="muted">Auto-venda vendeu {number(Math.floor(s.sold))} de ouro</span>}</div>
   {(s.cookie||s.rank)&&<div className="status-item"><small>Cookie · Rank</small><strong>{s.cookie??'—'} · {s.rank??'—'}</strong></div>}
+  <div className="status-item"><small>Eventos</small><strong>Dragão {ago(nextDragon(now)-now)}</strong><span className="muted">{(()=>{const m=new Date(now).getUTCMinutes();return m>=40&&m<55?'Leilão aberto até :55':'Leilão em '+ago(nextAuction(now)-now);})()}</span></div>
   <div className="status-item status-sync"><small>Sincronização</small><strong>{lastSync?'há '+ago(now-lastSync):'leitura da aba há '+ago(now-state.capturedAt)}</strong>{syncError&&<span className="warning-text">{syncError}</span>}{live&&<button className="text-button" disabled={busy||refreshing} onClick={()=>void sync()}><RefreshCw size={13}/>{refreshing?'Atualizando…':'Atualizar agora'}</button>}</div>
  </section>;
 }

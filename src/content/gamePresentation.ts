@@ -78,3 +78,12 @@ export async function readNativeCatalogKeys(){
   return {ok:true as const,catalog:{items:ids(c.ITENS),recipes:ids(c.RECEITAS),bazaarItems:bazaar,constants,stateKeys:estado&&typeof estado==='object'?Object.keys(estado).filter(k=>/^[A-Za-z_][\w]{0,40}$/.test(k)).sort():[]}};
  }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha ao ler o catálogo.'};}
 }
+/** Calendário do jogo (sistemas_sb.js): janela atual ou próxima de cada evento. Só leitura de módulo já carregado. */
+export async function readNativeEvents(){
+ try{
+  const url=location.origin+'/js/sistemas_sb.js';
+  const sys=await import(/* @vite-ignore */ url);if(!sys.EVENTOS_SB||typeof sys.janelaEvento!=='function')throw Error('Calendário do jogo não reconhecido.');
+  const now=Date.now(),events=Object.entries(sys.EVENTOS_SB).slice(0,30).flatMap(([id,e]:[string,any])=>{try{const w=sys.janelaEvento(id,now);return w&&typeof w.ini==='number'?[{id,name:String(e?.nome??id).slice(0,60),desc:String(e?.desc??'').slice(0,240),start:w.ini,end:w.fim,active:!!w.ativo}]:[];}catch{return [];}});
+  return {ok:true as const,events};
+ }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha ao ler o calendário.'};}
+}
