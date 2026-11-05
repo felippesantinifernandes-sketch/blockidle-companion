@@ -86,3 +86,15 @@
 .ingredient-where{display:block;color:var(--muted);font-size:10px;line-height:1.4;margin-top:2px}
 .craft-gap{display:flex;flex-direction:column;gap:4px;margin-top:12px}
 .craft-gap .button-row{margin-top:6px}
+.bazaar-table{display:flex;flex-direction:column;gap:2px;overflow-x:auto}
+.bazaar-row{display:grid;grid-template-columns:minmax(180px,2fr) repeat(5,minmax(80px,1fr));gap:8px;align-items:center;justify-content:stretch;text-align:left;padding:6px 8px;border-radius:7px;min-width:640px;font-weight:450;font-size:12px;font-variant-numeric:tabular-nums}
+.bazaar-row.head{font-size:10px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);padding:4px 8px}
+button.bazaar-row{background:transparent;border-color:transparent}
+button.bazaar-row:hover,button.bazaar-row.selected{background:var(--raised);border-color:var(--border)}
+.bazaar-item{display:flex;align-items:center;gap:8px;min-width:0}
+.positive{color:var(--accent)}
+.bazaar-book{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;font-size:12px}
+.bazaar-book p{margin:2px 0}
+.bazaar-chart{margin:8px 0;color:var(--accent)}
+.bazaar-chart svg{width:100%;max-width:520px;height:100px;background:var(--bg);border-radius:8px;border:1px solid var(--border)}
+.toolbar label:not(.checkbox-label){display:flex;flex-direction:column;gap:3px;font-size:11px}

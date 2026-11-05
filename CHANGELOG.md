@@ -12,10 +12,10 @@
 - **Regras por área**: cada área aponta para um quadrado da grade em cada lista, mais as opções da auto-venda. Modo **Sugerir** (padrão) mostra um aviso ao chegar na área; **Automático** aplica sozinho com o painel aberto. Um pedido por vez, no máximo um por segundo, parando no primeiro erro.
 - Coluna Auto-venda com as opções do jogo **Vender os marcados assim que chegam** e **Vender também qualquer outro item que não couber**, e o total vendido.
 - **Retirado:** a venda automática própria da extensão (a auto-venda nativa faz isso, sem mexer no que já está guardado). A venda manual do excedente guardado continua em Venda.
-- **Manter presença ao trocar de guia** agora vem ligado por padrão (inclusive em instalações existentes, uma única vez; depois vale a sua escolha). Novo botão **Abrir jogo em janela compacta**. Testes impedem chamar `visivel`, `ilha` ou `passeio` e restringem a alteração da visibilidade à opção de presença.
+- Novo botão **Abrir jogo em janela compacta** na guia Jogo. Testes impedem chamar `visivel`, `ilha` ou `passeio`.
 - Ações de filtro em sequência agora esperam 1 segundo entre pedidos.
 - **Assistente de craft:** a origem aceita segue a regra do jogo (mochila, saco, bolsas, **reservas da aba** e Compactador/Apagador guardados; `oak_planks` aceita qualquer tábua). Cada ingrediente que falta mostra onde está guardado (baú com coordenada e rótulo, Ender, farm) e, depois de consultar o Bazar, quanto custa comprar o que não existe em lugar nenhum. Filtros **Posso fazer agora** e **Falta pouco (75%)**.
-- Consulta de preços do Bazar (só leitura, um pedido por clique).
+- Nova guia **Bazar**: preços de compra e venda imediata, margem de revenda já com a taxa, volume, filtro por categoria, livro de ofertas, gráfico de 24 h, prévia com a taxa real da conta, compra e venda imediata, ordens de compra e venda, cancelamento e resgate. Toda escrita pede confirmação; vender item protegido, favorito, reservado ou de objetivo fica bloqueado. No máximo uma consulta por segundo.
 
 ## 0.6.0 · 21/10/2026
 
@@ -37,7 +37,7 @@ A automação funciona com o painel aberto e o jogo realmente visível, no máxi
 - Filtros avançados de acessórios por efeito, família, raridade e progresso de tiers.
 - Plano para nível SkyBlock, fontes de XP e custos fixos conhecidos.
 - Página própria, abertura do jogo em janela separada e ranking do servidor.
-- Título/ícone neutros, prevenção de descarte e presença experimental opcionais.
+- Título/ícone neutros e prevenção de descarte opcionais.
 
 ## 0.4.0
 

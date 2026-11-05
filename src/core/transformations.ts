@@ -13,7 +13,8 @@ export function isProtected(id:string,prefs:Preferences){return prefs.favorites.
 export function commandProtection(command:ManualCommand,state:GameState,prefs:Preferences):string|undefined {
  if(command.kind==='goalStep')return;
  if(command.kind==='sell')return isProtected(command.itemId,prefs)?'Venda bloqueada: item protegido, favorito ou reservado.':undefined;
- if(command.kind==='autosellOption')return;
+ if(command.kind==='autosellOption'||command.kind==='bazaarCancel'||command.kind==='bazaarClaim')return;
+ if(command.kind==='bazaarNow'||command.kind==='bazaarOrder')return command.side==='v'&&isProtected(command.itemId,prefs)?'Venda bloqueada: item protegido, favorito ou reservado.':undefined;
  if(command.kind==='eraser'||command.kind==='autosell')return command.itemIds.some(id=>isProtected(id,prefs))?'Item protegido, favorito ou reservado não pode entrar no '+(command.kind==='eraser'?'apagador':'auto-venda')+'.':undefined;
  if(command.kind==='craft'){const r=craftRecipes.find(r=>r.id===command.recipeId);if(!r)return'Receita não encontrada.';const ids=[r.outputId,...Object.keys(r.ingredients),...(r.consumes?[r.consumes]:[]),...(r.consumesEquipment&&r.tool?[String(state.character[r.tool]??'')]:[])];if(ids.some(id=>isProtected(id,prefs)))return'Ingrediente, saída ou equipamento protegido/reservado.';return;}
  const ids=command.kind==='compactor'?[command.itemId]:command.kind==='profile'?command.itemIds:command.kind==='transform'?[command.recipeId]:[command.itemId];

@@ -8,7 +8,8 @@ import{useActions,LocalRefresh}from'./actions';
 import {parseStateInput} from '../core/importState';
 import {ActionStatus} from './actions';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Activity, ArrowUpRight, Blocks, Boxes, ChevronRight, Download, FlaskConical, History as HistoryIcon, LayoutDashboard, Menu, Package, Pickaxe, RefreshCw, Settings as SettingsIcon, ShieldCheck, Sparkles, UserRound, Workflow, X } from 'lucide-react';
+import { Activity, ArrowUpRight, Blocks, Boxes, ChevronRight, Download, FlaskConical, History as HistoryIcon, LayoutDashboard, Menu, Package, Pickaxe, RefreshCw, Settings as SettingsIcon, ShieldCheck, Sparkles, UserRound, Workflow, X , Store } from 'lucide-react';
+import { Bazaar } from './pages/Bazaar';
 import { useStore } from './store';
 import { hasChrome } from '../db/preferences';
 import { normalize } from '../core/normalizer';
@@ -24,7 +25,7 @@ import { Automations } from './pages/Automations';
 import { History } from './pages/History';
 import { Settings } from './pages/Settings';
 import { time } from './components/common';
-const pages = [['Visão Geral', LayoutDashboard, 'Um olhar completo para sua ilha.'], ['Terminal', Package, 'Encontre cada recurso. Planeje o próximo destino.'], ['Venda', Package, 'Venda apenas o excedente, com uma reserva por item.'], ['Grupos', Boxes, 'Organize seus armazenamentos do seu jeito.'], ['Automações', Workflow, 'Perfis e políticas para planejar com segurança.'], ['Personagem', UserRound, 'Equipamentos, atributos e companheiros.'], ['Progressão', Activity, 'Acompanhe o que você já conquistou.'], ['Crafts', Pickaxe, 'Transforme seu estoque no próximo objetivo.'], ['Jogo', LayoutDashboard, 'Abra o jogo, escolha sua aba e consulte o ranking.'], ['Histórico', HistoryIcon, 'Registros locais da sua evolução.'], ['Configurações', SettingsIcon, 'Um Companion do seu jeito.']] as const;
+const pages = [['Visão Geral', LayoutDashboard, 'Um olhar completo para sua ilha.'], ['Terminal', Package, 'Encontre cada recurso. Planeje o próximo destino.'], ['Venda', Package, 'Venda apenas o excedente, com uma reserva por item.'], ['Bazar', Store, 'Preços, livro de ofertas, margens e suas ordens.'], ['Grupos', Boxes, 'Organize seus armazenamentos do seu jeito.'], ['Automações', Workflow, 'Perfis e políticas para planejar com segurança.'], ['Personagem', UserRound, 'Equipamentos, atributos e companheiros.'], ['Progressão', Activity, 'Acompanhe o que você já conquistou.'], ['Crafts', Pickaxe, 'Transforme seu estoque no próximo objetivo.'], ['Jogo', LayoutDashboard, 'Abra o jogo, escolha sua aba e consulte o ranking.'], ['Histórico', HistoryIcon, 'Registros locais da sua evolução.'], ['Configurações', SettingsIcon, 'Um Companion do seu jeito.']] as const;
 export function App() {
     useAreaRules();
     const { state, prefs, ready, error, initialize, setState, setError } = useStore(), [busy, setBusy] = useState(false), [status, setStatus] = useState('Aguardando conexão'), [mobile, setMobile] = useState(false);
@@ -111,6 +112,7 @@ export function App() {
         switch (page) {
             case 'Terminal': return <Terminal />;
             case 'Venda': return <Sales />;
+            case 'Bazar': return <Bazaar />;
             case 'Grupos': return <Groups />;
             case 'Automações': return <Automations />;
             case 'Personagem': return <Character />;

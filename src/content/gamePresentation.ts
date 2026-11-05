@@ -26,17 +26,32 @@ export async function readNativeRanking(category:string){
  return {ok:true as const,rows:result.ranking.slice(0,100).filter((r:any)=>typeof r.nick==='string'&&typeof r.valor==='number'&&Number.isFinite(r.valor)&&r.valor>=0).map((r:any)=>({nick:r.nick.slice(0,40),value:r.valor,rank:['ouro','diamante','netherite'].includes(r.rank)?r.rank:undefined}))};
  }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha na consulta ao ranking.'};}
 }
-/** Leitura do Bazar (GET /api/bazar) pelo módulo já carregado na aba. Sem compra, venda ou ordem. */
-export async function readNativeBazaar(){
+export type BazaarRead={op:'resumo'}|{op:'item';id:string}|{op:'historico';id:string}|{op:'previa';lado:'c'|'v';id:string;qtd:number}|{op:'minhas'};
+/** Leituras do Bazar (só GET) pelo módulo já carregado na aba. Sem compra, venda ou ordem. Serializado em MAIN: tudo fica aqui dentro. */
+export async function readNativeBazaar(req:BazaarRead){
  try{
   if(!(window as any).__hudRef?.estado)throw Error('Abra o jogo conectado antes de consultar o Bazar.');
   const url=location.origin+'/js/rede.js';if(!performance.getEntriesByType('resource').some(r=>r.name===url))throw Error('Cliente do jogo não identificado.');
-  const network=await import(/* @vite-ignore */ url);if(typeof network.bazarResumo!=='function')throw Error('Contrato do Bazar não reconhecido.');
-  let timer:ReturnType<typeof setTimeout>|undefined;const result=await Promise.race([network.bazarResumo(),new Promise<never>((_,reject)=>{timer=setTimeout(()=>reject(Error('O Bazar demorou a responder.')),15000);})]).finally(()=>clearTimeout(timer));
-  if(result?.erro)throw Error(String(result.erro).slice(0,160));
-  const resumo=result?.resumo;if(!resumo||typeof resumo!=='object')throw Error('O servidor não retornou os preços do Bazar.');
-  const price=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)&&v>0?v:null;
-  const prices=Object.fromEntries(Object.entries(resumo).filter(([id])=>/^[a-z0-9_]{1,100}$/.test(id)).slice(0,5000).map(([id,v]:[string,any])=>[id,{buy:price(v?.venda),sell:price(v?.compra)}]));
-  return {ok:true as const,prices};
+  const network=await import(/* @vite-ignore */ url);
+  const id=(v:unknown)=>typeof v==='string'&&/^[a-z0-9_]{1,100}$/.test(v)?v:undefined;
+  const num=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)?v:null;
+  const pos=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)&&v>0?v:null;
+  const call=(name:string,...args:unknown[])=>{if(typeof network[name]!=='function')throw Error('Contrato do Bazar não reconhecido ('+name+').');let timer:ReturnType<typeof setTimeout>|undefined;return Promise.race([network[name](...args),new Promise<never>((_,reject)=>{timer=setTimeout(()=>reject(Error('O Bazar demorou a responder.')),15000);})]).finally(()=>clearTimeout(timer));};
+  const check=(r:any)=>{if(r?.erro)throw Error(String(r.erro).slice(0,160));if(!r||typeof r!=='object')throw Error('Resposta do Bazar inválida.');return r;};
+  const levels=(v:unknown)=>Array.isArray(v)?v.slice(0,40).map((l:any)=>({price:num(l?.preco),qtd:num(l?.qtd),orders:num(l?.ordens)})):[];
+  if(req.op==='resumo'){
+   const r=check(await call('bazarResumo')),resumo=r.resumo;if(!resumo||typeof resumo!=='object')throw Error('O servidor não retornou os preços do Bazar.');
+   const prices=Object.fromEntries(Object.entries(resumo).filter(([k])=>id(k)).slice(0,5000).map(([k,v]:[string,any])=>[k,{buy:pos(v?.venda),sell:pos(v?.compra),volume:num(v?.volume)}]));
+   let categories:{name:string;items:string[]}[]=[],tax:number|null=null,maxOrders:number|null=null;
+   try{const c=await import(/* @vite-ignore */ location.origin+'/js/catalogo.js');if(Array.isArray(c.BAZAR_CATEGORIAS))categories=c.BAZAR_CATEGORIAS.slice(0,60).map((x:any)=>({name:String(x?.nome??x?.id??'').slice(0,40),items:Array.isArray(x?.itens)?x.itens.filter(id).slice(0,500):[]}));tax=num(c.BAZAR_TAXA);maxOrders=num(c.BAZAR_MAX_ORDENS);}catch{/* sem categorias */}
+   return {ok:true as const,prices,categories,tax,maxOrders};
+  }
+  if(req.op==='item'){const r=check(await call('bazarItem',req.id));return {ok:true as const,item:req.id,asks:levels(r.vendas),bids:levels(r.compras),trades:Array.isArray(r.negocios)?r.negocios.slice(0,30).map((t:any)=>({qtd:num(t?.qtd),price:num(t?.preco),at:num(t?.em)})):[]};}
+  if(req.op==='historico'){const r=check(await call('bazarHistorico',req.id,'24h'));return {ok:true as const,item:req.id,bands:Array.isArray(r.faixas)?r.faixas.slice(0,48).map((f:any)=>({from:num(f?.de),avg:num(f?.medio),volume:num(f?.vol),min:num(f?.min),max:num(f?.max)})):[]};}
+  if(req.op==='previa'){const r=check(await call('bazarPrevia',req.lado,req.id,Math.max(1,Math.floor(req.qtd))));return {ok:true as const,preview:{side:req.lado,item:req.id,qtd:num(r.qtd),missing:num(r.falta),total:num(r.total),avg:num(r.medio),best:num(r.melhor),worst:num(r.pior),net:num(r.liquido),tax:num(r.taxa)}};}
+  const r=check(await call('bazarMinhas'));
+  const orders=Array.isArray(r.ordens)?r.ordens.slice(0,40).flatMap((o:any)=>id(o?.item)&&Number.isInteger(o?.id)?[{id:o.id,side:o.lado==='v'?'v':'c',item:o.item,qtd:num(o.qtd),remaining:num(o.restante),price:num(o.preco)}]:[]):[];
+  const claim=r.aReceber&&typeof r.aReceber==='object'?Object.fromEntries(Object.entries(r.aReceber).filter(([k,v])=>(k==='ouro'||id(k))&&typeof v==='number'&&v>0).slice(0,200)):{};
+  return {ok:true as const,orders,claim};
  }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha na consulta ao Bazar.'};}
 }

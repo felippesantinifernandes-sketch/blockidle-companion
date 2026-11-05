@@ -5,7 +5,9 @@ export const operationsBuild = '6b899075fb';
 export const currentBuild = '0ddf20e09b';
 const filterKinds=['compactor','profile','eraser','autosell','autosellOption'];
 /** Ações revisadas por build. Crafts, movimentações e transformações seguem restritos ao build original. */
-export const verifiedBuilds:Record<string,'all'|string[]>={[observedBuild]:'all',[operationsBuild]:[...filterKinds,'sell'],[currentBuild]:[...filterKinds,'sell']};
+/** Bazar: formatos lidos de lojas.js/armazem.js no build 0ddf20e09b. */
+export const bazaarKinds=['bazaarNow','bazaarOrder','bazaarCancel','bazaarClaim'];
+export const verifiedBuilds:Record<string,'all'|string[]>={[observedBuild]:'all',[operationsBuild]:[...filterKinds,'sell'],[currentBuild]:[...filterKinds,'sell',...bazaarKinds]};
 /** Funções de rede.js e constantes de catalogo.js que o adaptador usa. */
 export const requiredNetwork=['ABA','estado','armazem','autoCompactar','vender','compactar','craftar'];
 export const requiredState=['autoCompactar','apagar','autoVender'];

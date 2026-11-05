@@ -80,6 +80,20 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    const final=filters(before);if([...target].sort().join('|')!==[...final].sort().join('|'))throw new Error('Os filtros finais divergem do modelo confirmado.');
    return {ok:true,message:steps.length?'Filtros confirmados no jogo.':'Os filtros já estavam configurados.',changed,raw:projection(before,build)};
   }
+  if(input.command.kind==='bazaarNow'||input.command.kind==='bazaarOrder'||input.command.kind==='bazaarCancel'||input.command.kind==='bazaarClaim'){
+   const command=input.command;
+   if(typeof network.bazar!=='function')throw new Error('Contrato atual do Bazar não reconhecido.');
+   if((command.kind==='bazaarNow'||command.kind==='bazaarOrder')&&command.side==='v'&&protectedItem(command.itemId))throw new Error('Item protegido, favorito ou reservado.');
+   const body=command.kind==='bazaarNow'?{lado:command.side,item:command.itemId,qtd:command.quantity,...(command.maxPrice?{teto:command.maxPrice}:{})}:command.kind==='bazaarOrder'?{lado:command.side,item:command.itemId,qtd:command.quantity,preco:command.price}:command.kind==='bazaarCancel'?{id:command.orderId}:{};
+   const route=command.kind==='bazaarNow'?'agora':command.kind==='bazaarOrder'?'ordem':command.kind==='bazaarCancel'?'cancelar':'resgatar';
+   guard();const r=await invoke(network.bazar(route,body));changed++;
+   if(command.kind==='bazaarNow'&&!(typeof r.qtd==='number'&&r.qtd>0))throw new Error('O Bazar não confirmou a quantidade negociada.');
+   if(command.kind==='bazaarOrder'&&r.id===undefined&&r.casou===undefined)throw new Error('O Bazar não confirmou a ordem.');
+   if(r.estado){latest=r.estado;hud.aplicar?.(r.estado);}
+   await new Promise(resolve=>setTimeout(resolve,1000));before=await refresh();
+   const message=command.kind==='bazaarNow'?(command.side==='c'?'Compra confirmada: ':'Venda confirmada: ')+r.qtd+' unidade(s)'+(typeof r.preco==='number'?' a '+r.preco:'')+'.':command.kind==='bazaarOrder'?'Ordem criada'+(typeof r.restante==='number'?' · restante '+r.restante:'')+'.':command.kind==='bazaarCancel'?'Ordem cancelada.':'Resgate feito'+(r.coletado&&typeof r.coletado==='object'&&!Object.keys(r.coletado).length?': nada coletado (mochila cheia?)':'')+'.';
+   return {ok:true,message,changed,raw:projection(before,build)};
+  }
   if(input.command.kind==='autosellOption'){
    const command=input.command,field=command.option==='autoja'?'autoVenderJa':'autoVenderTudo';
    if(typeof network.armazem!=='function')throw new Error('Contrato atual da auto-venda não reconhecido.');

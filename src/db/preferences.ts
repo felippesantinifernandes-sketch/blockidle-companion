@@ -4,7 +4,6 @@ export const defaults: Preferences = { presenceDefaultApplied:true,areaRules:{},
 export const hasChrome = () => typeof chrome !== 'undefined' && !!chrome.runtime?.id;
 const key = 'blockidle.preferences.v1';
 export async function readPreferences(): Promise<Preferences> { const value = hasChrome() ? (await chrome.storage.local.get(key))[key] : JSON.parse(localStorage.getItem(key) ?? 'null'); const parsed = preferencesSchema.safeParse(value); if (!parsed.success) return structuredClone(defaults); return applyPresenceDefault(parsed.data); }
-/** 05/11: presença ligada por padrão. Liga uma única vez nas instalações existentes; depois vale a escolha do usuário. */
 export function applyPresenceDefault(prefs: Preferences): Preferences { return prefs.presenceDefaultApplied ? prefs : { ...prefs, presenceDefaultApplied: true, gameOptions: { ...prefs.gameOptions, keepActive: true } }; }
 export async function savePreferences(value: Preferences) {
     const valid = preferencesSchema.parse(value);
