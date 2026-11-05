@@ -60,7 +60,17 @@ export interface DropPolicy {
 }
 export interface SaleRule {itemId:string;enabled:boolean;keep:number;includeStored:boolean}
 export type SaleCommand={kind:'sell';itemId:string;quantity:number;keep:number;expectedInventory:number;unitPrice:number;pulls:{storageId:string;itemId:string;quantity:number}[];automatic:boolean};
+export interface FilterPreset {name:string;itemIds:string[]}
+export interface AreaRule {compactor:number|null;eraser:number|null;autosell:number|null;autoJa:boolean|null;autoTudo:boolean|null;wardrobe?:number|null}
 export interface Preferences {
+    presenceDefaultApplied:boolean;
+    valueGuard:number|null;
+    backgroundSync:boolean;
+    pinnedObjective:string|null;
+    notify:{enabled:boolean;backpackFull:boolean;offline:boolean;queueEmpty:boolean;dragon:boolean;auction:boolean;bazaar:boolean;build:boolean;areaRule:boolean};
+    areaRules:Record<string,AreaRule>;
+    areaMode:'suggest'|'auto';
+    filterPresets:{compactor:(FilterPreset|null)[];eraser:(FilterPreset|null)[];autosell:(FilterPreset|null)[]};
     sales:{enabled:boolean;rules:SaleRule[]};
     pageOrder:string[];
     collapsedSections:Record<string,boolean>;
@@ -127,7 +137,7 @@ export interface Region { id: string; name: string; area: string; layer?: string
 export type CraftCommand={kind:'craft';recipeId:string;batches:number;pulls:{storageId:string;itemId:string;quantity:number}[];expectedStock:Record<string,number>};
 export interface CraftObjective {id:string;recipeId:string;quantity:number;enabled:boolean;choices:Record<string,string>}
 export type GoalStepCommand={kind:'goalStep';goalId:string;stepId:string;review:string};
-export type ManualCommand = SaleCommand|GoalStepCommand|CraftCommand| {kind:'compactor';itemId:string;enabled:boolean}|{kind:'profile';itemIds:string[];replace?:boolean}|{kind:'move';direction:'deposit'|'withdraw';storageId:string;itemId:string;quantity:number}|{kind:'transform';recipeId:string;expectedBatches:number};
+export type ManualCommand = SaleCommand|GoalStepCommand|CraftCommand| {kind:'compactor';itemId:string;enabled:boolean}|{kind:'profile';itemIds:string[];replace?:boolean}|{kind:'eraser';itemIds:string[]}|{kind:'autosell';itemIds:string[]}|{kind:'autosellOption';option:'autoja'|'autotudo';enabled:boolean}|{kind:'bazaarNow';side:'c'|'v';itemId:string;quantity:number;maxPrice?:number}|{kind:'bazaarOrder';side:'c'|'v';itemId:string;quantity:number;price:number}|{kind:'bazaarCancel';orderId:number}|{kind:'bazaarClaim'}|{kind:'wardrobeKit';slot:number;area:string;compactor?:string[];eraser?:string[]}|{kind:'dragonAuto';enabled:boolean}|{kind:'enderBackpack'}|{kind:'terminalStash'}|{kind:'move';direction:'deposit'|'withdraw';storageId:string;itemId:string;quantity:number}|{kind:'transform';recipeId:string;expectedBatches:number};
 export type GoalTransformCommand={kind:'goalTransform';recipeId:string;batches:number;pulls:{storageId:string;itemId:string;quantity:number}[];expectedAvailable:number};
 export type NativeCommand=Exclude<ManualCommand,GoalStepCommand>|GoalTransformCommand;
 export interface CommandResult {ok:boolean;error?:string;uncertain?:boolean;message?:string;state?:GameState;changed?:number;requestId?:string}

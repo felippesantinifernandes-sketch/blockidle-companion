@@ -4,7 +4,7 @@ import {useActions} from '../actions';
 import {recipes,itemName} from '../../catalog/itemCatalog';
 import {currentRegion,regionModel} from '../../core/regions';
 import {transformAvailability} from '../../core/transformations';
-import {observedBuild} from '../../core/versionMonitor';
+import {supportsCommandBuild} from '../../core/versionMonitor';
 import {Card,ItemIcon,number} from './common';
 export function TransformationsPanel({inputFilter='',onLocate}:{inputFilter?:string;onLocate?:(id:string)=>void}){
  const {state,prefs}=useStore(),{busy,perform,lockedScope}=useActions();
@@ -13,7 +13,7 @@ export function TransformationsPanel({inputFilter='',onLocate}:{inputFilter?:str
  const relevant=new Set([...(model?.compactorIds??[]),...(model?.lapidaryIds??[])]);
  const rows=useMemo(()=>state?recipes.map(recipe=>({recipe,available:transformAvailability(state,recipe,prefs)})):[],[state,prefs]);
  const visible=rows.filter(({recipe:r,available:a})=>(kind==='all'||r.kind===kind)&&(!inputFilter||Object.hasOwn(r.ingredients,inputFilter)||r.id===inputFilter)&&(showAll||inputFilter||a.batches>0||relevant.has(r.id))&&itemName(r.id).toLowerCase().includes(query.toLowerCase()));
- const selected=rows.find(v=>v.recipe.id===pending),live=state?.source==='live'&&state.build===observedBuild,locked=!!lockedScope&&lockedScope===state?.scope;
+ const selected=rows.find(v=>v.recipe.id===pending),live=state?.source==='live'&&supportsCommandBuild(state.build,'transform',state),locked=!!lockedScope&&lockedScope===state?.scope;
  if(!state)return null;
  return <Card title="Compactar e lapidar no terminal" action={<span className="badge">{recipes.length} receitas rastreáveis</span>}><p className="muted">Compactação manual usa a mochila. Lapidação usa mochila + saco de gemas. Materiais em baús ou bolsas precisam ser retirados para uma origem aceita antes de transformar. A gema Perfeita é da Forja.</p>
   <div className="toolbar"><select aria-label="Tipo de transformação" value={kind} onChange={e=>setKind(e.target.value)}><option value="all">Compactação e lapidação</option><option value="compact">Compactação</option><option value="lapidary">Lapidação</option></select><input aria-label="Buscar transformação" placeholder="Buscar receita…" value={query} onChange={e=>setQuery(e.target.value)}/><label className="checkbox-label"><input type="checkbox" checked={showAll} onChange={e=>setShowAll(e.target.checked)}/>Mostrar todo o catálogo</label></div>

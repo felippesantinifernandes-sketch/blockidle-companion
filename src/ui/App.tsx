@@ -1,5 +1,6 @@
 import {Sales} from './pages/Sales';
-import {useSalesAutomation} from './salesAutomation';
+import { StatusBar } from './components/StatusBar';
+import { AreaRuleBanner, useAreaRules } from './components/AreaRules';
 import {GamePage} from './pages/Game';
 import{UpdateBanner}from'./components/UpdateBanner';
 import{useNavigation}from'./navigation';
@@ -7,7 +8,10 @@ import{useActions,LocalRefresh}from'./actions';
 import {parseStateInput} from '../core/importState';
 import {ActionStatus} from './actions';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Activity, ArrowUpRight, Blocks, Boxes, ChevronRight, Download, FlaskConical, History as HistoryIcon, LayoutDashboard, Menu, Package, Pickaxe, RefreshCw, Settings as SettingsIcon, ShieldCheck, Sparkles, UserRound, Workflow, X } from 'lucide-react';
+import { Activity, ArrowUpRight, Blocks, Boxes, ChevronRight, Download, FlaskConical, History as HistoryIcon, LayoutDashboard, Menu, Package, Pickaxe, RefreshCw, Settings as SettingsIcon, ShieldCheck, Sparkles, UserRound, Workflow, X , Store, Radar as RadarIcon, CalendarClock } from 'lucide-react';
+import { Events } from './pages/Events';
+import { News } from './pages/News';
+import { Bazaar } from './pages/Bazaar';
 import { useStore } from './store';
 import { hasChrome } from '../db/preferences';
 import { normalize } from '../core/normalizer';
@@ -23,9 +27,9 @@ import { Automations } from './pages/Automations';
 import { History } from './pages/History';
 import { Settings } from './pages/Settings';
 import { time } from './components/common';
-const pages = [['Visão Geral', LayoutDashboard, 'Um olhar completo para sua ilha.'], ['Terminal', Package, 'Encontre cada recurso. Planeje o próximo destino.'], ['Venda', Package, 'Venda apenas o excedente, com uma reserva por item.'], ['Grupos', Boxes, 'Organize seus armazenamentos do seu jeito.'], ['Automações', Workflow, 'Perfis e políticas para planejar com segurança.'], ['Personagem', UserRound, 'Equipamentos, atributos e companheiros.'], ['Progressão', Activity, 'Acompanhe o que você já conquistou.'], ['Crafts', Pickaxe, 'Transforme seu estoque no próximo objetivo.'], ['Jogo', LayoutDashboard, 'Abra o jogo, escolha sua aba e consulte o ranking.'], ['Histórico', HistoryIcon, 'Registros locais da sua evolução.'], ['Configurações', SettingsIcon, 'Um Companion do seu jeito.']] as const;
+const pages = [['Visão Geral', LayoutDashboard, 'Um olhar completo para sua ilha.'], ['Terminal', Package, 'Encontre cada recurso. Planeje o próximo destino.'], ['Venda', Package, 'Venda apenas o excedente, com uma reserva por item.'], ['Bazar', Store, 'Preços, livro de ofertas, margens e suas ordens.'], ['Grupos', Boxes, 'Organize seus armazenamentos do seu jeito.'], ['Automações', Workflow, 'Perfis e políticas para planejar com segurança.'], ['Personagem', UserRound, 'Equipamentos, atributos e companheiros.'], ['Progressão', Activity, 'Acompanhe o que você já conquistou.'], ['Crafts', Pickaxe, 'Transforme seu estoque no próximo objetivo.'], ['Jogo', LayoutDashboard, 'Abra o jogo, escolha sua aba e consulte o ranking.'], ['Histórico', HistoryIcon, 'Registros locais da sua evolução.'], ['Eventos', CalendarClock, 'Dragão, Dark Auction e o calendário do jogo.'], ['Novidades', RadarIcon, 'O que mudou no jogo e o prompt para atualizar a extensão.'], ['Configurações', SettingsIcon, 'Um Companion do seu jeito.']] as const;
 export function App() {
-    useSalesAutomation();
+    useAreaRules();
     const { state, prefs, ready, error, initialize, setState, setError } = useStore(), [busy, setBusy] = useState(false), [status, setStatus] = useState('Aguardando conexão'), [mobile, setMobile] = useState(false);
     const file = useRef<HTMLInputElement>(null), lastSnapshot = useRef(0), mode = useRef('none'), connecting = useRef(false);
     const {page,go:setPage}=useNavigation();
@@ -110,6 +114,7 @@ export function App() {
         switch (page) {
             case 'Terminal': return <Terminal />;
             case 'Venda': return <Sales />;
+            case 'Bazar': return <Bazaar />;
             case 'Grupos': return <Groups />;
             case 'Automações': return <Automations />;
             case 'Personagem': return <Character />;
@@ -117,6 +122,8 @@ export function App() {
             case 'Crafts': return <Crafts />;
             case 'Jogo': return <GamePage/>;
             case 'Histórico': return <History />;
+            case 'Novidades': return <News />;
+            case 'Eventos': return <Events />;
             case 'Configurações': return <Settings />;
             default: return <Dashboard navigate={navigate}/>;
         }
@@ -129,7 +136,7 @@ export function App() {
  {state?.source === 'live' && Date.now() - state.capturedAt > 120000 && <div className="notice">Este retrato tem mais de 2 minutos. Volte à aba do jogo e aguarde uma nova resposta de estado para atualizar os dados.</div>}
  {state?.source === 'import' && <div className="notice">Estado importado: este arquivo não recebe atualizações da aba. Use “Conectar jogo” para voltar aos dados ao vivo.</div>}
  {!state && <div className="connect-banner"><div><Sparkles size={23}/><div><strong>Bem-vindo ao seu Companion</strong><p>Abra o Blockidle nesta janela, conecte e aguarde a próxima atualização do jogo.</p></div></div><button onClick={() => { setState(normalize(demoState, 'demo')); setStatus('Explorando demonstração'); setError(''); }}>Explorar demonstração <ArrowUpRight size={16}/></button></div>}
- <UpdateBanner/><ActionStatus/>{content}<LocalRefresh/><footer><span><ShieldCheck size={13}/>Consulta e ações supervisionadas</span><span>{state ? 'Capturado em ' + time(state.capturedAt) : status}</span></footer></div></main><input ref={file} type="file" hidden accept=".json,application/json" onChange={async (e) => {
+ <StatusBar/><AreaRuleBanner/><UpdateBanner/><ActionStatus/>{content}<LocalRefresh/><footer><span><ShieldCheck size={13}/>Consulta e ações supervisionadas</span><span>{state ? 'Capturado em ' + time(state.capturedAt) : status}</span></footer></div></main><input ref={file} type="file" hidden accept=".json,application/json" onChange={async (e) => {
             try {
                 const f = e.target.files?.[0];
                 if (!f)

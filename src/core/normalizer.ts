@@ -67,6 +67,10 @@ export function normalize(input: unknown, source: GameState['source'] = 'import'
     for (const [id, content] of Object.entries(guarded)) {
         if (chests.has(id) || bagIds.has(id))
             continue;
+        if (id === 'ferramentas') { // reservas da aba (02/11): o craft do SkyBlock também paga com elas
+            storages.push({ id, kind: 'special', originalName: 'Reservas da aba', items: itemMap(content, warnings, id) });
+            continue;
+        }
         const kind: StorageKind = id === 'saco' ? 'sack' : id === 'ender' ? 'ender' : id.startsWith('fazenda:') ? 'special' : 'special';
         if (!['saco', 'ender'].includes(id) && !id.startsWith('fazenda:')) {
             if(id!=='acessorios')warnings.push(id + ': armazenamento não elegível ou não reconhecido; omitido dos totais.');
@@ -77,7 +81,7 @@ export function normalize(input: unknown, source: GameState['source'] = 'import'
     const accessoryBag=record(guarded.acessorios);
     if (raw.base !== undefined && !chests.size)
         warnings.push('Nenhum baú físico reconhecido em base; formato precisa de validação com captura real.');
-    const character = Object.fromEntries(['companionCapabilities','apagador','mesa','suporte','ferraria','portal','fila','alvo','rank','recomb','poderMagico','armas','picaretas','machados','enxadas','varas','pilhaNivel','pocaoNivel','enderTotal','enderFileiras','nivel', 'xp', 'hp', 'hpMax', 'mana', 'ouro', 'espada', 'machado', 'enxada', 'vara', 'atributos', 'picareta', 'broca', 'armadura', 'pet', 'petXp', 'petRar', 'compactador', 'autoCompactar'].filter(k => raw[k] !== undefined).map(k => [k, raw[k]]));
+    const character = Object.fromEntries(['companionCapabilities','apagador','mesa','suporte','ferraria','portal','fila','alvo','rank','recomb','poderMagico','armas','picaretas','machados','enxadas','varas','pilhaNivel','pocaoNivel','enderTotal','enderFileiras','nivel', 'xp', 'hp', 'hpMax', 'mana', 'ouro', 'espada', 'machado', 'enxada', 'vara', 'atributos', 'picareta', 'broca', 'armadura', 'pet', 'petXp', 'petRar', 'compactador', 'autoCompactar', 'apagar', 'autoVender', 'autoVenderJa', 'autoVenderTudo', 'bits', 'gemas', 'mochilaCheia', 'offlineHoje', 'autoVendido', 'cookieAte', 'passeio', 'guardaAuto', 'dragao', 'guardaComp', 'guardaApag', 'slotsMochila'].filter(k => raw[k] !== undefined).map(k => [k, raw[k]]));
     const progress = Object.fromEntries(['skyblock','slayer','anas', 'forja', 'minions', 'habilidades', 'colecoes', 'progressos'].filter(k => raw[k] !== undefined).map(k => [k, raw[k]]));
     return { build: typeof raw.versao === 'string' ? raw.versao : undefined, area: typeof raw.area === 'string' ? raw.area : undefined, layer: typeof raw.camada === 'string' || typeof raw.camada === 'number' ? String(raw.camada) : undefined, storages, character:{...character,accessoryBag,accessoryBagKnown:Object.hasOwn(guarded,'acessorios')}, progress, warnings: [...new Set(warnings)].slice(0, 100), forest:typeof raw.bosque==='string'?raw.bosque:undefined,terminalAvailable:Object.values(record(raw.base)).includes('terminal'),capturedAt: Date.now(), source, scope: crypto.randomUUID() };
 }

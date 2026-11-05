@@ -8,7 +8,7 @@ export async function readNativeHud(fields:string[]) {
  const hud=(window as unknown as {__hudRef?:{estado:Record<string,unknown>}}).__hudRef;
  if(!hud?.estado||!hud.estado.inventario)return null;
  const result=Object.fromEntries(fields.filter(key=>key in hud.estado).map(key=>[key,hud.estado[key]]));
- if(fields.includes('companionCapabilities'))try{const url=location.origin+'/js/catalogo.js';if(performance.getEntriesByType('resource').some(r=>r.name===url)){const c=await import(/* @vite-ignore */ url);result.companionCapabilities={compactorSlots:c.COMPACTADOR_VAGAS,salePrices:Object.fromEntries(Object.entries(c.ITENS??{}).filter(([,m]:[string,any])=>typeof m.preco==='number'&&Number.isFinite(m.preco)&&m.preco>0).map(([id,m]:[string,any])=>[id,m.preco]))};}}catch{}
+ if(fields.includes('companionCapabilities'))try{const url=location.origin+'/js/catalogo.js';if(performance.getEntriesByType('resource').some(r=>r.name===url)){const c=await import(/* @vite-ignore */ url);const netUrl=location.origin+'/js/rede.js',net:Record<string,unknown>=performance.getEntriesByType('resource').some(r=>r.name===netUrl)?await import(/* @vite-ignore */ netUrl):{};const slotMap=(v:unknown)=>!!v&&typeof v==='object'&&!Array.isArray(v)&&Object.values(v).every(n=>Number.isInteger(n)&&(n as number)>0);result.companionCapabilities={contract:{network:['ABA','estado','armazem','autoCompactar','vender','compactar','craftar','passeio'].filter(k=>k==='ABA'?typeof net[k]==='string'&&!!net[k]:typeof net[k]==='function'),maps:{COMPACTADOR_VAGAS:slotMap(c.COMPACTADOR_VAGAS),APAGADOR_VAGAS:slotMap(c.APAGADOR_VAGAS)},items:!!c.ITENS&&typeof c.ITENS==='object'},compactorSlots:c.COMPACTADOR_VAGAS,eraserSlots:c.APAGADOR_VAGAS,salePrices:Object.fromEntries(Object.entries(c.ITENS??{}).filter(([,m]:[string,any])=>typeof m.preco==='number'&&Number.isFinite(m.preco)&&m.preco>0).map(([id,m]:[string,any])=>[id,m.preco]))};}}catch{}
  if(fields.includes('skyblock'))try{const url=location.origin+'/js/nivelsb.js';if(performance.getEntriesByType('resource').some(r=>r.name===url)){const mod=await import(/* @vite-ignore */ url),catalog=await import(/* @vite-ignore */ location.origin+'/js/catalogo.js');const x=mod.xpSkyBlock(hud.estado);result.skyblock={...x,collectionIds:Object.keys(catalog.COLECOES),caps:Object.fromEntries(Object.keys(catalog.HABILIDADES).map(id=>[id,catalog.maxHabilidade(id,hud.estado)]))};}}catch{/* Missing modules leave the SkyBlock panel explicitly unavailable. */}
  return result;
 }
@@ -76,9 +76,58 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    if(!Number.isInteger(limit)||limit<=0)throw new Error('Compactador Pessoal não encontrado no estado atual.');
    if(target.length>limit)throw new Error('O modelo ultrapassa os '+limit+' filtros do compactador. Os filtros atuais foram preservados.');
    const steps=command.kind==='profile'?[...(command.replace?active.filter(id=>!requested.includes(id)).map(id=>({id,on:false})):[]),...requested.filter(id=>!active.includes(id)).map(id=>({id,on:true}))]:active.includes(command.itemId)===command.enabled?[]:[{id:command.itemId,on:command.enabled}];
-   for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,300));guard();const r=await invoke(network.autoCompactar(step.id,step.on));const confirmed=Array.isArray(r.autoCompactar)?r.autoCompactar:r.estado?.autoCompactar;if(!Array.isArray(confirmed)||confirmed.includes(step.id)!==step.on)throw new Error('O servidor não confirmou o filtro solicitado.');changed++;before=await refresh();if(filters(before).includes(step.id)!==step.on)throw new Error('O filtro não coincide com o novo estado.');}
+   for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,1000));guard();const r=await invoke(network.autoCompactar(step.id,step.on));const confirmed=Array.isArray(r.autoCompactar)?r.autoCompactar:r.estado?.autoCompactar;if(!Array.isArray(confirmed)||confirmed.includes(step.id)!==step.on)throw new Error('O servidor não confirmou o filtro solicitado.');changed++;before=await refresh();if(filters(before).includes(step.id)!==step.on)throw new Error('O filtro não coincide com o novo estado.');}
    const final=filters(before);if([...target].sort().join('|')!==[...final].sort().join('|'))throw new Error('Os filtros finais divergem do modelo confirmado.');
    return {ok:true,message:steps.length?'Filtros confirmados no jogo.':'Os filtros já estavam configurados.',changed,raw:projection(before,build)};
+  }
+  if(input.command.kind==='bazaarNow'||input.command.kind==='bazaarOrder'||input.command.kind==='bazaarCancel'||input.command.kind==='bazaarClaim'){
+   const command=input.command;
+   if(typeof network.bazar!=='function')throw new Error('Contrato atual do Bazar não reconhecido.');
+   if((command.kind==='bazaarNow'||command.kind==='bazaarOrder')&&command.side==='v'&&protectedItem(command.itemId))throw new Error('Item protegido, favorito ou reservado.');
+   const body=command.kind==='bazaarNow'?{lado:command.side,item:command.itemId,qtd:command.quantity,...(command.maxPrice?{teto:command.maxPrice}:{})}:command.kind==='bazaarOrder'?{lado:command.side,item:command.itemId,qtd:command.quantity,preco:command.price}:command.kind==='bazaarCancel'?{id:command.orderId}:{};
+   const route=command.kind==='bazaarNow'?'agora':command.kind==='bazaarOrder'?'ordem':command.kind==='bazaarCancel'?'cancelar':'resgatar';
+   guard();const r=await invoke(network.bazar(route,body));changed++;
+   if(command.kind==='bazaarNow'&&!(typeof r.qtd==='number'&&r.qtd>0))throw new Error('O Bazar não confirmou a quantidade negociada.');
+   if(command.kind==='bazaarOrder'&&r.id===undefined&&r.casou===undefined)throw new Error('O Bazar não confirmou a ordem.');
+   if(r.estado){latest=r.estado;hud.aplicar?.(r.estado);}
+   await new Promise(resolve=>setTimeout(resolve,1000));before=await refresh();
+   const message=command.kind==='bazaarNow'?(command.side==='c'?'Compra confirmada: ':'Venda confirmada: ')+r.qtd+' unidade(s)'+(typeof r.preco==='number'?' a '+r.preco:'')+'.':command.kind==='bazaarOrder'?'Ordem criada'+(typeof r.restante==='number'?' · restante '+r.restante:'')+'.':command.kind==='bazaarCancel'?'Ordem cancelada.':'Resgate feito'+(r.coletado&&typeof r.coletado==='object'&&!Object.keys(r.coletado).length?': nada coletado (mochila cheia?)':'')+'.';
+   return {ok:true,message,changed,raw:projection(before,build)};
+  }
+  if(input.command.kind==='autosellOption'){
+   const command=input.command,field=command.option==='autoja'?'autoVenderJa':'autoVenderTudo';
+   if(typeof network.armazem!=='function')throw new Error('Contrato atual da auto-venda não reconhecido.');
+   if(typeof before[field]!=='boolean'&&before[field]!==undefined)throw new Error('Formato da opção da auto-venda não reconhecido.');
+   if(!!before[field]===command.enabled)return {ok:true,message:'A opção já estava assim.',changed,raw:projection(before,build)};
+   guard();const r=await invoke(network.armazem({acao:command.option,liga:command.enabled}));const confirmed=r?.estado?.[field]??r?.[field];
+   if(confirmed!==undefined&&!!confirmed!==command.enabled)throw new Error('O servidor não confirmou a opção da auto-venda.');changed++;
+   before=await refresh();if(!!before[field]!==command.enabled)throw new Error('A opção da auto-venda não coincide com o novo estado.');
+   return {ok:true,message:'Opção da auto-venda confirmada no jogo.',changed,raw:projection(before,build)};
+  }
+  if(input.command.kind==='eraser'||input.command.kind==='autosell'){
+   const command=input.command,eraser=command.kind==='eraser',field=eraser?'apagar':'autoVender',label=eraser?'apagador':'auto-venda';
+   if(typeof network.armazem!=='function'||!catalog.ITENS)throw new Error('Contrato atual da '+label+' não reconhecido.');
+   const list=(s:State):string[]=>{const v=s[field]??[];if(!Array.isArray(v)||v.some((id:unknown)=>typeof id!=='string'))throw new Error('Formato da lista do '+label+' não reconhecido.');return v;};
+   const requested=command.itemIds,active=list(before);
+   if(new Set(requested).size!==requested.length)throw new Error('Lista com itens duplicados.');
+   const limit=eraser?catalog.APAGADOR_VAGAS?.[before.apagador]:7;
+   if(eraser&&(!catalog.APAGADOR_VAGAS||!Number.isInteger(limit)||limit<=0))throw new Error('Apagador Pessoal não encontrado no estado atual.');
+   if(requested.length>limit)throw new Error('O conjunto ultrapassa as '+limit+' vagas do '+label+'. A lista atual foi preservada.');
+   for(const id of requested){const m=catalog.ITENS[id];if(!m)throw new Error('O cliente atual não reconhece o item '+id+'.');if(protectedItem(id))throw new Error('Item protegido, favorito ou reservado: '+(m.nome??id)+'.');
+    if(eraser&&(m.pet||m.encantado||['booster_cookie','vale_gemas'].includes(id)||Object.hasOwn(catalog.APAGADOR_VAGAS,id)||Object.hasOwn(catalog.COMPACTADOR_VAGAS??{},id)||['epico','lendario','mitico'].includes(catalog.raridadeDe?.(id))))throw new Error('O apagador não aceita '+(m.nome??id)+'.');
+    if(!eraser&&!(m.preco>0))throw new Error('Sem preço de NPC: '+(m.nome??id)+'.');}
+   const confirmedList=(r:any)=>Array.isArray(r?.estado?.[field])?r.estado[field]:Array.isArray(r?.[field])?r[field]:undefined;
+   if(eraser){
+    if(active.length===requested.length&&active.every((id,i)=>id===requested[i]))return {ok:true,message:'A lista do apagador já estava salva.',changed,raw:projection(before,build)};
+    guard();const r=await invoke(network.armazem({acao:'apagar_salvar',lista:requested}));const confirmed=confirmedList(r);
+    if(!confirmed||[...confirmed].sort().join('|')!==[...requested].sort().join('|'))throw new Error('O servidor não confirmou a lista do apagador.');changed++;
+   }else{
+    const steps=[...active.filter(id=>!requested.includes(id)).map(id=>({id,on:false})),...requested.filter(id=>!active.includes(id)).map(id=>({id,on:true}))];
+    for(const [index,step] of steps.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,1000));guard();const r=await invoke(network.armazem({acao:'autovender',id:step.id,liga:step.on}));const confirmed=confirmedList(r);if(confirmed&&confirmed.includes(step.id)!==step.on)throw new Error('O servidor não confirmou a auto-venda solicitada.');changed++;}
+   }
+   before=await refresh();const final=list(before);
+   if([...final].sort().join('|')!==[...requested].sort().join('|'))throw new Error('A lista final do '+label+' diverge do conjunto confirmado.');
+   return {ok:true,message:eraser?'Apagador salvo no jogo.':'Auto-venda confirmada no jogo.',changed,raw:projection(before,build)};
   }
   const quantity=(value:unknown)=>{if(value===undefined)return 0;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw new Error('Formato de quantidade não reconhecido no estado atual.');return value;};
   const inventory=(s:State,id:string)=>quantity(s.inventario?.[id]);
@@ -92,7 +141,12 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    if(JSON.stringify(stable(current))!==JSON.stringify(stable(expected)))throw new Error('O estoque ou a fila mudou no servidor. Atualize e revise a etapa novamente.');
   }
   const withdraw=async(pulls:{storageId:string;itemId:string;quantity:number}[],initial:State)=>{let before=initial;
-   for(const p of pulls){const chest=/^bau:(-?\d+),(-?\d+),(-?\d+)$/.exec(p.storageId),farm=/^fazenda:(colheita|criador|ovos|abate)$/.exec(p.storageId);let payload:State={acao:'tirar',item:p.itemId,qtd:p.quantity};if(chest){if(!catalog.ehBauIlha?.(before.base?.[p.storageId.slice(4)]))throw new Error('Baú da retirada não existe.');payload={...payload,local:'bau',x:Number(chest[1]),y:Number(chest[2]),z:Number(chest[3])};}else if(p.storageId==='ender')payload.local='ender';else if(farm)payload={...payload,local:'fazenda',id:farm[1]};else throw new Error('Origem de retirada desconhecida.');if(quantity(map(before,p.storageId)[p.itemId])<p.quantity)throw new Error('O estoque do baú mudou.');guard();const result=await invoke(network.armazem(payload)),after=result.estado;if(!after)throw new Error('Retirada sem confirmação; o craft não será enviado.');latest=after;hud.aplicar?.(after);if(inventory(after,p.itemId)-inventory(before,p.itemId)!==p.quantity||quantity(map(before,p.storageId)[p.itemId])-quantity(map(after,p.storageId)[p.itemId])!==p.quantity||total(before,p.itemId)!==total(after,p.itemId))throw new Error('Retirada parcial ou divergente. Revise o Terminal antes de craftar.');before=after;changed++;}
+   const island=!['ef3c8efa9f','6b899075fb'].includes(input.build)&&initial.passeio!==true&&pulls.some(p=>p.storageId.startsWith('bau:'));let turned=false;
+   try{
+   if(island){if(typeof network.passeio!=='function')throw new Error('Contrato do passeio não reconhecido.');guard();const on=await invoke(network.passeio(true));turned=true;if((on.passeio??on.estado?.passeio)!==true)throw new Error('O servidor não confirmou o passeio na ilha.');await new Promise(resolve=>setTimeout(resolve,1000));}
+   for(const [index,p] of pulls.entries()){if(index)await new Promise(resolve=>setTimeout(resolve,1000));const chest=/^bau:(-?\d+),(-?\d+),(-?\d+)$/.exec(p.storageId),farm=/^fazenda:(colheita|criador|ovos|abate)$/.exec(p.storageId);let payload:State={acao:'tirar',item:p.itemId,qtd:p.quantity};if(chest){if(!catalog.ehBauIlha?.(before.base?.[p.storageId.slice(4)]))throw new Error('Baú da retirada não existe.');payload={...payload,local:'bau',x:Number(chest[1]),y:Number(chest[2]),z:Number(chest[3])};}else if(p.storageId==='ender')payload.local='ender';else if(farm)payload={...payload,local:'fazenda',id:farm[1]};else throw new Error('Origem de retirada desconhecida.');if(quantity(map(before,p.storageId)[p.itemId])<p.quantity)throw new Error('O estoque do baú mudou.');let result:State;for(let attempt=1;;attempt++){try{guard();result=await invoke(network.armazem(payload));break;}catch(e){if(island&&attempt<3&&/só na ilha/i.test(String((e as Error)?.message)))await new Promise(resolve=>setTimeout(resolve,1000));else throw e;}}const after=result.estado;if(!after)throw new Error('Retirada sem confirmação; o craft não será enviado.');latest=after;hud.aplicar?.(after);if(inventory(after,p.itemId)-inventory(before,p.itemId)!==p.quantity||quantity(map(before,p.storageId)[p.itemId])-quantity(map(after,p.storageId)[p.itemId])!==p.quantity||total(before,p.itemId)!==total(after,p.itemId))throw new Error('Retirada parcial ou divergente. Revise o Terminal antes de craftar.');before=after;changed++;}
+   }finally{if(turned)try{await new Promise(resolve=>setTimeout(resolve,1000));await timed(network.passeio(false));}catch{/* o cliente corrige no resync */}}
+   if(turned)before=await refresh();
    return before;
   };
   if(input.command.kind==='sell'){
@@ -151,11 +205,41 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    else {for(const[id,n]of Object.entries(requirements))if(physical(before,id)-physical(after,id)!==n)throw new Error('Consumo dos materiais não confirmado. Revise os saldos.');if(r.kind==='forge'){const old=(before.forja??[]) as State[],next=(after.forja??[]) as State[];if(next.length!==old.length+1||!next.some(f=>f.id===r.outputId&&typeof f.fim==='number'&&f.fim>Date.now()-10000&&!old.some(a=>a.id===f.id&&a.fim===f.fim)))throw new Error('A nova tarefa da Forja não foi confirmada.');message='Forja iniciada. O prazo confirmado aparece na fila.';}else{const equipped=r.tool&&after[r.tool]===r.outputId;const armor=Object.values(after.armadura??{}).includes(r.outputId);const produced=physical(after,r.outputId)-physical(before,r.outputId)>=r.output;if(!equipped&&!armor&&!produced)throw new Error('A saída do craft não foi confirmada.');message='Craft confirmado: '+r.name+'.';}}
    return{ok:true,changed:c.batches,message,raw:projection(after,build)};
   }
+  if(input.command.kind==='dragonAuto'){
+   const c=input.command;if(typeof network.armazem!=='function')throw new Error('Contrato do Dragão não reconhecido.');
+   if((before.dragao?.auto===true)===c.enabled)return {ok:true,changed,message:'A opção já estava assim.',raw:projection(before,build)};
+   guard();const r=await invoke(network.armazem({acao:'dragao_auto',liga:c.enabled}));if(r.estado){latest=r.estado;hud.aplicar?.(r.estado);}changed++;
+   before=await refresh();if(before.dragao&&typeof before.dragao.auto==='boolean'&&before.dragao.auto!==c.enabled)throw new Error('O servidor não confirmou a opção do Dragão.');
+   return {ok:true,changed,message:c.enabled?'O Steve vai sozinho para a luta do Dragão.':'Entrar sozinho desligado.',raw:projection(before,build)};
+  }
+  if(input.command.kind==='wardrobeKit'){
+   // Guarda-roupa (guardaui.js): sub compactador/apagador grava a lista ATUAL no conjunto, ou apaga se já for igual. Por isso conferimos antes.
+   const c=input.command,n=c.slot,same=(a:unknown,b:string[])=>{const x=Array.isArray(a)?a:a===undefined||a===null?[]:undefined;return !!x&&x.length===b.length&&[...x].sort().join('|')===[...b].sort().join('|');};
+   if(typeof network.armazem!=='function')throw new Error('Contrato do guarda-roupa não reconhecido.');
+   const kit=before.guardado?.['guarda'+n];if(!kit||typeof kit!=='object'||!Object.values(kit).some(Boolean))throw new Error('O conjunto '+(n+1)+' do guarda-roupa está vazio. Guarde uma armadura nele no jogo.');
+   const steps:{sub:string;check:(s:State)=>boolean}[]=[];
+   if(c.compactor){if(!same(before.autoCompactar,c.compactor))throw new Error('A lista atual do compactador não é a do conjunto. Aplique a regra da área antes.');if(!same(before.guardaComp?.[n],c.compactor))steps.push({sub:'compactador',check:s=>same(s.guardaComp?.[n],c.compactor!)});}
+   if(c.eraser){if(c.eraser.some(protectedItem))throw new Error('Item protegido no apagador do conjunto.');if(!same(before.apagar,c.eraser))throw new Error('A lista atual do apagador não é a do conjunto. Aplique a regra da área antes.');if(!same(before.guardaApag?.[n],c.eraser))steps.push({sub:'apagador',check:s=>same(s.guardaApag?.[n],c.eraser!)});}
+   if(before.guardaAuto?.[c.area]!==n)steps.push({sub:'auto',check:s=>s.guardaAuto?.[c.area]===n});
+   for(const [i,st] of steps.entries()){if(i)await new Promise(resolve=>setTimeout(resolve,1000));guard();const r=await invoke(network.armazem({acao:'guarda',sub:st.sub,n,...(st.sub==='auto'?{area:c.area}:{})}));if(r.estado){latest=r.estado;hud.aplicar?.(r.estado);}changed++;before=await refresh();if(!st.check(before))throw new Error('O guarda-roupa não confirmou: '+st.sub+'.');}
+   return {ok:true,changed,message:steps.length?'Conjunto '+(n+1)+' gravado e ligado nesta área.':'O conjunto já estava gravado nesta área.',raw:projection(before,build)};
+  }
+  if(input.command.kind==='enderBackpack'||input.command.kind==='terminalStash'){
+   const stash=input.command.kind==='terminalStash';if(typeof network.armazem!=='function')throw new Error('Contrato do armazém não reconhecido.');
+   const inv=(st:State)=>Object.values(st.inventario??{}).reduce((n:number,v)=>n+quantity(v),0),start=inv(before);
+   let r:State,turned=false;
+   try{if(stash&&before.passeio!==true){if(typeof network.passeio!=='function')throw new Error('Contrato do passeio não reconhecido.');guard();const p=await invoke(network.passeio(true));turned=true;if((p.passeio??p.estado?.passeio)!==true)throw new Error('O servidor não confirmou o passeio na ilha.');await new Promise(resolve=>setTimeout(resolve,1000));}
+    for(let attempt=1;;attempt++){try{guard();r=await invoke(network.armazem({acao:stash?'terminal_juntar':'ender_mochila'}));break;}catch(e){if(stash&&attempt<3&&/só na ilha/i.test(String((e as Error)?.message)))await new Promise(resolve=>setTimeout(resolve,1000));else throw e;}}
+   }finally{if(turned)try{await new Promise(resolve=>setTimeout(resolve,1000));await timed(network.passeio(false));}catch{/* o cliente corrige no resync */}}
+   if(r!.estado){latest=r!.estado;hud.aplicar?.(r!.estado);}
+   const after=await refresh();changed=Math.max(0,start-inv(after));
+   return {ok:true,changed,message:(stash?'Guardado nos baús: ':'Guardado no Ender: ')+changed+' unidade(s) saíram da mochila.',raw:projection(after,build)};
+  }
   if(input.command.kind==='move'){
    const c=input.command;if(protectedItem(c.itemId))throw new Error('Item protegido ou reservado.');
    const metadata=catalog.ITENS?.[c.itemId];if(!metadata||metadata.armadura||metadata.ferramenta||catalog.PETS?.[c.itemId])throw new Error('Equipamento ou identidade individual sem validação para movimentação.');
    if(!Number.isSafeInteger(c.quantity)||c.quantity<1||c.quantity>1000000)throw new Error('Quantidade inválida.');
-   let body:State={acao:c.direction==='deposit'?'guardar':'tirar',item:c.itemId,qtd:c.quantity};
+   let body:State={acao:c.direction==='deposit'?(input.build==='ef3c8efa9f'?'guardar':'por'):'tirar',item:c.itemId,qtd:c.quantity};
    const chest=/^bau:(-?\d+),(-?\d+),(-?\d+)$/.exec(c.storageId),bag=/^bolsa([0-8])$/.exec(c.storageId),farm=/^fazenda:(colheita|criador|ovos|abate)$/.exec(c.storageId);
    if(chest){if(!catalog.ehBauIlha?.(before.base?.[c.storageId.slice(4)]))throw new Error('Baú não encontrado na ilha atual.');body={...body,local:'bau',x:Number(chest[1]),y:Number(chest[2]),z:Number(chest[3])};}
    else if(bag)body={...body,local:'bolsa',n:Number(bag[1])};
@@ -164,7 +248,14 @@ export async function runNativeCommand(input:NativeInput):Promise<NativeResult> 
    else throw new Error('Destino sem operação conhecida.');
    const origin=c.direction==='deposit'?'inventory':c.storageId,destination=c.direction==='deposit'?c.storageId:'inventory';
    if(quantity(map(before,origin)[c.itemId])<c.quantity)throw new Error('O estoque mudou ou a origem não possui a quantidade solicitada.');
-   guard();const r=await invoke(network.armazem(body));if(!r.estado)throw new Error('Movimentação sem estado de confirmação.');const after=r.estado;latest=after;hud.aplicar?.(after);
+   // Terminal e baús da ilha só respondem em passeio (04/11): liga, até 3 tentativas em “só na ilha”, sempre desliga no finally.
+   const island=(!!chest||c.storageId==='terminal')&&!['ef3c8efa9f','6b899075fb'].includes(input.build);let r:State;
+   if(island){if(typeof network.passeio!=='function')throw new Error('Contrato do passeio não reconhecido.');const was=before.passeio===true;let turned=false;
+    try{if(!was){guard();const p=await invoke(network.passeio(true));turned=true;if((p.passeio??p.estado?.passeio)!==true)throw new Error('O servidor não confirmou o passeio na ilha.');await new Promise(resolve=>setTimeout(resolve,1000));}
+     for(let attempt=1;;attempt++){try{guard();r=await invoke(network.armazem(body));break;}catch(e){if(attempt<3&&/só na ilha/i.test(String((e as Error)?.message)))await new Promise(resolve=>setTimeout(resolve,1000));else throw e;}}
+    }finally{if(turned)try{await new Promise(resolve=>setTimeout(resolve,1000));await timed(network.passeio(false));}catch{/* o cliente corrige o passeio no próximo resync */}}}
+   else{guard();r=await invoke(network.armazem(body));}
+   if(!r!.estado)throw new Error('Movimentação sem estado de confirmação.');let after=r!.estado;latest=after;hud.aplicar?.(after);if(island)after=await refresh();
    const removed=quantity(map(before,origin)[c.itemId])-quantity(map(after,origin)[c.itemId]),added=quantity(map(after,destination)[c.itemId])-quantity(map(before,destination)[c.itemId]);
    if(removed<=0||removed!==added||removed>c.quantity||total(before,c.itemId)!==total(after,c.itemId))throw new Error('Os saldos não confirmam a movimentação. Nenhuma repetição automática será feita.');
    changed=removed;return {ok:true,changed,message:removed===c.quantity?'Movimentação confirmada.':'Movimentação parcial confirmada: '+removed+' de '+c.quantity+'.',raw:projection(after,build)};

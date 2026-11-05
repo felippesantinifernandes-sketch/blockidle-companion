@@ -1,4 +1,4 @@
-import {applyGamePresentation,readNativeRanking} from '../content/gamePresentation';import {readPreferences} from '../db/preferences';
+import {applyGamePresentation,readNativeRanking,readNativeBazaar,readNativeCatalogKeys,readNativeEvents,readNativeDragon,type BazaarRead} from '../content/gamePresentation';import {readPreferences} from '../db/preferences';
 const origin='https://blockidle.io',extension=()=>chrome.runtime.getURL('');
 const isGame=(url?:string)=>{try{return new URL(url??'').origin===origin;}catch{return false;}};
 export async function gameTab(readOnly=false){
@@ -23,12 +23,19 @@ export function initializeGameFeatures(){
  chrome.tabs.onUpdated.addListener((id,change,tab)=>{if(change.status==='complete'&&isGame(tab.url))schedulePresentation({...tab,id});});
  chrome.tabs.onRemoved.addListener(id=>{void chrome.storage.session.remove(discardKey(id));});
  chrome.runtime.onMessage.addListener((msg,sender,reply)=>{
-  if(sender.id!==chrome.runtime.id||!sender.url?.startsWith(extension())||!['COMPANION_GAME_TABS','COMPANION_SELECT_GAME','COMPANION_OPEN_GAME','COMPANION_RANKING'].includes(msg?.type))return;
+  if(sender.id!==chrome.runtime.id||!sender.url?.startsWith(extension())||!['COMPANION_GAME_TABS','COMPANION_SELECT_GAME','COMPANION_OPEN_GAME','COMPANION_RANKING','COMPANION_BAZAAR','COMPANION_CATALOG_KEYS','COMPANION_EVENTS','COMPANION_DRAGON'].includes(msg?.type))return;
   void(async()=>{try{
    if(msg.type==='COMPANION_GAME_TABS'){const tabs=await chrome.tabs.query({url:origin+'/play*'});reply({ok:true,tabs:tabs.map(t=>({id:t.id,windowId:t.windowId,active:t.active,discarded:t.discarded}))});return;}
    if(msg.type==='COMPANION_SELECT_GAME'){if(!Number.isInteger(msg.tabId))throw Error('Selecione uma aba válida.');const tab=await chrome.tabs.get(msg.tabId);if(!isGame(tab.url))throw Error('Essa aba não é do Blockidle.');await chrome.storage.session.set({companionGameTab:msg.tabId});reply({ok:true});return;}
    if(msg.type==='COMPANION_OPEN_GAME'){const tabs=await chrome.tabs.query({url:origin+'/play*'});let tab=tabs[0];if(tabs.length>1)throw Error('Há mais de uma aba aberta. Selecione qual usar.');if(!tab){const win=await chrome.windows.create({url:origin+'/play',type:'popup',width:1100,height:800});tab=win.tabs?.[0]!;}else{await chrome.windows.update(tab.windowId,{focused:true});await chrome.tabs.update(tab.id!,{active:true});}if(!tab?.id)throw Error('Não foi possível abrir o jogo.');await chrome.storage.session.set({companionGameTab:tab.id});reply({ok:true,tabId:tab.id});return;}
+   if(msg.type==='COMPANION_DRAGON'){const tabId=await gameTab(true);const [result]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:readNativeDragon,args:[]});const data=result?.result;if(!data?.ok)throw Error(data?.error??'Não foi possível ler o Dragão.');reply(data);return;}
+   if(msg.type==='COMPANION_EVENTS'){const tabId=await gameTab(true);const [result]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:readNativeEvents,args:[]});const data=result?.result;if(!data?.ok)throw Error(data?.error??'Não foi possível ler o calendário.');reply(data);return;}
+   if(msg.type==='COMPANION_CATALOG_KEYS'){const tabId=await gameTab(true);const [result]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:readNativeCatalogKeys,args:[]});const data=result?.result;if(!data?.ok)throw Error(data?.error??'Não foi possível ler o catálogo nessa aba.');reply(data);return;}
+   if(msg.type==='COMPANION_BAZAAR'){const tabId=await gameTab(true);const [result]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:readNativeBazaar,args:[bazaarRequest(msg.request)]});const data=result?.result;if(!data?.ok)throw Error(data?.error??'Não foi possível consultar o Bazar nessa aba.');reply({...data,at:Date.now()});return;}
    const tabId=await gameTab(true);const [result]=await chrome.scripting.executeScript({target:{tabId},world:'MAIN',func:readNativeRanking,args:[String(msg.category)]});const data=result?.result;if(!data?.ok)throw Error(data?.error??'Não foi possível consultar o ranking nessa aba.');reply({ok:true,rows:data.rows,at:Date.now()});
   }catch(error){reply({ok:false,error:error instanceof Error?error.message:'Não foi possível concluir.'});}})();return true;
  });
 }
+
+/** Só leituras conhecidas e ids válidos chegam ao contexto do jogo. */
+function bazaarRequest(r:any):BazaarRead{const id=typeof r?.id==='string'&&/^[a-z0-9_]{1,100}$/.test(r.id)?r.id:undefined;if(!r||r.op==='resumo'||r.op===undefined)return{op:'resumo'};if(r.op==='minhas')return{op:'minhas'};if(!id)throw Error('Item inválido.');if(r.op==='item')return{op:'item',id};if(r.op==='historico')return{op:'historico',id};if(r.op==='previa'&&(r.lado==='c'||r.lado==='v')&&Number.isInteger(r.qtd)&&r.qtd>0&&r.qtd<=71680)return{op:'previa',lado:r.lado,id,qtd:r.qtd};throw Error('Consulta do Bazar inválida.');}
