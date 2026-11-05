@@ -103,3 +103,7 @@ button.bazaar-row:hover,button.bazaar-row.selected{background:var(--raised);bord
 .occupancy-row>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .occupancy-row .status-meter{width:100%}
 .notify-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px;margin:8px 0 6px 22px}
+.radar-comments{font-size:11px;line-height:1.5;padding-left:18px;max-height:360px;overflow:auto}
+.radar-comments code{color:var(--muted);margin-right:4px}
+.radar-prompt{white-space:pre-wrap;font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;max-height:360px;overflow:auto}
+textarea{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:7px;padding:10px}

@@ -66,3 +66,15 @@ export async function readNativeAuction(){
   return {ok:true as const,round:typeof r?.rodada==='number'?r.rodada:null,lots,rare};
  }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha na consulta ao leilão.'};}
 }
+/** Chaves do catálogo e do estado para o radar de mudanças. Só ids e valores pequenos de constantes. */
+export async function readNativeCatalogKeys(){
+ try{
+  const url=location.origin+'/js/catalogo.js';if(!performance.getEntriesByType('resource').some(r=>r.name===url))throw Error('Cliente do jogo não identificado.');
+  const c=await import(/* @vite-ignore */ url),ids=(v:unknown)=>v&&typeof v==='object'?Object.keys(v as object).filter(k=>/^[a-z0-9_]{1,100}$/.test(k)).sort().slice(0,6000):[];
+  const constants:Record<string,string>={};
+  for(const k of Object.keys(c).filter(k=>/^[A-Z][A-Z0-9_]*$/.test(k)&&(/VAGAS|^BAZAR_|GUARDA_ROUPA|^LAPIDAR$|^MOCHILA_SLOTS$|^PILHA_/.test(k)))){const v=c[k];if(v instanceof Set)continue;try{const t=JSON.stringify(v);if(t&&t.length<=400)constants[k]=t;}catch{/* ignora */}}
+  const bazaar=c.BAZAR_ITENS instanceof Set?[...c.BAZAR_ITENS].filter((x:unknown)=>typeof x==='string').sort():[];
+  const estado=(window as any).__hudRef?.estado;
+  return {ok:true as const,catalog:{items:ids(c.ITENS),recipes:ids(c.RECEITAS),bazaarItems:bazaar,constants,stateKeys:estado&&typeof estado==='object'?Object.keys(estado).filter(k=>/^[A-Za-z_][\w]{0,40}$/.test(k)).sort():[]}};
+ }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha ao ler o catálogo.'};}
+}

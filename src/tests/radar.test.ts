@@ -1,0 +1,13 @@
+import {describe,it,expect} from 'vitest';
+import {moduleImports,datedComments,actionNames,exportNames,buildSnapshot,compareSnapshots,sha256,shortHash,updatePrompt} from '../core/radar';
+import {crawl} from '../ui/radar';
+const snap=async(build:string,files:Record<string,string>,catalog?:any)=>{const h:Record<string,string>={},c:Record<string,string[]>={};for(const [f,t] of Object.entries(files)){h[f]=await sha256(t);c[f]=await Promise.all(datedComments(t).map(shortHash));}return buildSnapshot(build,files,h,c,catalog);};
+describe('Radar de mudanças',()=>{
+ it('segue imports relativos, inclusive de subpastas',()=>{expect(moduleImports("import {a} from './rede.js';import('./cenas/mina.js');",'main.js')).toEqual(['cenas/mina.js','rede.js']);expect(moduleImports("import x from '../catalogo.js'",'cenas/mina.js')).toEqual(['catalogo.js']);});
+ it('extrai comentários datados, ações e exports',()=>{const src="// mochila (02/11, dono): nova aba\nconst x={acao:'terminal_juntar'};export const armazem=()=>1;export async function sb(){}";expect(datedComments(src)).toEqual(['mochila (02/11, dono): nova aba']);expect(actionNames(src)).toEqual(['terminal_juntar']);expect(exportNames(src)).toEqual(['armazem','sb']);});
+ it('compara builds e monta o prompt',async()=>{const a={'main.js':"import './rede.js'",'rede.js':"export const armazem=1;"},b={'main.js':"import './rede.js'",'rede.js':"// novo (05/11)\nexport const armazem=1;export const leilao=2;const q={acao:'fetchur'}",'novo.js':'x'};
+  const r=await compareSnapshots(await snap('a1',a,{items:['x'],recipes:[],bazaarItems:[],constants:{APAGADOR_VAGAS:'{"p":3}'},stateKeys:['ouro']}),await snap('b2',b,{items:['x','y'],recipes:[],bazaarItems:[],constants:{APAGADOR_VAGAS:'{"p":4}'},stateKeys:['ouro','gemas']}),b);
+  expect(r.changedFiles).toEqual(['rede.js']);expect(r.newExports).toEqual(['leilao']);expect(r.newActions).toEqual(['fetchur']);expect(r.newItems).toEqual(['y']);expect(r.newStateKeys).toEqual(['gemas']);expect(r.constants[0]).toMatch(/APAGADOR_VAGAS/);expect(r.comments).toEqual([{file:'rede.js',text:'novo (05/11)'}]);
+  const p=updatePrompt(r,'anúncio X','filtros');expect(p).toContain('build b2 (antes a1)');expect(p).toContain('anúncio X');expect(p).toContain('Prioridade: filtros');});
+ it('crawl visita cada módulo uma vez',async()=>{const fs:Record<string,string>={'main.js':"import './a.js';import './b.js'",'a.js':"import './b.js'",'b.js':"import './a.js'"};const seen:string[]=[];const files=await crawl(async f=>{seen.push(f);return fs[f]??'';});expect(Object.keys(files).sort()).toEqual(['a.js','b.js','main.js']);expect(seen.length).toBe(3);});
+});
