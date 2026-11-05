@@ -2,7 +2,7 @@ import {useMemo,useState} from 'react';
 import {RefreshCw,ShoppingCart,Coins,X} from 'lucide-react';
 import {useStore} from '../store';
 import {useActions} from '../actions';
-import {Card,ItemIcon,number,time} from '../components/common';
+import {Card,ItemIcon,ItemName,number,time} from '../components/common';
 import {bazaarRead,useBazaar,type BazaarBand,type BazaarBook,type BazaarOrder,type BazaarPreview} from '../bazaar';
 import {itemName,items} from '../../catalog/itemCatalog';
 import {itemLocations} from '../../core/locations';
@@ -33,7 +33,7 @@ export function Bazaar(){
    {bazaar.at&&<><div className="toolbar"><input aria-label="Buscar no Bazar" placeholder="Buscar item…" value={query} onChange={e=>{setQuery(e.target.value);setLimit(80);}}/><select aria-label="Categoria do Bazar" value={category} onChange={e=>{setCategory(e.target.value);setLimit(80);}}><option value="all">Todas as categorias</option>{bazaar.categories.map(c=><option key={c.name} value={c.name}>{c.name}</option>)}</select><select aria-label="Ordenar Bazar" value={sort} onChange={e=>setSort(e.target.value as typeof sort)}><option value="name">Nome</option><option value="margin">Maior margem de revenda</option><option value="volume">Maior volume</option></select></div>
    <p className="muted">{rows.length} itens · atualizado em {time(bazaar.at)}</p>
    <div className="bazaar-table" role="table" aria-label="Preços do Bazar"><div className="bazaar-row head" role="row"><span role="columnheader">Item</span><span role="columnheader">Comprar agora</span><span role="columnheader">Vender agora</span><span role="columnheader">Margem</span><span role="columnheader">Volume</span><span role="columnheader">Você tem</span></div>
-    {rows.slice(0,limit).map(id=>{const p=bazaar.prices![id],m=flipMargin(p.sell,p.buy,tax),have=itemLocations(state,id).reduce((n,l)=>n+l.quantity,0);return <button className={'bazaar-row'+(selected===id?' selected':'')} role="row" key={id} onClick={()=>setSelected(id)}><span role="cell" className="bazaar-item"><ItemIcon id={id}/>{itemName(id)}</span><span role="cell">{gold(p.buy)}</span><span role="cell">{gold(p.sell)}</span><span role="cell" className={m&&m.net>0?'positive':undefined}>{m?gold(m.ratio*100,1)+'%':'—'}</span><span role="cell">{p.volume!=null?number(p.volume):'—'}</span><span role="cell">{have?number(have):'—'}</span></button>;})}
+    {rows.slice(0,limit).map(id=>{const p=bazaar.prices![id],m=flipMargin(p.sell,p.buy,tax),have=itemLocations(state,id).reduce((n,l)=>n+l.quantity,0);return <button className={'bazaar-row'+(selected===id?' selected':'')} role="row" key={id} onClick={()=>setSelected(id)}><span role="cell" className="bazaar-item"><ItemIcon id={id}/><ItemName id={id}/></span><span role="cell">{gold(p.buy)}</span><span role="cell">{gold(p.sell)}</span><span role="cell" className={m&&m.net>0?'positive':undefined}>{m?gold(m.ratio*100,1)+'%':'—'}</span><span role="cell">{p.volume!=null?number(p.volume):'—'}</span><span role="cell">{have?number(have):'—'}</span></button>;})}
    </div>{rows.length>limit&&<button onClick={()=>setLimit(limit+80)}>Mostrar mais</button>}</>}
   </Card>
   {selected&&<BazaarItem id={selected} onClose={()=>setSelected(null)}/>}

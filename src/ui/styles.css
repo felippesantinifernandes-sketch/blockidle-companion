@@ -113,3 +113,9 @@ textarea{width:100%;background:var(--bg);color:var(--text);border:1px solid var(
 .event-card strong{font-size:13px;font-variant-numeric:tabular-nums}
 .event-card.live{border-color:var(--accent)}
 .event-card.live strong{color:var(--accent)}
+/* Raridades do jogo (RARIDADES). Azul e roxo clareados para contraste AA no tema escuro; no claro, as variantes escuras do jogo. */
+.rarity-incomum{color:#55ff55}.rarity-raro{color:#8b8bff}.rarity-epico{color:#d65ad6}.rarity-lendario{color:#ffaa00}.rarity-mitico{color:#ff77ff}
+img.item-icon.rarity-incomum{border-color:#55ff5533}img.item-icon.rarity-raro{border-color:#8b8bff44}img.item-icon.rarity-epico{border-color:#d65ad644}img.item-icon.rarity-lendario{border-color:#ffaa0044}img.item-icon.rarity-mitico{border-color:#ff77ff44}
+[data-theme=light] .rarity-incomum{color:#176d17}[data-theme=light] .rarity-raro{color:#2a3fb0}[data-theme=light] .rarity-epico{color:#8a008a}[data-theme=light] .rarity-lendario{color:#8a5a00}[data-theme=light] .rarity-mitico{color:#a0209a}
+@media (prefers-color-scheme:light){[data-theme=system] .rarity-incomum{color:#176d17}[data-theme=system] .rarity-raro{color:#2a3fb0}[data-theme=system] .rarity-epico{color:#8a008a}[data-theme=system] .rarity-lendario{color:#8a5a00}[data-theme=system] .rarity-mitico{color:#a0209a}}
+.status-item strong,.bazaar-row,.event-card strong{font-variant-numeric:tabular-nums}

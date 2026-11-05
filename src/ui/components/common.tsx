@@ -18,7 +18,9 @@ export const missingTextures = new Set<string>();
 export function ItemIcon({ id, onMissing }: {
     id: string;
     onMissing?: (id: string) => void;
-}) { const [failed, setFailed] = useState(false); const texture = items[id]?.texture; return texture && !failed ? <img className="item-icon" src={texture} alt="" loading="lazy" onError={() => { setFailed(true); missingTextures.add(id); onMissing?.(id); }}/> : <span className={'item-icon ' + (id.startsWith('ench_') ? 'enchanted' : '')} aria-hidden="true">{itemName(id).slice(0, 1)}</span>; }
+}) { const [failed, setFailed] = useState(false); const texture = items[id]?.texture; return texture && !failed ? <img className={'item-icon'+(items[id]?.rarity?' rarity-'+items[id].rarity:'')} src={texture} alt="" loading="lazy" onError={() => { setFailed(true); missingTextures.add(id); onMissing?.(id); }}/> : <span className={'item-icon ' + (id.startsWith('ench_') ? 'enchanted' : '')} aria-hidden="true">{itemName(id).slice(0, 1)}</span>; }
+/** Nome do item com a cor de raridade do jogo (RARIDADES). */
+export function ItemName({id}:{id:string}){const r=items[id]?.rarity;return <span className={'item-name'+(r?' rarity-'+r:'')}>{itemName(id)}</span>;}
 export function DataTree({ value }: {
     value: unknown;
 }) {

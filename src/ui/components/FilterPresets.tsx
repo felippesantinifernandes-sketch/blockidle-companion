@@ -3,7 +3,7 @@ import {useMemo,useState} from 'react';
 import {Plus,Save,ShieldCheck,Trash2,Pencil,Copy} from 'lucide-react';
 import {useStore} from '../store';
 import {useActions} from '../actions';
-import {Card,ItemIcon} from './common';
+import {Card,ItemIcon,ItemName} from './common';
 import {items,itemName,autoRecipes} from '../../catalog/itemCatalog';
 import {regions,currentRegion,regionModel} from '../../core/regions';
 import {commandProtection} from '../../core/transformations';
@@ -53,7 +53,7 @@ export function FilterPresets(){
     <div className="preset-detail-head"><div><h3>{p.name}</h3><small className="muted">{listLabels[kind].name} · quadrado {index+1} · {p.itemIds.length} itens{same?' · ativo no jogo':''}</small></div>
      <div className="button-row"><button onClick={()=>{setSelected(null);setDraft({kind,index,name:p.name,itemIds:[...p.itemIds]});}}><Pencil size={14}/>Editar</button><button onClick={()=>{const free=presets[kind].findIndex(v=>!v);if(free>=0){savePreset(kind,free,{name:(p.name+' (cópia)').slice(0,40),itemIds:[...p.itemIds]});setSelected({kind,index:free});}}} disabled={!presets[kind].some(v=>!v)}><Copy size={14}/>Duplicar</button><button onClick={()=>{savePreset(kind,index,null);setSelected(null);}}><Trash2 size={14}/>Esvaziar quadrado</button></div></div>
     <p className="muted">{listLabels[kind].description}</p>
-    <div className="preset-items">{p.itemIds.length?p.itemIds.map(id=><span className="preset-item" key={id}><ItemIcon id={kind==='compactor'?inputOf(id)??id:id}/>{itemName(id)}</span>):<span className="muted">Conjunto vazio: aplicar limpa a lista no jogo.</span>}</div>
+    <div className="preset-items">{p.itemIds.length?p.itemIds.map(id=><span className="preset-item" key={id}><ItemIcon id={kind==='compactor'?inputOf(id)??id:id}/><ItemName id={id}/></span>):<span className="muted">Conjunto vazio: aplicar limpa a lista no jogo.</span>}</div>
     {active&&!same&&<p className="muted">{diff.add.length?'Entra: '+diff.add.map(itemName).join(', ')+'. ':''}{diff.remove.length?'Sai: '+diff.remove.map(itemName).join(', ')+'.':''}</p>}
     {kind==='eraser'&&<p className="notice warning-text">O apagador descarta de forma definitiva os itens marcados que chegarem depois de salvo. Confira a lista antes de aplicar.</p>}
     {kind==='autosell'&&state?.character.autoVenderTudo===true&&<p className="notice warning-text">A opção do jogo “Vender também qualquer outro item que não couber” está ligada: com a mochila cheia, itens fora desta lista (inclusive armaduras) também são vendidos. Desligue-a na janela da mochila para vender só os marcados.</p>}
