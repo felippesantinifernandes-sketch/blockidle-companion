@@ -67,6 +67,10 @@ export function normalize(input: unknown, source: GameState['source'] = 'import'
     for (const [id, content] of Object.entries(guarded)) {
         if (chests.has(id) || bagIds.has(id))
             continue;
+        if (id === 'ferramentas') { // reservas da aba (02/11): o craft do SkyBlock também paga com elas
+            storages.push({ id, kind: 'special', originalName: 'Reservas da aba', items: itemMap(content, warnings, id) });
+            continue;
+        }
         const kind: StorageKind = id === 'saco' ? 'sack' : id === 'ender' ? 'ender' : id.startsWith('fazenda:') ? 'special' : 'special';
         if (!['saco', 'ender'].includes(id) && !id.startsWith('fazenda:')) {
             if(id!=='acessorios')warnings.push(id + ': armazenamento não elegível ou não reconhecido; omitido dos totais.');

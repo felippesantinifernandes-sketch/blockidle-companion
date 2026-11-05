@@ -26,3 +26,17 @@ export async function readNativeRanking(category:string){
  return {ok:true as const,rows:result.ranking.slice(0,100).filter((r:any)=>typeof r.nick==='string'&&typeof r.valor==='number'&&Number.isFinite(r.valor)&&r.valor>=0).map((r:any)=>({nick:r.nick.slice(0,40),value:r.valor,rank:['ouro','diamante','netherite'].includes(r.rank)?r.rank:undefined}))};
  }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha na consulta ao ranking.'};}
 }
+/** Leitura do Bazar (GET /api/bazar) pelo módulo já carregado na aba. Sem compra, venda ou ordem. */
+export async function readNativeBazaar(){
+ try{
+  if(!(window as any).__hudRef?.estado)throw Error('Abra o jogo conectado antes de consultar o Bazar.');
+  const url=location.origin+'/js/rede.js';if(!performance.getEntriesByType('resource').some(r=>r.name===url))throw Error('Cliente do jogo não identificado.');
+  const network=await import(/* @vite-ignore */ url);if(typeof network.bazarResumo!=='function')throw Error('Contrato do Bazar não reconhecido.');
+  let timer:ReturnType<typeof setTimeout>|undefined;const result=await Promise.race([network.bazarResumo(),new Promise<never>((_,reject)=>{timer=setTimeout(()=>reject(Error('O Bazar demorou a responder.')),15000);})]).finally(()=>clearTimeout(timer));
+  if(result?.erro)throw Error(String(result.erro).slice(0,160));
+  const resumo=result?.resumo;if(!resumo||typeof resumo!=='object')throw Error('O servidor não retornou os preços do Bazar.');
+  const price=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)&&v>0?v:null;
+  const prices=Object.fromEntries(Object.entries(resumo).filter(([id])=>/^[a-z0-9_]{1,100}$/.test(id)).slice(0,5000).map(([id,v]:[string,any])=>[id,{buy:price(v?.venda),sell:price(v?.compra)}]));
+  return {ok:true as const,prices};
+ }catch(error){return {ok:false as const,error:error instanceof Error?error.message.slice(0,240):'Falha na consulta ao Bazar.'};}
+}

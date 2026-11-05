@@ -83,3 +83,6 @@
 .area-rule span{display:flex;gap:6px;align-items:center;min-width:0}
 .area-rule select{width:100%;padding:6px 8px;font-size:11px}
 .autosell-options{display:flex;flex-direction:column;gap:6px;font-size:11px}
+.ingredient-where{display:block;color:var(--muted);font-size:10px;line-height:1.4;margin-top:2px}
+.craft-gap{display:flex;flex-direction:column;gap:4px;margin-top:12px}
+.craft-gap .button-row{margin-top:6px}

@@ -14,6 +14,8 @@
 - **Retirado:** a venda automática própria da extensão (a auto-venda nativa faz isso, sem mexer no que já está guardado). A venda manual do excedente guardado continua em Venda.
 - **Manter presença ao trocar de guia** agora vem ligado por padrão (inclusive em instalações existentes, uma única vez; depois vale a sua escolha). Novo botão **Abrir jogo em janela compacta**. Testes impedem chamar `visivel`, `ilha` ou `passeio` e restringem a alteração da visibilidade à opção de presença.
 - Ações de filtro em sequência agora esperam 1 segundo entre pedidos.
+- **Assistente de craft:** a origem aceita segue a regra do jogo (mochila, saco, bolsas, **reservas da aba** e Compactador/Apagador guardados; `oak_planks` aceita qualquer tábua). Cada ingrediente que falta mostra onde está guardado (baú com coordenada e rótulo, Ender, farm) e, depois de consultar o Bazar, quanto custa comprar o que não existe em lugar nenhum. Filtros **Posso fazer agora** e **Falta pouco (75%)**.
+- Consulta de preços do Bazar (só leitura, um pedido por clique).
 
 ## 0.6.0 · 21/10/2026
 
