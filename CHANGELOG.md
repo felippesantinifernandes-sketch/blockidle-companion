@@ -1,6 +1,6 @@
 # Histórico de versões
 
-## Não lançado
+## 0.7.1 · 07/11/2026
 
 - Instalação: o ZIP da extensão passa a se chamar `…-INSTALAR.zip` e o do código-fonte `…-codigo-fonte-NAO-INSTALAR.zip`. A pasta do código-fonte não tem mais um `manifest.json` na raiz (ele foi para `src/`), evitando o erro de manifesto ao carregar o arquivo errado.
 
