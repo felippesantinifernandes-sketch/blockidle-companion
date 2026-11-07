@@ -1,8 +1,8 @@
 # Instalar e atualizar — Blockidle Companion 0.5.0
 
-1. Extraia o ZIP da extensão para uma pasta permanente.
+1. Em [Releases](https://github.com/felippesantinifernandes-sketch/blockidle-companion/releases/latest), baixe o arquivo que termina em **`-INSTALAR.zip`** (não o `codigo-fonte`, nem o botão verde “Code”). Extraia para uma pasta permanente.
 2. Abra chrome://extensions ou edge://extensions → Modo do desenvolvedor → Carregar sem compactação.
-3. Escolha a pasta com manifest.json. Recarregue a aba do Blockidle e abra o painel → Conectar jogo.
+3. Escolha a pasta que tem o arquivo manifest.json (se aparecer “manifesto ausente ou ilegível”, você escolheu a pasta de cima ou o código-fonte). Recarregue a aba do Blockidle e abra o painel → Conectar jogo.
 
 **Se já possui 0.1/0.2:** substitua os arquivos na mesma pasta e clique em Recarregar na mesma extensão. Não remova/reinstale; assim, configurações e histórico permanecem no navegador. A versão nova acrescenta acesso ao GitHub somente para consultar/baixar atualizações.
 

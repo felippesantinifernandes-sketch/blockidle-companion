@@ -1,5 +1,9 @@
 # Histórico de versões
 
+## Não lançado
+
+- Instalação: o ZIP da extensão passa a se chamar `…-INSTALAR.zip` e o do código-fonte `…-codigo-fonte-NAO-INSTALAR.zip`. A pasta do código-fonte não tem mais um `manifest.json` na raiz (ele foi para `src/`), evitando o erro de manifesto ao carregar o arquivo errado.
+
 ## 0.7.0 · 05/11/2026
 
 - **Vai ter Dragão? O Steve vai entrar?** A guia Eventos lê o Dragão pelo jogo (luta, invocação, olhos no altar) e confere cada regra do Entrar sozinho: opção ligada, Selo de Convocação (e o Encantado no invocado), portal, Combate 12, fora da Câmara do Vazio, Catacumbas, passeio, Invasão e de missão de Slayer (que segura o Steve na Masmorra). Cada condição que falha diz o que fazer. A barra de status mostra “entra/não entra” e o aviso chega 10 minutos antes dizendo o motivo.
