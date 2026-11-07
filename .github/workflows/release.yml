@@ -37,4 +37,4 @@ jobs:
         run: |
           $version = (Get-Content package.json | ConvertFrom-Json).version
           if ($env:GITHUB_REF_NAME -ne "v$version") { throw 'Tag e package.json divergem.' }
-          gh release create "v$version" "../blockidle-companion-$version.zip" "../blockidle-companion-codigo-fonte-$version.zip" "../CHECKSUMS-$version.txt" ../update.json --title "Blockidle Companion $version" --notes-file RELEASE-NOTES.md --verify-tag
+          gh release create "v$version" "../blockidle-companion-$version-INSTALAR.zip" "../blockidle-companion-$version-codigo-fonte-NAO-INSTALAR.zip" "../CHECKSUMS-$version.txt" ../update.json --title "Blockidle Companion $version" --notes-file RELEASE-NOTES.md --verify-tag

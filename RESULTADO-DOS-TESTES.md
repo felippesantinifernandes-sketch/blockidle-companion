@@ -1,4 +1,4 @@
-# Validação da versão 0.7.0
+# Validação da versão 0.7.1
 
 Conferência local em 05/11/2026. TypeScript e compilação de produção aprovados.
 

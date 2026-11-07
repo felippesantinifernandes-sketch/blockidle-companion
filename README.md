@@ -56,7 +56,7 @@ A reserva deve estar na mochila antes de vender de baús. A retirada usa lotes d
 
 ## Instalar e atualizar
 
-Baixe o ZIP da extensão em **Releases**, extraia em uma pasta permanente e use **Carregar sem compactação** em chrome://extensions ou edge://extensions, com o modo do desenvolvedor ativado. Selecione a pasta que contém manifest.json e recarregue o jogo.
+Baixe o arquivo **`-INSTALAR.zip`** em **Releases** (o `codigo-fonte` e o botão “Code” não são a extensão), extraia em uma pasta permanente e use **Carregar sem compactação** em chrome://extensions ou edge://extensions, com o modo do desenvolvedor ativado. Selecione a pasta que contém manifest.json e recarregue o jogo.
 
 **Já utiliza a extensão?** Atualize pela central em Configurações, selecionando a mesma pasta instalada. Também é possível substituir os arquivos nessa pasta e recarregar a extensão. Não desinstale: manter a mesma instalação preserva suas preferências. É possível atualizar diretamente da 0.4 ou da 0.6 para a 0.7; os novos campos recebem valores iniciais, as regras por área começam no modo Sugerir e as notificações começam desligadas.
 

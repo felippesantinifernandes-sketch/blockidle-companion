@@ -1,4 +1,15 @@
-# Blockidle Companion 0.7.0
+# Blockidle Companion 0.7.1
+
+**Correção de instalação.** Baixe o arquivo que termina em **`-INSTALAR.zip`**, extraia numa pasta permanente e use “Carregar sem compactação” escolhendo a pasta que tem o `manifest.json`. O ZIP `codigo-fonte-NAO-INSTALAR` e o botão “Code” do GitHub não são a extensão.
+
+- Os arquivos da publicação foram renomeados para não confundir a extensão com o código-fonte.
+- O código-fonte não tem mais um `manifest.json` na raiz, que causava o erro de manifesto ao ser carregado por engano.
+
+Quem já usa a 0.7.0 pode atualizar pela central em Configurações; as preferências são preservadas.
+
+---
+
+## Novidades da 0.7.0
 
 Compatível com o build do jogo `0ddf20e09b` (04/11/2026). Um build novo com o mesmo contrato libera só os filtros; contrato alterado deixa a extensão em leitura, com o motivo na tela.
 
