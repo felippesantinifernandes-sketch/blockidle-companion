@@ -1,0 +1,9 @@
+Esta pasta é o CÓDIGO-FONTE do Blockidle Companion. Ela não é carregada direto no Chrome ou no Edge.
+
+Para instalar a extensão:
+1. Abra https://github.com/felippesantinifernandes-sketch/blockidle-companion/releases/latest
+2. Baixe o arquivo que termina em -INSTALAR.zip
+3. Extraia numa pasta permanente e use "Carregar sem compactação" em chrome://extensions (modo do desenvolvedor ligado),
+   escolhendo a pasta que tem o arquivo manifest.json.
+
+Para compilar a partir do código: Node.js 22, npm ci, npm run build. A extensão pronta fica em dist/.

@@ -64,6 +64,7 @@ export interface FilterPreset {name:string;itemIds:string[]}
 export interface AreaRule {compactor:number|null;eraser:number|null;autosell:number|null;autoJa:boolean|null;autoTudo:boolean|null;wardrobe?:number|null}
 export interface Preferences {
     presenceDefaultApplied:boolean;
+    discardDefaultApplied:boolean;
     valueGuard:number|null;
     backgroundSync:boolean;
     pinnedObjective:string|null;
