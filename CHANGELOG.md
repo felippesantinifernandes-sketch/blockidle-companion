@@ -2,6 +2,7 @@
 
 ## 0.7.1 · 07/11/2026
 
+- README refeito com prints atuais (barra de status, filtros, regras por área, objetivo fixado, Terminal, Eventos e celular) e a explicação de cada função.
 - Instalação: o ZIP da extensão passa a se chamar `…-INSTALAR.zip` e o do código-fonte `…-codigo-fonte-NAO-INSTALAR.zip`. A pasta do código-fonte não tem mais um `manifest.json` na raiz (ele foi para `src/`), evitando o erro de manifesto ao carregar o arquivo errado.
 
 ## 0.7.0 · 05/11/2026
